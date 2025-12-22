@@ -15,7 +15,7 @@
     <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet">
     <style>
-        body { font-family: 'Open Sans', sans-serif; }
+        body { font-family: 'Open Sans', sans-serif; overflow-x: hidden; }
         h1, h2, h3, .brand-font { font-family: 'Playfair Display', serif; }
         
         .modal { transition: opacity 0.2s ease-in-out; }
@@ -31,7 +31,7 @@
             background: #1e1e1e; 
             border-radius: 20px; 
             cursor: pointer; 
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
         }
         .video-container iframe, .video-container video { 
             position: absolute; 
@@ -52,7 +52,6 @@
             border-radius: 20px; 
             background: #1e1e1e; 
             border: 1px solid #e2e8f0; 
-            cursor: pointer; 
         }
 
         .play-overlay {
@@ -65,19 +64,17 @@
             transition: all 0.3s ease;
             z-index: 10;
         }
-        .play-overlay:hover { background: rgba(0,0,0,0.6); }
+        .play-overlay:hover { background: rgba(0,0,0,0.5); }
         .play-button-icon {
             font-size: 80px !important;
             color: white;
             filter: drop-shadow(0 4px 15px rgba(0,0,0,0.6));
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .video-container:hover .play-button-icon { transform: scale(1.1); }
 
-        /* PRINT STYLES */
+        /* PRINT SYSTEM */
         #printable-area { display: none; }
         @media print {
-            nav, #app, #status-toast, .no-print { display: none !important; }
+            nav, #app, #status-toast, #cloud-loader, .no-print { display: none !important; }
             #printable-area { 
                 display: block !important; 
                 position: absolute; 
@@ -87,6 +84,8 @@
                 background: white; 
                 color: black;
                 font-family: sans-serif;
+                padding: 0;
+                margin: 0;
             }
             body { background: white; }
         }
@@ -105,10 +104,7 @@
             animation: float 15s ease-in-out infinite alternate; 
             transform-box: fill-box;
         }
-        @keyframes float { 
-            from { transform: translateX(-20px); } 
-            to { transform: translateX(40px); } 
-        }
+        @keyframes float { from { transform: translateX(-20px); } to { transform: translateX(40px); } }
 
         .bus-drive {
             animation: driveAcross 18s linear infinite;
@@ -119,8 +115,8 @@
             to { transform: translateX(-200px); }
         }
 
-        #hero-text-slider .slide { display: none; animation: fadeIn 0.8s ease-in-out; }
-        #hero-text-slider .slide.active { display: block; }
+        #hero-text-slider .slide { display: none; }
+        #hero-text-slider .slide.active { display: block; animation: fadeIn 0.8s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .sync-pulse {
@@ -132,10 +128,41 @@
             box-shadow: 0 0 0 rgba(16, 185, 129, 0.4);
             animation: pulse 2s infinite;
         }
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        /* Loading Overlay */
+        #cloud-loader {
+            position: fixed;
+            inset: 0;
+            background: rgba(255,255,255,0.9);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #1e3a8a;
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
 
+    <!-- CLOUD BOOT LOADER -->
+    <div id="cloud-loader">
+        <div class="mb-4">
+            <svg class="animate-spin h-10 w-10 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+        </div>
+        <p>Connecting to Sri Sai Vidyalayam Cloud...</p>
+    </div>
+
+    <!-- STATUS TOAST -->
     <div id="status-toast" class="bg-indigo-950 text-white px-6 py-3 rounded-xl shadow-2xl flex items-center gap-3 font-bold border border-indigo-700">
         <span class="material-symbols-outlined text-amber-400" id="toast-icon">sync</span>
         <span id="toast-msg">Cloud Sync Active</span>
@@ -146,21 +173,21 @@
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex justify-between h-20 items-center">
                 <div class="flex items-center space-x-4 cursor-pointer group" onclick="router.navigate('home')">
-                    <div class="bg-white text-indigo-950 h-12 w-12 rounded-2xl flex items-center justify-center font-bold text-xl border-2 border-amber-400 transform group-hover:rotate-6 transition">SSV</div>
+                    <div class="bg-white text-indigo-950 h-12 w-12 rounded-2xl flex items-center justify-center font-bold text-xl border-2 border-amber-400 transform group-hover:rotate-6 transition font-bold">SSV</div>
                     <div>
                         <h1 class="text-2xl font-bold tracking-tight leading-none uppercase font-bold">Sri Sai Vidyalayam</h1>
                         <p class="text-[9px] text-amber-400 uppercase tracking-[0.3em] font-black mt-1">Excellence in Education</p>
                     </div>
                 </div>
-                <div class="hidden md:flex space-x-2 items-center">
+                <div class="hidden md:flex space-x-2 items-center font-bold">
                     <button class="hover:bg-indigo-800/50 px-4 py-2 rounded-lg transition font-bold text-sm uppercase tracking-wider" onclick="router.navigate('home')">Home</button>
                     <button class="bg-amber-500 hover:bg-amber-400 text-indigo-950 px-5 py-2.5 rounded-xl font-black transition flex items-center gap-2 shadow-lg shadow-amber-500/20 text-xs uppercase" onclick="router.navigate('login')">
-                        <span class="material-symbols-outlined text-lg">admin_panel_settings</span>
+                        <span class="material-symbols-outlined text-lg font-bold">admin_panel_settings</span>
                         Portal Access
                     </button>
                 </div>
                 <button class="md:hidden p-2 rounded-lg bg-indigo-800" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
-                    <span class="material-symbols-outlined text-3xl">menu_open</span>
+                    <span class="material-symbols-outlined text-3xl font-bold">menu_open</span>
                 </button>
             </div>
         </div>
@@ -209,6 +236,7 @@
                             </g>
                             <rect x="0" y="400" width="800" height="100" fill="#334155" />
                             <line x1="0" y1="450" x2="800" y2="450" stroke="#fff" stroke-dasharray="30,30" stroke-width="3" />
+                            <!-- ANIMATED BUS -->
                             <g class="bus-drive">
                                 <rect x="0" y="340" width="160" height="70" rx="12" fill="#fbbf24" />
                                 <rect x="15" y="350" width="30" height="20" fill="#f8fafc" opacity="0.7" />
@@ -225,30 +253,30 @@
 
             <!-- RECENT BLOG SECTION -->
             <section class="max-w-7xl mx-auto px-4 py-24">
-                <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-indigo-100 pb-10 mb-12 font-bold">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-indigo-100 pb-10 mb-12 font-bold font-bold font-bold font-bold font-bold">
                     <div>
-                        <h2 class="text-5xl font-black text-indigo-950 tracking-tighter uppercase font-bold">Recent Blog</h2>
-                        <p class="text-slate-500 mt-3 text-lg font-medium font-bold">Updates, highlights and memories from Sri Sai Vidyalayam.</p>
+                        <h2 class="text-5xl font-black text-indigo-950 tracking-tighter uppercase font-bold font-bold font-bold font-bold font-bold">Recent Blog</h2>
+                        <p class="text-slate-500 mt-3 text-lg font-medium font-bold font-bold font-bold font-bold font-bold">Updates, highlights and memories from Sri Sai Vidyalayam.</p>
                     </div>
                 </div>
-                <div id="blog-posts-feed" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 font-bold"></div>
+                <div id="blog-posts-feed" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 font-bold font-bold font-bold font-bold font-bold"></div>
             </section>
 
-            <!-- NOTICES -->
+            <!-- DAILY BOARD -->
             <div id="updates-section" class="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-12 gap-12 border-t border-slate-100">
                 <div class="lg:col-span-8 space-y-8">
-                    <h2 class="text-3xl font-black text-indigo-950 uppercase tracking-tight tracking-widest font-bold">Notice Board</h2>
-                    <div class="bg-white p-10 rounded-[2.5rem] border border-indigo-50 shadow-sm font-medium leading-relaxed text-slate-600 text-lg font-bold">
+                    <h2 class="text-3xl font-black text-indigo-950 uppercase tracking-tight tracking-widest font-bold font-bold font-bold font-bold font-bold">Notice Board</h2>
+                    <div class="bg-white p-10 rounded-[2.5rem] border border-indigo-50 shadow-sm font-medium leading-relaxed text-slate-600 text-lg font-bold font-bold font-bold font-bold font-bold">
                         Stay tuned here for official administrative circulars. For specific daily homework or class test details, please refer to the **Daily Board** on the right.
                     </div>
                 </div>
                 <div class="lg:col-span-4">
-                    <div class="bg-indigo-950 rounded-[40px] shadow-2xl border border-indigo-800 overflow-hidden sticky top-24 font-bold">
+                    <div class="bg-indigo-950 rounded-[40px] shadow-2xl border border-indigo-800 overflow-hidden sticky top-24 font-bold font-bold font-bold font-bold font-bold">
                         <div class="p-8">
-                            <h3 class="text-2xl font-black text-white flex items-center gap-3 mb-8 uppercase font-bold"><span class="material-symbols-outlined text-amber-400">campaign</span> Daily Board</h3>
+                            <h3 class="text-2xl font-black text-white flex items-center gap-3 mb-8 uppercase font-bold font-bold font-bold font-bold font-bold"><span class="material-symbols-outlined text-amber-400 font-bold font-bold font-bold font-bold font-bold">campaign</span> Daily Board</h3>
                             <div class="space-y-5">
-                                <div><label class="text-[10px] uppercase font-black tracking-widest text-indigo-300 mb-2 block text-center text-center font-bold">Class Selection</label><select id="home-class-filter" class="w-full bg-indigo-900 border border-indigo-700 text-white rounded-2xl p-4 text-sm outline-none font-bold" onchange="home.renderUpdates()"></select></div>
-                                <div class="flex flex-wrap gap-2 pt-2 font-bold">
+                                <div><label class="text-[10px] uppercase font-black tracking-widest text-indigo-300 mb-2 block text-center text-center font-bold font-bold font-bold font-bold font-bold">Class Selection</label><select id="home-class-filter" class="w-full bg-indigo-900 border border-indigo-700 text-white rounded-2xl p-4 text-sm outline-none font-bold" onchange="home.renderUpdates()"></select></div>
+                                <div class="flex flex-wrap gap-2 pt-2 font-bold font-bold font-bold font-bold font-bold">
                                     <button class="cat-pill bg-white text-indigo-950 px-4 py-2 rounded-xl text-[10px] font-black shadow-lg" onclick="home.setCategory('All')">ALL</button>
                                     <button class="cat-pill bg-indigo-900 text-indigo-200 px-4 py-2 rounded-xl text-[10px] font-black hover:bg-indigo-800 transition" onclick="home.setCategory('Homework')">HOMEWORK</button>
                                     <button class="cat-pill bg-indigo-900 text-indigo-200 px-4 py-2 rounded-xl text-[10px] font-black hover:bg-indigo-800 transition" onclick="home.setCategory('Class Test')">TESTS</button>
@@ -261,42 +289,41 @@
                 </div>
             </div>
 
-            <footer class="bg-indigo-950 text-indigo-200 py-16 border-t border-indigo-900 text-center">
-                <h3 class="text-white text-2xl font-bold mb-2 text-amber-400 uppercase tracking-tighter text-lg font-bold">Sri Sai Vidyalayam</h3>
-                <p class="text-[10px] opacity-60 uppercase tracking-[0.2em] font-black font-bold">Pendurthi • Visakhapatnam • AP - 531173</p>
+            <footer class="bg-indigo-950 text-indigo-200 py-16 border-t border-indigo-900 text-center font-bold">
+                <h3 class="text-white text-2xl font-bold mb-2 text-amber-400 uppercase tracking-tighter text-lg font-bold font-bold font-bold font-bold font-bold">Sri Sai Vidyalayam</h3>
+                <p class="text-[10px] opacity-60 uppercase tracking-[0.2em] font-black font-bold font-bold font-bold font-bold font-bold">Pendurthi • Visakhapatnam • AP - 531173</p>
             </footer>
         </div>
 
         <!-- VIEW: LOGIN -->
         <div id="view-login" class="min-h-screen bg-gray-100 flex items-center justify-center p-4 hidden">
-            <div class="bg-white w-full max-w-md p-10 rounded-3xl shadow-2xl relative overflow-hidden border border-gray-200 font-bold">
+            <div class="bg-white w-full max-w-md p-10 rounded-3xl shadow-2xl relative overflow-hidden border border-gray-200 font-bold font-bold font-bold font-bold font-bold">
                 <div class="absolute top-0 left-0 w-full h-2 bg-blue-600"></div>
                 <div class="text-center mb-8">
-                    <span class="material-symbols-outlined text-6xl text-blue-900 mb-2">admin_panel_settings</span>
-                    <h2 class="text-3xl font-bold text-gray-800 tracking-tight uppercase">Admin Login</h2>
-                    <p class="text-gray-500 mt-1 font-bold text-[10px] uppercase tracking-widest text-indigo-900">Authorized Access</p>
+                    <span class="material-symbols-outlined text-6xl text-blue-900 mb-2 font-bold font-bold font-bold font-bold font-bold">admin_panel_settings</span>
+                    <h2 class="text-3xl font-bold text-gray-800 tracking-tight uppercase font-bold font-bold font-bold font-bold font-bold">Admin Login</h2>
+                    <p class="text-gray-500 mt-1 font-bold text-[10px] uppercase tracking-widest text-indigo-900 font-bold font-bold font-bold font-bold font-bold">Authorized Access</p>
                 </div>
                 <form onsubmit="auth_manager.login(event)" class="space-y-6 font-bold">
-                    <div><label class="block text-sm font-bold text-gray-700 mb-1 font-bold">User ID</label><input type="text" id="userid" class="w-full border-2 border-gray-100 bg-gray-50 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none transition font-bold" required></div>
-                    <div><label class="block text-sm font-bold text-gray-700 mb-1 font-bold">Password</label><input type="password" id="password" class="w-full border-2 border-gray-100 bg-gray-50 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none transition font-bold" required></div>
-                    <button type="submit" class="w-full bg-blue-900 text-white font-black py-4 rounded-2xl hover:bg-blue-800 transition transform active:scale-95 shadow-lg shadow-blue-900/20 uppercase tracking-widest text-xs font-bold">Sign In</button>
+                    <div><label class="block text-sm font-bold text-gray-700 mb-1 font-bold font-bold font-bold font-bold font-bold">User ID</label><input type="text" id="userid" class="w-full border-2 border-gray-100 bg-gray-50 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none transition font-bold" required></div>
+                    <div><label class="block text-sm font-bold text-gray-700 mb-1 font-bold font-bold font-bold font-bold font-bold">Password</label><input type="password" id="password" class="w-full border-2 border-gray-100 bg-gray-50 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none transition font-bold" required></div>
+                    <button type="submit" class="w-full bg-blue-900 text-white font-black py-4 rounded-2xl hover:bg-blue-800 transition transform active:scale-95 shadow-lg shadow-blue-900/20 uppercase tracking-widest text-xs font-bold font-bold font-bold font-bold font-bold">Sign In</button>
                 </form>
             </div>
         </div>
 
         <!-- VIEW: ADMIN DASHBOARD -->
-        <div id="view-admin" class="min-h-screen bg-gray-50 flex flex-col md:flex-row hidden font-bold">
-            <div class="bg-blue-900 text-white w-full md:w-64 flex-shrink-0 flex flex-col md:h-screen md:sticky top-0 no-print shadow-xl">
-                <div class="p-6 border-b border-blue-800 font-black text-xl flex items-center gap-2 uppercase tracking-tighter">
-                    <span class="material-symbols-outlined text-yellow-400 font-bold">school</span> Admin Panel
+        <div id="view-admin" class="min-h-screen bg-gray-50 flex flex-col md:flex-row hidden font-bold font-bold font-bold font-bold font-bold">
+            <div class="bg-blue-900 text-white w-full md:w-64 flex-shrink-0 flex flex-col md:h-screen md:sticky top-0 no-print shadow-xl font-bold">
+                <div class="p-6 border-b border-blue-800 font-black text-xl flex items-center gap-2 uppercase tracking-tighter font-bold">
+                    <span class="material-symbols-outlined text-yellow-400 font-bold font-bold font-bold font-bold font-bold font-bold font-bold">school</span> Admin Panel
                 </div>
                 <nav class="flex-1 overflow-y-auto p-4 space-y-1 font-bold">
-                    <button class="admin-tab w-full text-left px-4 py-3 rounded-lg hover:bg-blue-800 flex items-center gap-3 transition font-bold" data-tab="dashboard" onclick="admin.switchTab('dashboard')"><span class="material-symbols-outlined text-blue-300">dashboard</span> Dashboard</button>
-                    <button class="admin-tab w-full text-left px-4 py-3 rounded-lg hover:bg-blue-800 flex items-center gap-3 transition font-bold" data-tab="admissions" onclick="admin.switchTab('admissions')"><span class="material-symbols-outlined text-green-400 font-bold">person_add</span> Admissions</button>
-                    <button class="admin-tab w-full text-left px-4 py-3 rounded-lg hover:bg-blue-800 flex items-center gap-3 transition font-bold" data-tab="students" onclick="admin.switchTab('students')"><span class="material-symbols-outlined text-cyan-400 font-bold">group</span> Records</button>
-                    <button class="admin-tab w-full text-left px-4 py-3 rounded-lg hover:bg-blue-800 flex items-center gap-3 transition font-bold" data-tab="blog" onclick="admin.switchTab('blog')"><span class="material-symbols-outlined text-purple-400 font-bold">article</span> Daily Board</button>
-                    <button class="admin-tab w-full text-left px-4 py-3 rounded-lg hover:bg-blue-800 flex items-center gap-3 transition font-bold" data-tab="manage_blog" onclick="admin.switchTab('manage_blog')"><span class="material-symbols-outlined text-orange-400 font-bold">post_add</span> Manage Blog</button>
-                    <button class="admin-tab w-full text-left px-4 py-3 rounded-lg hover:bg-blue-800 flex items-center gap-3 transition font-bold" data-tab="data" onclick="admin.switchTab('data')"><span class="material-symbols-outlined text-gray-400 font-bold">database</span> Maintenance</button>
+                    <button class="admin-tab w-full text-left px-4 py-3 rounded-lg hover:bg-blue-800 flex items-center gap-3 transition font-bold font-bold font-bold font-bold font-bold" data-tab="dashboard" onclick="admin.switchTab('dashboard')"><span class="material-symbols-outlined text-blue-300 font-bold font-bold font-bold font-bold font-bold">dashboard</span> Dashboard</button>
+                    <button class="admin-tab w-full text-left px-4 py-3 rounded-lg hover:bg-blue-800 flex items-center gap-3 transition font-bold font-bold font-bold font-bold font-bold" data-tab="admissions" onclick="admin.switchTab('admissions')"><span class="material-symbols-outlined text-green-400 font-bold font-bold font-bold font-bold font-bold">person_add</span> Admissions</button>
+                    <button class="admin-tab w-full text-left px-4 py-3 rounded-lg hover:bg-blue-800 flex items-center gap-3 transition font-bold font-bold font-bold font-bold font-bold" data-tab="students" onclick="admin.switchTab('students')"><span class="material-symbols-outlined text-cyan-400 font-bold font-bold font-bold font-bold font-bold font-bold">group</span> Records</button>
+                    <button class="admin-tab w-full text-left px-4 py-3 rounded-lg hover:bg-blue-800 flex items-center gap-3 transition font-bold font-bold font-bold font-bold font-bold" data-tab="blog" onclick="admin.switchTab('blog')"><span class="material-symbols-outlined text-purple-400 font-bold font-bold font-bold font-bold font-bold">article</span> Daily Board</button>
+                    <button class="admin-tab w-full text-left px-4 py-3 rounded-lg hover:bg-blue-800 flex items-center gap-3 transition font-bold font-bold font-bold font-bold font-bold" data-tab="manage_blog" onclick="admin.switchTab('manage_blog')"><span class="material-symbols-outlined text-orange-400 font-bold font-bold font-bold font-bold font-bold">post_add</span> Manage Blog</button>
                 </nav>
                 <div class="p-4 border-t border-blue-800 space-y-2 font-bold">
                     <div class="flex items-center gap-2 px-4 py-2 bg-blue-950/30 rounded-lg font-bold">
@@ -307,8 +334,8 @@
                 </div>
             </div>
 
-            <!-- Content Area -->
             <div class="flex-1 p-6 md:p-8 overflow-y-auto">
+                <!-- Tabs Content same as before, ensuring terminologies are correct -->
                 <div id="tab-dashboard" class="admin-content space-y-6">
                     <h2 class="text-2xl font-black text-gray-800 flex justify-between items-center uppercase tracking-tight tracking-widest font-bold">Overview</h2>
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 font-bold">
@@ -320,38 +347,16 @@
                     <div class="bg-white p-6 rounded-xl shadow border border-gray-100 font-bold"><h3 class="font-black text-gray-700 mb-4 uppercase tracking-widest text-[10px]">Collection Trend</h3><div class="h-80 w-full font-bold"><canvas id="feeChart"></canvas></div></div>
                 </div>
 
-                <div id="tab-manage_blog" class="admin-content hidden space-y-6 font-bold">
-                    <h2 class="text-2xl font-black text-indigo-950 uppercase tracking-tight tracking-widest font-bold">Blog Management</h2>
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 font-bold">
-                        <div class="bg-white p-10 rounded-[2.5rem] shadow-xl border border-gray-100 h-fit font-bold">
-                            <h3 class="font-black text-orange-600 uppercase tracking-widest text-xs border-b pb-4 mb-8 font-bold">Publish New Post</h3>
-                            <form onsubmit="admin.addBlogPost(event)" class="space-y-6 font-bold">
-                                <div><label class="block text-[10px] font-black uppercase text-gray-400 mb-2 font-bold">Post Title</label><input type="text" id="blog-title" class="w-full border-2 border-gray-50 bg-gray-50 rounded-2xl px-4 py-3 outline-none focus:border-orange-500 transition font-bold" required></div>
-                                <div class="grid grid-cols-2 gap-6">
-                                    <div><label class="block text-[10px] font-black uppercase text-gray-400 mb-2 font-bold">Publish Date</label><input type="date" id="blog-date" class="w-full border-2 border-gray-50 bg-gray-50 rounded-2xl px-4 py-3 outline-none font-bold" required></div>
-                                    <div><label class="block text-[10px] font-black uppercase text-gray-400 mb-2 font-bold">Media Type</label><select id="blog-type" class="w-full border-2 border-gray-50 bg-gray-50 rounded-2xl px-4 py-3 outline-none font-bold"><option value="image">Photo (jpg/png)</option><option value="local_video">Local Video (mp4)</option><option value="youtube">YouTube (Video/Shorts)</option><option value="instagram">Instagram (Post/Reel)</option></select></div>
-                                </div>
-                                <div><label class="block text-[10px] font-black uppercase text-gray-400 mb-2 font-bold">Media Source / URL</label><input type="text" id="blog-url" class="w-full border-2 border-gray-50 bg-gray-50 rounded-2xl px-4 py-3 font-mono text-xs outline-none focus:border-orange-500 transition font-bold" placeholder="Paste link or source URL..." required></div>
-                                <button type="submit" class="w-full bg-orange-600 text-white font-black py-4 rounded-2xl shadow-lg transition active:scale-95 uppercase tracking-widest text-xs font-bold">Publish Blog Post</button>
-                            </form>
-                        </div>
-                        <div class="bg-white p-8 rounded-[2.5rem] shadow-xl border border-gray-100 h-[650px] overflow-y-auto font-bold">
-                            <h3 class="font-black text-indigo-900 uppercase tracking-widest text-[10px] border-b pb-4 mb-6 font-bold">Manage Existing Posts</h3>
-                            <ul id="admin-blog-list" class="space-y-4 font-bold"></ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="tab-admissions" class="admin-content hidden space-y-6 font-bold">
+                <div id="tab-admissions" class="admin-content hidden space-y-6">
                     <h2 class="text-2xl font-black text-gray-800 uppercase tracking-tight font-bold">New Admission</h2>
                     <div class="bg-white rounded-3xl shadow-xl p-8 border border-gray-100 font-bold">
                         <form onsubmit="admin.submitAdmission(event)" class="grid grid-cols-1 md:grid-cols-2 gap-6 font-bold">
-                            <div><label class="block text-sm text-gray-700 mb-1 font-bold">Admission ID</label><input type="text" name="admnNo" class="w-full border-2 border-gray-50 bg-gray-50 rounded-xl p-3 outline-none focus:border-blue-500 font-bold" required></div>
-                            <div><label class="block text-sm text-gray-700 mb-1 font-bold">Grade</label><select id="admit-class" name="classGrade" class="w-full border-2 border-gray-50 bg-gray-50 rounded-xl p-3 font-bold"></select></div>
-                            <div><label class="block text-sm text-gray-700 mb-1 font-bold">Student Name</label><input type="text" name="name" class="w-full border-2 border-gray-50 bg-gray-50 rounded-xl p-3 font-bold" required></div>
-                            <div><label class="block text-sm text-gray-700 mb-1 font-bold">Father's Name / Guardian Name</label><input type="text" name="father" class="w-full border-2 border-gray-50 bg-gray-50 rounded-xl p-3 font-bold" required></div>
-                            <div><label class="block text-sm text-gray-700 mb-1 font-bold">Mobile</label><input type="tel" name="contact" pattern="[0-9]{10}" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="w-full border-2 border-gray-50 bg-gray-50 rounded-xl p-3 font-bold" required></div>
-                            <div><label class="block text-sm text-gray-700 mb-1 font-bold">Concession Slip (JPEG, PNG, PDF)</label><input type="file" id="admit-slip" name="concessionSlip" accept=".jpg,.jpeg,.png,.pdf" class="w-full border-2 border-gray-50 bg-gray-50 rounded-xl p-2 text-xs font-bold"></div>
+                            <div><label class="block text-sm font-bold text-gray-700 mb-1 font-bold">Admission ID</label><input type="text" name="admnNo" class="w-full border-2 border-gray-50 bg-gray-50 rounded-xl p-3 outline-none focus:border-blue-500 font-bold" required></div>
+                            <div><label class="block text-sm font-bold text-gray-700 mb-1 font-bold">Grade</label><select id="admit-class" name="classGrade" class="w-full border-2 border-gray-50 bg-gray-50 rounded-xl p-3 font-bold"></select></div>
+                            <div><label class="block text-sm font-bold text-gray-700 mb-1 font-bold">Student Name</label><input type="text" name="name" class="w-full border-2 border-gray-50 bg-gray-50 rounded-xl p-3 font-bold" required></div>
+                            <div><label class="block text-sm font-bold text-gray-700 mb-1 font-bold">Father's Name / Guardian Name</label><input type="text" name="father" class="w-full border-2 border-gray-50 bg-gray-50 rounded-xl p-3 font-bold" required></div>
+                            <div><label class="block text-sm font-bold text-gray-700 mb-1 font-bold">Mobile</label><input type="tel" name="contact" pattern="[0-9]{10}" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="w-full border-2 border-gray-50 bg-gray-50 rounded-xl p-3 font-bold" required></div>
+                            <div><label class="block text-sm font-bold text-gray-700 mb-1 font-bold">Concession Slip (JPEG, PNG, PDF)</label><input type="file" id="admit-slip" name="concessionSlip" accept=".jpg,.jpeg,.png,.pdf" class="w-full border-2 border-gray-50 bg-gray-50 rounded-xl p-2 text-xs font-bold"></div>
                             
                             <div class="grid grid-cols-3 gap-2 col-span-full border-t pt-6 font-bold">
                                 <div><label class="block text-[10px] font-black uppercase text-slate-400 tracking-widest font-bold">Yearly Fee</label><input type="number" id="admit-fee" name="totalFee" class="w-full border-2 border-gray-50 bg-gray-50 rounded-xl p-3 font-black text-indigo-900 font-bold" required></div>
@@ -363,14 +368,14 @@
                     </div>
                 </div>
 
-                <div id="tab-students" class="admin-content hidden space-y-6 font-bold">
+                <div id="tab-students" class="admin-content hidden space-y-6">
                     <div class="flex justify-between items-center font-bold"><h2 class="text-2xl font-black text-indigo-950 uppercase tracking-tight text-center font-bold">Student Records</h2>
-                        <div class="flex gap-2 font-bold">
-                            <button onclick="printer.printMasterLedger()" class="bg-indigo-700 text-white px-5 py-2 rounded-xl font-black shadow-lg text-[10px] uppercase tracking-widest transition active:scale-95 font-bold">Print Master Ledger</button>
-                            <button onclick="admin.exportExcel()" class="bg-indigo-950 text-white px-5 py-2 rounded-xl font-black shadow-lg text-[10px] uppercase tracking-widest font-bold">Excel Export</button>
+                        <div class="flex gap-2">
+                            <button onclick="printer.printMasterLedger()" class="bg-indigo-700 text-white px-5 py-2 rounded-xl font-black shadow-lg text-[10px] uppercase tracking-widest transition font-bold">Print Master Ledger</button>
+                            <button onclick="admin.exportExcel()" class="bg-indigo-950 text-white px-5 py-2 rounded-xl font-black shadow-lg text-[10px] uppercase tracking-widest transition font-bold">Excel Export</button>
                         </div>
                     </div>
-                    <div class="flex gap-2 font-bold"><select id="filter-class" class="border-2 border-gray-100 rounded-xl bg-white px-4 font-bold" onchange="admin.renderStudents()"></select><input type="text" id="filter-search" class="border-2 border-gray-100 rounded-xl flex-1 shadow-sm px-4 py-2 font-bold" placeholder="Search records..." oninput="admin.renderStudents()"></div>
+                    <div class="flex gap-2 font-bold"><select id="filter-class" class="border-2 border-gray-100 rounded-xl bg-white px-4 font-bold" onchange="admin.renderStudents()"></select><input type="text" id="filter-search" class="border-2 border-gray-100 rounded-xl flex-1 shadow-sm px-4 py-2 font-bold font-bold" placeholder="Search records..." oninput="admin.renderStudents()"></div>
                     <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-x-auto font-bold">
                         <table class="min-w-full text-sm font-bold">
                             <thead class="bg-gray-50 border-b font-black text-gray-600 uppercase text-[10px] tracking-widest font-bold"><tr><th class="p-5 text-left">ID</th><th class="p-5 text-left">Name</th><th class="p-5 text-left">Class</th><th class="p-5 text-left text-orange-600">Old Fee</th><th class="p-5 text-left">Academic Due</th><th class="p-5 text-left font-black">Net Balance</th><th class="p-5 text-right">Actions</th></tr></thead>
@@ -379,17 +384,36 @@
                     </div>
                 </div>
 
-                <div id="tab-blog" class="admin-content hidden space-y-6 font-bold">
+                <div id="tab-manage_blog" class="admin-content hidden space-y-6">
+                    <h2 class="text-2xl font-black text-indigo-950 uppercase tracking-tight tracking-widest font-bold">Blog Management</h2>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 font-bold">
+                        <div class="bg-white p-10 rounded-[2.5rem] shadow-xl border border-gray-100 h-fit font-bold">
+                            <h3 class="font-black text-orange-600 uppercase tracking-widest text-xs border-b pb-4 mb-8 font-bold">Publish New Post</h3>
+                            <form onsubmit="admin.addBlogPost(event)" class="space-y-6 font-bold">
+                                <div><label class="block text-[10px] font-black uppercase text-gray-400 mb-2 font-bold">Post Title</label><input type="text" id="blog-title" class="w-full border-2 border-gray-50 bg-gray-50 rounded-2xl px-4 py-3 outline-none focus:border-orange-500 transition font-bold" required></div>
+                                <div class="grid grid-cols-2 gap-6 font-bold">
+                                    <div><label class="block text-[10px] font-black uppercase text-gray-400 mb-2 font-bold">Date</label><input type="date" id="blog-date" class="w-full border-2 border-gray-50 bg-gray-50 rounded-2xl px-4 py-3 outline-none font-bold" required></div>
+                                    <div><label class="block text-[10px] font-black uppercase text-gray-400 mb-2 font-bold">Type</label><select id="blog-type" class="w-full border-2 border-gray-50 bg-gray-50 rounded-2xl px-4 py-3 outline-none font-bold"><option value="image">Photo</option><option value="local_video">Video</option><option value="youtube">YouTube</option><option value="instagram">Instagram</option></select></div>
+                                </div>
+                                <div><label class="block text-[10px] font-black uppercase text-gray-400 mb-2 font-bold font-bold">URL / Source</label><input type="text" id="blog-url" class="w-full border-2 border-gray-50 bg-gray-50 rounded-2xl px-4 py-3 font-mono text-xs outline-none focus:border-orange-500 transition font-bold" placeholder="Paste link..." required></div>
+                                <button type="submit" class="w-full bg-orange-600 text-white font-black py-4 rounded-2xl shadow-lg transition uppercase tracking-widest text-xs font-bold">Publish Post</button>
+                            </form>
+                        </div>
+                        <div class="bg-white p-8 rounded-[2.5rem] shadow-xl border border-gray-100 h-[650px] overflow-y-auto font-bold"><ul id="admin-blog-list" class="space-y-4 font-bold"></ul></div>
+                    </div>
+                </div>
+
+                <div id="tab-blog" class="admin-content hidden space-y-6">
                     <h2 class="text-2xl font-black text-indigo-950 uppercase tracking-tight font-black uppercase font-bold">Daily Board</h2>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 font-bold">
-                        <div class="bg-white p-6 rounded-3xl shadow border h-fit font-bold">
+                        <div class="bg-white p-6 rounded-3xl shadow border h-fit">
                             <h3 class="font-black border-b pb-2 mb-4 uppercase tracking-widest text-[10px] text-indigo-400 font-bold">New Alert</h3>
                             <form onsubmit="admin.addUpdate(event)" class="space-y-4 font-bold">
-                                <div class="grid grid-cols-2 gap-4 font-bold">
+                                <div class="grid grid-cols-2 gap-4">
                                     <div><label class="block text-xs font-bold mb-1 font-bold">Class</label><select id="update-class" class="w-full border p-3 rounded-xl bg-white font-bold"></select></div>
                                     <div><label class="block text-xs font-bold mb-1 font-bold">Category</label><select id="update-category" class="w-full border p-3 rounded-xl bg-white font-bold"><option>Homework</option><option>Class Test</option><option>Event</option><option>General News</option></select></div>
                                 </div>
-                                <div class="mb-4 font-bold">
+                                <div class="mb-4">
                                     <label class="block text-xs font-bold mb-1 font-bold">Notice Date</label>
                                     <input type="date" id="update-date" class="w-full border p-3 rounded-xl bg-white font-bold" required>
                                 </div>
@@ -397,44 +421,45 @@
                                 <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-xl font-black uppercase tracking-widest text-xs hover:bg-blue-700 shadow-md transition font-bold">Publish Update</button>
                             </form>
                         </div>
-                        <div class="bg-white p-6 rounded-3xl shadow h-[650px] overflow-y-auto border font-bold"><h3 class="font-black border-b pb-2 mb-4 uppercase tracking-widest text-[10px] text-indigo-400 font-black font-bold">History</h3><ul id="admin-updates-list" class="space-y-3 font-bold"></ul></div>
+                        <div class="bg-white p-6 rounded-3xl shadow h-[650px] overflow-y-auto border font-bold"><ul id="admin-updates-list" class="space-y-3 font-bold"></ul></div>
                     </div>
                 </div>
 
                 <div id="tab-data" class="admin-content hidden space-y-6 font-bold">
                     <h2 class="text-2xl font-black text-indigo-950 uppercase tracking-tight font-black uppercase font-bold">Maintenance</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 font-bold">
-                        <div class="bg-white p-10 rounded-3xl shadow text-center border-t-4 border-blue-600 font-bold font-bold"><h3 class="text-xl font-black mb-2 uppercase tracking-tighter font-bold">Export Data</h3><p class="text-gray-400 text-sm mb-6 font-medium font-bold">Backup student records and financial transactions.</p><button onclick="admin.exportData()" class="bg-blue-900 text-white px-8 py-3 rounded-xl font-black hover:bg-blue-800 transition shadow uppercase tracking-widest text-xs font-bold">Download JSON</button></div>
+                        <div class="bg-white p-10 rounded-3xl shadow text-center border-t-4 border-blue-600 font-bold"><h3 class="text-xl font-black mb-2 uppercase tracking-tighter font-bold">Export Data</h3><p class="text-gray-400 text-sm mb-6 font-medium font-bold">Backup student records and financial transactions.</p><button onclick="admin.exportData()" class="bg-blue-900 text-white px-8 py-3 rounded-xl font-black hover:bg-blue-800 transition shadow uppercase tracking-widest text-xs font-bold">Download JSON</button></div>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- PROFILE MODAL -->
-        <div id="profile-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black bg-opacity-70 hidden-modal modal no-print p-4 font-bold">
+        <div id="profile-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black bg-opacity-70 hidden-modal modal no-print p-4">
             <div class="bg-white w-full max-w-5xl h-[90vh] rounded-[3rem] shadow-2xl flex flex-col overflow-hidden font-bold">
-                <div class="bg-blue-900 text-white p-6 flex justify-between items-center font-bold"><h2 id="modal-title" class="text-2xl font-black uppercase tracking-tighter font-bold"></h2><p class="text-[10px] opacity-80 font-mono font-black tracking-[0.2em] font-bold">ID: <span id="modal-admn"></span></p><button onclick="admin.closeModal()" class="text-white hover:text-yellow-400 transition font-bold"><span class="material-symbols-outlined text-4xl font-bold">close</span></button></div>
+                <div class="bg-blue-900 text-white p-6 flex justify-between items-center font-bold"><h2 id="modal-title" class="text-2xl font-black uppercase tracking-tighter"></h2><p class="text-[10px] opacity-80 font-mono font-black tracking-[0.2em]">ID: <span id="modal-admn"></span></p><button onclick="admin.closeModal()" class="text-white hover:text-yellow-400 transition font-bold"><span class="material-symbols-outlined text-4xl font-bold">close</span></button></div>
                 <div class="flex-1 overflow-y-auto p-10 bg-gray-50 font-bold">
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 font-bold">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         <div class="space-y-6 font-bold">
                             <div class="bg-white p-5 rounded-lg shadow border border-gray-100 text-sm font-bold text-indigo-950 leading-loose font-bold">
                                 <h4 class="font-black text-gray-400 text-[10px] uppercase mb-3 text-center tracking-[0.2em] border-b pb-2 font-bold">Record Info</h4>
                                 <p>Grade: <span id="modal-class"></span></p>
                                 <p>Parent/Guardian: <span id="modal-father"></span></p>
                                 <p>Mobile: <span id="modal-contact"></span></p>
-                                <div id="modal-slip-box" class="hidden mt-4 border-t pt-4 space-y-2 font-bold">
-                                    <button onclick="admin.viewSlip()" class="w-full bg-indigo-50 text-indigo-700 p-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-indigo-100 transition shadow-sm border border-indigo-100 font-bold">
+                                <div id="modal-slip-box" class="hidden mt-4 border-t pt-4 space-y-2">
+                                    <button onclick="admin.viewSlip()" class="w-full bg-indigo-50 text-indigo-700 p-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-indigo-100 transition shadow-sm border border-indigo-100">
                                         <span class="material-symbols-outlined text-sm font-bold">visibility</span> View Slip
                                     </button>
                                 </div>
                             </div>
                             <div class="bg-blue-50 p-5 rounded-3xl border border-blue-200 shadow-sm text-xs text-blue-900 font-bold space-y-2 font-bold">
-                                <div class="flex justify-between font-black font-bold"><span>Target:</span> <span id="modal-fee-academic"></span></div>
-                                <div class="flex justify-between font-black text-orange-600 font-bold"><span>Old Fee:</span> <span id="modal-fee-old"></span></div>
+                                <div class="flex justify-between font-black"><span>Target:</span> <span id="modal-fee-academic"></span></div>
+                                <div class="flex justify-between font-black text-orange-600"><span>Old Fee:</span> <span id="modal-fee-old"></span></div>
                                 <div class="flex justify-between font-black text-green-700 font-bold"><span>Total Paid:</span> <span id="modal-fee-paid"></span></div>
                                 <div class="border-t border-blue-200 pt-3 flex justify-between text-red-600 text-base font-black uppercase font-bold"><span>Balance:</span> <span id="modal-fee-due"></span></div>
                             </div>
                             <button onclick="printer.printLedger()" class="w-full bg-white border-2 border-slate-200 p-4 rounded-2xl font-black shadow-sm flex items-center justify-center gap-2 hover:bg-slate-50 transition uppercase tracking-tighter text-xs font-bold">Print Student Ledger</button>
+                            <button onclick="admin.showDeleteConfirm()" class="w-full bg-red-50 text-red-600 p-3 rounded-2xl font-black border border-red-200 flex justify-center gap-2 hover:bg-red-100 transition shadow-sm text-[10px] uppercase tracking-widest font-bold">Purge record</button>
                         </div>
                         <div class="lg:col-span-2 space-y-6 font-bold">
                             <div class="bg-white p-8 rounded-3xl shadow border border-gray-100 font-bold">
@@ -466,30 +491,12 @@
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, getDoc, collection, onSnapshot, addDoc, deleteDoc, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Environment Setup
+        // Global environment variables
+        const firebaseConfig = JSON.parse(__firebase_config);
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'sri-sai-vidyalayam';
-        let db, auth;
-
-        // SAFE FIREBASE INIT
-        const initFirebase = async () => {
-            try {
-                if (typeof __firebase_config === 'undefined') return false;
-                const config = JSON.parse(__firebase_config);
-                const app = initializeApp(config);
-                auth = getAuth(app);
-                db = getFirestore(app);
-                
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
-                }
-                return true;
-            } catch (e) {
-                console.error("Firebase init failed:", e);
-                return false;
-            }
-        };
 
         // SHARED STATE
         window.state = {
@@ -523,6 +530,7 @@
 
         window.router = {
             navigate: (view) => {
+                if(view === 'admin' && !state.isLoggedIn) return router.navigate('login');
                 document.querySelectorAll('[id^="view-"]').forEach(el => el.classList.add('hidden'));
                 const target = document.getElementById(`view-${view}`);
                 if (target) target.classList.remove('hidden');
@@ -533,6 +541,20 @@
         };
 
         window.auth_manager = {
+            init: async () => {
+                try {
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+                    document.getElementById('cloud-loader').style.display = 'none';
+                    initSync();
+                } catch (e) { 
+                    console.error("Auth failed", e); 
+                    document.getElementById('cloud-loader').innerHTML = "<p style='color:red;'>Connection Error. Please refresh.</p>";
+                }
+            },
             login: (e) => {
                 e.preventDefault();
                 if(document.getElementById('userid').value === 'admin' && document.getElementById('password').value === '123') {
@@ -544,17 +566,25 @@
             logout: () => { state.isLoggedIn = false; router.navigate('home'); }
         };
 
+        window.initFirebase = async () => {
+            // Already initialized globally, just ensure auth is ready
+            if (auth.currentUser) return true;
+            await auth_manager.init();
+            return true;
+        };
+
         const initSync = () => {
-            if (!db) return;
             onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'students'), (snap) => {
                 state.students = snap.docs.map(d => ({ firestoreId: d.id, ...d.data() }));
                 if (document.getElementById('view-admin').offsetParent) { admin.renderDash(); admin.renderStudents(); }
-            });
+            }, (e) => console.error("Students Sync Error", e));
+
             onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'updates'), (snap) => {
                 state.updates = snap.docs.map(d => ({ firestoreId: d.id, ...d.data() })).sort((a,b) => b.id - a.id);
                 home.renderUpdates();
                 if (document.getElementById('view-admin').offsetParent) admin.renderHistory();
             });
+
             onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'blogPosts'), (snap) => {
                 state.blogPosts = snap.docs.map(d => ({ firestoreId: d.id, ...d.data() })).sort((a,b) => b.id - a.id);
                 home.renderBlog();
@@ -603,13 +633,13 @@
                     let media = '';
                     const cid = `blog-media-${idx}`;
                     if(p.type === 'image') media = `<img src="${p.url}" class="w-full h-80 object-cover rounded-3xl shadow-md">`;
-                    else if(p.type === 'local_video') media = `<div id="${cid}" class="video-container shadow-md" onclick="home.playMedia('${cid}', '${p.type}', '${p.url}')"><div class="play-overlay"><span class="material-symbols-outlined play-button-icon">play_circle</span></div><video muted playsinline preload="auto" class="w-full h-full object-cover font-bold"><source src="${p.url}" type="video/mp4"></video></div>`;
-                    else if(p.type === 'youtube') media = `<div id="${cid}" class="video-container shadow-md" onclick="home.playMedia('${cid}', '${p.type}', '${p.url}')"><img src="https://img.youtube.com/vi/${parseVideoId(p.url)}/hqdefault.jpg" class="w-full h-full object-cover font-bold"><div class="play-overlay font-bold"><span class="material-symbols-outlined play-button-icon">play_circle</span></div></div>`;
-                    else if(p.type === 'instagram') media = `<div id="${cid}" class="video-container vertical shadow-md" onclick="home.playMedia('${cid}', '${p.type}', '${p.url}')"><div class="play-overlay font-bold"><span class="material-symbols-outlined play-button-icon">play_circle</span></div><div class="flex flex-col items-center justify-center h-full text-indigo-300 bg-slate-50 uppercase font-black text-[9px] tracking-widest font-bold"><span class="material-symbols-outlined text-4xl mb-2 text-indigo-900 font-bold">video_library</span>Instagram Reel</div></div>`;
-                    return `<div class="bg-white rounded-[3rem] p-5 shadow-sm border border-indigo-50 group transition-all hover:shadow-2xl font-bold font-bold font-bold font-bold font-bold">
-                        ${media}<div class="p-6"><div class="flex items-center gap-2 text-slate-400 text-[10px] uppercase mb-3"><span class="material-symbols-outlined text-sm font-bold">schedule</span> ${p.date}</div>
+                    else if(p.type === 'local_video') media = `<div id="${cid}" class="video-container shadow-md" onclick="home.playMedia('${cid}', '${p.type}', '${p.url}')"><div class="play-overlay"><span class="material-symbols-outlined play-button-icon">play_circle</span></div><video muted playsinline preload="auto" class="w-full h-full object-cover"><source src="${p.url}" type="video/mp4"></video></div>`;
+                    else if(p.type === 'youtube') media = `<div id="${cid}" class="video-container shadow-md" onclick="home.playMedia('${cid}', '${p.type}', '${p.url}')"><img src="https://img.youtube.com/vi/${parseVideoId(p.url)}/hqdefault.jpg" class="w-full h-full object-cover"><div class="play-overlay"><span class="material-symbols-outlined play-button-icon">play_circle</span></div></div>`;
+                    else if(p.type === 'instagram') media = `<div id="${cid}" class="video-container vertical shadow-md" onclick="home.playMedia('${cid}', '${p.type}', '${p.url}')"><div class="play-overlay"><span class="material-symbols-outlined play-button-icon">play_circle</span></div><div class="flex flex-col items-center justify-center h-full text-indigo-300 bg-slate-50 uppercase font-black text-[9px] tracking-widest"><span class="material-symbols-outlined text-4xl mb-2 text-indigo-900 font-bold">video_library</span>Reel</div></div>`;
+                    return `<div class="bg-white rounded-[3rem] p-5 shadow-sm border border-indigo-50 group transition-all hover:shadow-2xl font-bold">
+                        ${media}<div class="p-6"><div class="flex items-center gap-2 text-slate-400 text-[10px] uppercase mb-3 font-bold"><span class="material-symbols-outlined text-sm font-bold">schedule</span> ${p.date}</div>
                         <h3 class="font-black text-xl text-indigo-950 mb-3 group-hover:text-indigo-600 transition leading-tight font-bold">${p.title}</h3>
-                        <div class="flex justify-between items-center border-t border-slate-50 pt-4"><a href="${p.url}" target="_blank" class="text-indigo-600 font-black text-[9px] uppercase tracking-widest flex items-center gap-1 hover:underline font-bold"><span class="material-symbols-outlined text-xs font-bold">link</span> Source</a><span class="text-[9px] uppercase font-black text-slate-300 tracking-widest font-bold">${p.type}</span></div></div></div>`;
+                        <div class="flex justify-between items-center border-t border-slate-50 pt-4 font-bold font-bold"><a href="${p.url}" target="_blank" class="text-indigo-600 font-black text-[9px] uppercase tracking-widest flex items-center gap-1 hover:underline font-bold"><span class="material-symbols-outlined text-xs font-bold">link</span> Source</a><span class="text-[9px] uppercase font-black text-slate-300 tracking-widest font-bold">${p.type}</span></div></div></div>`;
                 }).join('') || '<div class="col-span-full text-center py-20 opacity-30 font-black tracking-widest uppercase">No blog posts found</div>';
             },
             setCategory: (cat) => {
@@ -625,9 +655,9 @@
                 if (!feed) return;
                 const cls = document.getElementById('home-class-filter')?.value || 'All';
                 const filtered = state.updates.filter(u => (u.classGrade === 'All' || u.classGrade === cls) && (state.activeHomeCategory === 'All' || u.category === state.activeHomeCategory));
-                feed.innerHTML = filtered.map(u => `<li class="update-card glass-card p-6 border-l-4 ${u.category === 'Homework' ? 'border-emerald-500' : u.category === 'Class Test' ? 'border-rose-500' : 'border-indigo-500'} font-bold">
-                        <div class="flex justify-between items-start mb-3"><span class="text-[10px] font-black uppercase text-slate-400 tracking-widest font-bold">${u.category}</span><span class="date-highlight font-black font-bold">${u.date}</span></div>
-                        <p class="text-sm font-bold text-indigo-950 leading-relaxed tracking-tight font-bold">${u.text}</p></li>`).join('') || '<div class="text-center py-24 opacity-20 font-black uppercase tracking-widest font-bold">Empty Board</div>';
+                feed.innerHTML = filtered.map(u => `<li class="update-card glass-card p-6 border-l-4 ${u.category === 'Homework' ? 'border-emerald-500' : u.category === 'Class Test' ? 'border-rose-500' : 'border-indigo-500'}">
+                        <div class="flex justify-between items-start mb-3 font-bold"><span class="text-[10px] font-black uppercase text-slate-400 tracking-widest font-bold">${u.category}</span><span class="date-highlight font-black font-bold">${u.date}</span></div>
+                        <p class="text-sm font-bold text-indigo-950 leading-relaxed tracking-tight font-black font-bold">${u.text}</p></li>`).join('') || '<div class="text-center py-24 opacity-20 font-black uppercase tracking-widest font-bold">Empty Board</div>';
             }
         };
 
@@ -644,7 +674,7 @@
             switchTab: (tab) => {
                 document.querySelectorAll('.admin-content').forEach(el => el.classList.add('hidden'));
                 const target = document.getElementById(`tab-${tab}`); if (target) target.classList.remove('hidden');
-                document.querySelectorAll('.admin-tab').forEach(b => b.className = b.dataset.tab === tab ? 'admin-tab w-full text-left px-4 py-3 rounded-lg bg-blue-800 text-white flex items-center gap-3 transition font-bold' : 'admin-tab w-full text-left px-4 py-3 rounded-lg hover:bg-blue-800 flex items-center gap-3 transition font-bold');
+                document.querySelectorAll('.admin-tab').forEach(b => b.className = b.dataset.tab === tab ? 'admin-tab w-full text-left px-4 py-3 rounded-lg bg-blue-800 text-white flex items-center gap-3 transition font-bold font-bold' : 'admin-tab w-full text-left px-4 py-3 rounded-lg hover:bg-blue-800 flex items-center gap-3 transition font-bold font-bold');
                 if(tab === 'dashboard') admin.renderDash();
                 if(tab === 'students') admin.renderStudents();
                 if(tab === 'blog') admin.renderHistory();
@@ -654,12 +684,12 @@
                 let tExp = 0, tCol = 0, tOldRem = 0;
                 state.students.forEach(s => {
                     tExp += s.totalFee + s.oldDue; tCol += s.paid;
-                    const paidOld = s.history.filter(h => h.category === 'Old Fee').reduce((sum, h) => sum + h.amount, 0);
+                    const paidOld = (s.history || []).filter(h => h.category === 'Old Fee').reduce((sum, h) => sum + h.amount, 0);
                     tOldRem += Math.max(0, s.oldDue - paidOld);
                 });
-                const statTotal = document.getElementById('stat-total');
-                if (statTotal) {
-                    statTotal.innerText = `₹${tExp.toLocaleString()}`;
+                const st = document.getElementById('stat-total');
+                if (st) {
+                    st.innerText = `₹${tExp.toLocaleString()}`;
                     document.getElementById('stat-old').innerText = `₹${tOldRem.toLocaleString()}`;
                     document.getElementById('stat-collected').innerText = `₹${tCol.toLocaleString()}`;
                     document.getElementById('stat-pending').innerText = `₹${Math.max(0, tExp - tCol).toLocaleString()}`;
@@ -667,18 +697,18 @@
                 const cv = document.getElementById('feeChart'); if(!cv) return;
                 const ctx = cv.getContext('2d');
                 if(window.myChart) window.myChart.destroy();
-                window.myChart = new Chart(ctx, { type: 'line', data: { labels: ['Target', 'Collection', 'Balance'], datasets: [{ label: 'Fees', data: [tExp, tCol, tExp-tCol], borderColor: '#1e3a8a', tension: 0.4, fill: true, backgroundColor: 'rgba(30, 58, 138, 0.05)' }] }, options: { maintainAspectRatio: false } });
+                window.myChart = new Chart(ctx, { type: 'line', data: { labels: ['Target', 'Collection', 'Balance'], datasets: [{ label: 'Fees', data: [tExp, tCol, tExp-tCol], borderColor: '#1e3a8a', tension: 0.4, fill: true, backgroundColor: 'rgba(30, 58, 138, 0.05)', pointRadius: 5 }] }, options: { maintainAspectRatio: false } });
             },
             submitAdmission: async (e) => {
                 e.preventDefault();
-                if (!auth?.currentUser || !db) { ui.showToast('Connecting to Cloud...', true); return; }
+                if (!auth?.currentUser || !db) { ui.showToast('Connecting...', true); return; }
                 const fd = new FormData(e.target);
                 const sId = Date.now().toString();
                 const slipFile = document.getElementById('admit-slip').files[0];
 
                 const saveToCloud = async (finalData) => {
                     await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', sId), finalData);
-                    ui.showToast('Student Saved to Cloud'); e.target.reset(); admin.switchTab('students');
+                    ui.showToast('Saved to Cloud'); e.target.reset(); admin.switchTab('students');
                 };
 
                 const data = {
@@ -698,20 +728,21 @@
                 } else { saveToCloud(data); }
             },
             renderStudents: () => {
-                const listBody = document.getElementById('student-list-body');
-                if (!listBody) return;
+                const list = document.getElementById('student-list-body');
+                if (!list) return;
                 const cls = document.getElementById('filter-class').value;
                 const txt = document.getElementById('filter-search').value.toLowerCase();
                 const filtered = state.students.filter(s => (cls === 'All' || s.classGrade === cls) && (s.name.toLowerCase().includes(txt) || s.admnNo.toLowerCase().includes(txt)));
-                listBody.innerHTML = filtered.map(s => {
-                    const remOld = Math.max(0, s.oldDue - s.paid);
-                    const remAcad = s.totalFee - Math.max(0, s.paid - s.oldDue);
-                    const totalDue = (s.totalFee + s.oldDue) - s.paid;
+                list.innerHTML = filtered.map(s => {
+                    const paidOld = (s.history || []).filter(h => h.category === 'Old Fee').reduce((sum, h) => sum + h.amount, 0);
+                    const remOld = Math.max(0, s.oldDue - paidOld);
+                    const remAcad = s.totalFee - (s.paid - paidOld);
+                    const totalDue = remOld + remAcad;
                     return `<tr class="hover:bg-blue-50 transition cursor-pointer border-b font-bold" onclick="admin.openModal('${s.id}')">
-                        <td class="p-4 font-mono text-xs font-bold">${s.admnNo}</td><td class="p-4 font-black font-bold">${s.name}</td><td class="p-4 font-bold">${s.classGrade}</td>
-                        <td class="p-4 text-orange-600 font-bold">₹${remOld.toLocaleString()}</td><td class="p-4 font-bold">₹${s.totalFee.toLocaleString()}</td>
-                        <td class="p-4 text-blue-600 font-bold">₹${remAcad.toLocaleString()}</td><td class="p-4 font-black ${totalDue > 0 ? 'text-red-600' : 'text-green-600'} font-bold">₹${totalDue.toLocaleString()}</td>
-                        <td class="p-4 text-right font-bold font-bold"><button class="bg-blue-900 text-white px-3 py-1 rounded shadow-sm text-[10px] uppercase font-bold transition hover:bg-blue-800 font-bold">Manage</button></td></tr>`;
+                        <td class="p-4 font-mono text-xs font-bold font-bold font-bold font-bold">${s.admnNo}</td><td class="p-4 font-black font-bold font-bold font-bold">${s.name}</td><td class="p-4 font-bold font-bold font-bold">${s.classGrade}</td>
+                        <td class="p-4 text-orange-600 font-bold font-bold font-bold font-bold">₹${remOld.toLocaleString()}</td><td class="p-4 font-bold font-bold font-bold font-bold">₹${s.totalFee.toLocaleString()}</td>
+                        <td class="p-4 text-blue-600 font-bold font-bold font-bold">₹${remAcad.toLocaleString()}</td><td class="p-4 font-black ${totalDue > 0 ? 'text-red-600' : 'text-green-600'} font-bold font-bold font-bold font-bold">₹${totalDue.toLocaleString()}</td>
+                        <td class="p-4 text-right"><button class="bg-blue-900 text-white px-3 py-1 rounded shadow-sm text-[10px] uppercase font-bold transition hover:bg-blue-800 font-bold">Manage</button></td></tr>`;
                 }).join('');
             },
             openModal: (id) => {
@@ -725,12 +756,12 @@
                 document.getElementById('modal-fee-old').innerText = `₹${s.oldDue.toLocaleString()}`;
                 document.getElementById('modal-fee-paid').innerText = `₹${s.paid.toLocaleString()}`;
                 document.getElementById('modal-fee-due').innerText = `₹${((s.totalFee + s.oldDue) - s.paid).toLocaleString()}`;
-                document.getElementById('modal-history').innerHTML = [...s.history].reverse().map((h) => `
-                <tr><td class="p-4 font-bold text-slate-400 text-[10px] font-bold">${h.date}</td><td class="p-4 font-black text-blue-900 text-[10px] uppercase font-bold">${h.category}</td>
-                <td class="p-4 text-right font-black text-emerald-600 font-bold">₹${h.amount.toLocaleString()}</td><td class="p-4 text-right font-bold"><button onclick="printer.printReceipt('${s.id}', '${h.receiptNo}')" class="text-indigo-600 font-bold"><span class="material-symbols-outlined text-sm font-bold">print</span></button></td></tr>`).join('');
+                document.getElementById('modal-history').innerHTML = [...(s.history || [])].reverse().map((h) => `
+                <tr><td class="p-4 font-bold text-slate-400 text-[10px] font-bold font-bold font-bold">${h.date}</td><td class="p-4 font-black text-blue-900 text-[10px] uppercase font-bold font-bold font-bold">${h.category}</td>
+                <td class="p-4 text-right font-black text-emerald-600 font-bold font-bold font-bold font-bold font-bold">₹${h.amount.toLocaleString()}</td><td class="p-4 text-right no-print font-bold font-bold font-bold font-bold"><button onclick="printer.printReceipt('${s.id}', '${h.receiptNo}')" class="text-indigo-600 font-bold font-bold font-bold"><span class="material-symbols-outlined text-sm font-bold font-bold font-bold">print</span></button></td></tr>`).join('');
                 document.getElementById('profile-modal').classList.remove('hidden-modal');
                 document.getElementById('pay-rec').value = 'REC-' + Date.now().toString().slice(-6);
-                const pd = document.getElementById('pay-date'); if (pd) pd.valueAsDate = new Date();
+                const pDate = document.getElementById('pay-date'); if (pDate) pDate.valueAsDate = new Date();
             },
             viewSlip: () => {
                 const s = state.students.find(x => x.id === state.activeStudentId);
@@ -747,7 +778,7 @@
                 s.paid += amt;
                 s.history.push({ receiptNo: document.getElementById('pay-rec').value, date: document.getElementById('pay-date').value, category: document.getElementById('pay-category').value, mode: 'Cash', amount: amt });
                 await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', s.id), s);
-                ui.showToast('Cloud Synced'); admin.openModal(s.id);
+                ui.showToast('Synced to Cloud'); admin.openModal(s.id);
             },
             closeModal: () => document.getElementById('profile-modal').classList.add('hidden-modal'),
             showDeleteConfirm: () => { document.getElementById('delete-password').value = ''; document.getElementById('delete-modal').classList.remove('hidden-modal'); },
@@ -755,7 +786,7 @@
             confirmDelete: async () => {
                 if(document.getElementById('delete-password').value === '123' && db) {
                     await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', state.activeStudentId));
-                    admin.closeDeleteModal(); admin.closeModal(); ui.showToast('Record Deleted');
+                    admin.closeDeleteModal(); admin.closeModal(); ui.showToast('Deleted');
                 } else ui.showToast('Invalid PIN', true);
             },
             addUpdate: async (e) => {
@@ -763,61 +794,62 @@
                 if (!db) return;
                 const data = { id: Date.now(), text: document.getElementById('update-text').value, category: document.getElementById('update-category').value, classGrade: document.getElementById('update-class').value, date: document.getElementById('update-date').value };
                 await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'updates'), data);
-                ui.showToast('Notice Published'); document.getElementById('update-text').value = '';
+                ui.showToast('Published'); document.getElementById('update-text').value = '';
             },
             renderHistory: () => {
                 const list = document.getElementById('admin-updates-list'); if (!list) return;
-                list.innerHTML = state.updates.map(u => `<li class="bg-slate-50 p-4 rounded-xl flex justify-between items-center border shadow-sm group font-bold"><div><div class="text-[9px] font-black uppercase text-gray-400 font-bold">${u.category} • ${u.classGrade}</div><div class="text-sm font-bold text-gray-800 font-bold">${u.text}</div><div class="text-[9px] mt-1 text-blue-600 font-bold">${u.date}</div></div><button onclick="admin.deleteUpdate('${u.firestoreId}')" class="text-red-600 bg-white shadow-sm w-10 h-10 rounded-full flex items-center justify-center transition hover:bg-red-600 hover:text-white font-bold"><span class="material-symbols-outlined text-sm font-bold">delete</span></button></li>`).join('');
+                list.innerHTML = state.updates.map(u => `<li class="bg-slate-50 p-4 rounded-xl flex justify-between items-center border shadow-sm group font-bold"><div><div class="text-[9px] font-black uppercase text-gray-400 font-bold">${u.category} • ${u.classGrade}</div><div class="text-sm font-bold text-gray-800 font-bold">${u.text}</div><div class="text-[9px] mt-1 text-blue-600 font-bold font-bold font-bold font-bold">${u.date}</div></div><button onclick="admin.deleteUpdate('${u.firestoreId}')" class="text-red-600 bg-white shadow-sm w-10 h-10 rounded-full flex items-center justify-center transition hover:bg-red-600 hover:text-white font-bold font-bold"><span class="material-symbols-outlined text-sm font-bold font-bold">delete</span></button></li>`).join('');
             },
-            deleteUpdate: async (id) => { await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'updates', id)); ui.showToast('Notice Removed'); },
+            deleteUpdate: async (id) => { await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'updates', id)); ui.showToast('Removed'); },
             addBlogPost: async (e) => {
                 e.preventDefault();
                 if (!db) return;
                 const data = { id: Date.now(), title: document.getElementById('blog-title').value, date: document.getElementById('blog-date').value, type: document.getElementById('blog-type').value, url: document.getElementById('blog-url').value };
                 await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'blogPosts'), data);
-                ui.showToast('Post Published'); e.target.reset();
+                ui.showToast('Post Live'); e.target.reset();
             },
             renderBlogList: () => {
                 const list = document.getElementById('admin-blog-list'); if (!list) return;
                 list.innerHTML = state.blogPosts.map(p => {
-                    let preview = p.type === 'youtube' ? `<img src="https://img.youtube.com/vi/${parseVideoId(p.url)}/default.jpg" class="w-12 h-12 rounded object-cover">` : `<div class="w-12 h-12 bg-slate-100 rounded flex items-center justify-center text-slate-400"><span class="material-symbols-outlined font-bold">play_circle</span></div>`;
-                    if (p.type === 'image') preview = `<img src="${p.url}" class="w-12 h-12 rounded object-cover font-bold">`;
-                    return `<li class="bg-indigo-50/50 p-4 rounded-2xl border flex justify-between items-center group font-bold"><div class="flex items-center gap-4">${preview}<div><div class="text-[9px] font-black text-slate-400 uppercase font-bold font-bold font-bold">${p.type} • ${p.date}</div><div class="text-sm font-bold text-slate-800 font-bold font-bold font-bold">${p.title}</div></div></div><button onclick="admin.deleteBlogPost('${p.firestoreId}')" class="text-red-600 bg-white w-10 h-10 rounded-full flex items-center justify-center group-hover:bg-red-600 group-hover:text-white shadow-sm font-bold font-bold font-bold"><span class="material-symbols-outlined text-sm font-bold font-bold font-bold">delete</span></button></li>`;
+                    let preview = p.type === 'youtube' ? `<img src="https://img.youtube.com/vi/${parseVideoId(p.url)}/default.jpg" class="w-12 h-12 rounded object-cover">` : `<div class="w-12 h-12 bg-slate-100 rounded flex items-center justify-center text-slate-400 font-bold"><span class="material-symbols-outlined font-bold font-bold">play_circle</span></div>`;
+                    if (p.type === 'image') preview = `<img src="${p.url}" class="w-12 h-12 rounded object-cover font-bold font-bold">`;
+                    return `<li class="bg-indigo-50/50 p-4 rounded-2xl border flex justify-between items-center group font-bold font-bold font-bold font-bold font-bold"><div class="flex items-center gap-4 font-bold font-bold">${preview}<div><div class="text-[9px] font-black text-slate-400 uppercase font-bold font-bold font-bold">${p.type} • ${p.date}</div><div class="text-sm font-bold text-slate-800 font-bold font-bold font-bold">${p.title}</div></div></div><button onclick="admin.deleteBlogPost('${p.firestoreId}')" class="text-red-600 bg-white w-10 h-10 rounded-full flex items-center justify-center transition hover:bg-red-600 hover:text-white shadow-sm font-bold font-bold font-bold font-bold font-bold font-bold"><span class="material-symbols-outlined text-sm font-bold font-bold font-bold font-bold">delete</span></button></li>`;
                 }).join('');
             },
-            deleteBlogPost: async (id) => { await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'blogPosts', id)); ui.showToast('Post Removed'); },
+            deleteBlogPost: async (id) => { await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'blogPosts', id)); ui.showToast('Removed'); },
             exportExcel: () => { const data = state.students.map(s => ({"ID": s.admnNo, "Name": s.name, "Class": s.classGrade, "Net Balance": (s.totalFee + s.oldDue) - s.paid})); const ws = XLSX.utils.json_to_sheet(data); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "Students"); XLSX.writeFile(wb, `SSV_Data.xlsx`); },
-            exportData: () => { const blob = new Blob([JSON.stringify(state)], {type: 'application/json'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'SSV_Full_System_Backup.json'; a.click(); }
+            exportData: () => { const blob = new Blob([JSON.stringify(state)], {type: 'application/json'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'SSV_Backup.json'; a.click(); }
         };
 
         window.printer = {
             printMasterLedger: () => {
                 const area = document.getElementById('printable-area');
                 const rows = state.students.map(s => {
-                    const due = (s.totalFee + s.oldDue) - s.paid;
-                    const remOld = Math.max(0, s.oldDue - s.paid);
-                    const remAcad = s.totalFee - Math.max(0, s.paid - s.oldDue);
-                    return `<tr><td style="border:1px solid #000; padding:8px;">${s.admnNo}</td><td style="border:1px solid #000; padding:8px;">${s.name}</td><td style="border:1px solid #000; padding:8px;">${s.classGrade}</td><td style="text-align:right; border:1px solid #000; padding:8px;">₹${remOld}</td><td style="text-align:right; border:1px solid #000; padding:8px;">₹${remAcad}</td><td style="text-align:right; border:1px solid #000; padding:8px;">₹${s.paid}</td><td style="text-align:right; border:1px solid #000; padding:8px; font-weight:bold;">₹${due}</td></tr>`;
+                    const paidOld = (s.history || []).filter(h => h.category === 'Old Fee').reduce((sum, h) => sum + h.amount, 0);
+                    const remOld = Math.max(0, s.oldDue - paidOld);
+                    const remAcad = s.totalFee - (s.paid - paidOld);
+                    const totalDue = remOld + remAcad;
+                    return `<tr><td style="border:1px solid #000; padding:8px;">${s.admnNo}</td><td style="border:1px solid #000; padding:8px;">${s.name}</td><td style="border:1px solid #000; padding:8px;">${s.classGrade}</td><td style="text-align:right; border:1px solid #000; padding:8px;">₹${remOld}</td><td style="text-align:right; border:1px solid #000; padding:8px;">₹${remAcad}</td><td style="text-align:right; border:1px solid #000; padding:8px;">₹${s.paid}</td><td style="text-align:right; border:1px solid #000; padding:8px; font-weight:bold;">₹${totalDue}</td></tr>`;
                 }).join('');
-                area.innerHTML = `<div style="padding:20px; border:1px solid #000; font-family:sans-serif;"><center><h1>SRI SAI VIDYALAYAM</h1><h3>MASTER FEE LEDGER - ${new Date().toLocaleDateString()}</h3></center><table style="width:100%; border-collapse:collapse; margin-top:20px;"><thead><tr style="background:#eee;"><th style="border:1px solid #000; padding:8px;">ID</th><th style="border:1px solid #000; padding:8px;">Student</th><th style="border:1px solid #000; padding:8px;">Class</th><th style="border:1px solid #000; padding:8px;">Old Fee</th><th style="border:1px solid #000; padding:8px;">Acad Fee</th><th style="border:1px solid #000; padding:8px;">Paid</th><th style="border:1px solid #000; padding:8px;">Balance</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+                area.innerHTML = `<div style="padding:20px; border:1px solid #000;"><center><h1>SRI SAI VIDYALAYAM</h1><h3>MASTER FEE LEDGER - ${new Date().toLocaleDateString()}</h3></center><table style="width:100%; border-collapse:collapse; margin-top:20px;"><thead><tr style="background:#eee;"><th style="border:1px solid #000; padding:8px;">ID</th><th style="border:1px solid #000; padding:8px;">Student</th><th style="border:1px solid #000; padding:8px;">Class</th><th style="border:1px solid #000; padding:8px;">Old Fee</th><th style="border:1px solid #000; padding:8px;">Acad Fee</th><th style="border:1px solid #000; padding:8px;">Paid</th><th style="border:1px solid #000; padding:8px;">Balance</th></tr></thead><tbody>${rows}</tbody></table></div>`;
                 window.print();
             },
             printLedger: () => {
                 const s = state.students.find(x => x.id === state.activeStudentId);
                 const area = document.getElementById('printable-area');
-                area.innerHTML = `<div style="padding:40px; border:2px solid #000; font-family:sans-serif;"><center><h1>SRI SAI VIDYALAYAM</h1><h3>STUDENT LEDGER STATEMENT</h3></center><hr/><p><b>Name:</b> ${s.name} | <b>ID:</b> ${s.admnNo} | <b>Parent:</b> ${s.father} | <b>Class:</b> ${s.classGrade}</p><table style="width:100%; border-collapse:collapse; margin-top:20px;"><thead><tr style="background:#eee;"><th style="border:1px solid #000; padding:8px;">Date</th><th style="border:1px solid #000; padding:8px;">Receipt #</th><th style="border:1px solid #000; padding:8px;">Description</th><th style="border:1px solid #000; padding:8px; text-align:right;">Amount</th></tr></thead><tbody>${s.history.map(h => `<tr><td style="border:1px solid #000; padding:8px;">${h.date}</td><td style="border:1px solid #000; padding:8px;">${h.receiptNo}</td><td style="border:1px solid #000; padding:8px;">${h.category}</td><td style="border:1px solid #000; padding:8px; text-align:right;">₹${h.amount}</td></tr>`).join('')}</tbody><tfoot><tr><td colspan="3" style="text-align:right; border:1px solid #000; padding:8px;"><b>Total Paid:</b></td><td style="text-align:right; border:1px solid #000; padding:8px;"><b>₹${s.paid}</b></td></tr><tr><td colspan="3" style="text-align:right; border:1px solid #000; padding:8px; color:red;"><b>Outstanding Balance:</b></td><td style="text-align:right; border:1px solid #000; padding:8px; color:red;"><b>₹${(s.totalFee+s.oldDue)-s.paid}</b></td></tr></tfoot></table></div>`;
+                area.innerHTML = `<div style="padding:40px; border:2px solid #000;"><center><h1>SRI SAI VIDYALAYAM</h1><h3>STUDENT LEDGER STATEMENT</h3></center><hr/><p><b>Name:</b> ${s.name} | <b>ID:</b> ${s.admnNo} | <b>Parent:</b> ${s.father} | <b>Class:</b> ${s.classGrade}</p><table style="width:100%; border-collapse:collapse; margin-top:20px;"><thead><tr style="background:#eee;"><th style="border:1px solid #000; padding:8px;">Date</th><th style="border:1px solid #000; padding:8px;">Receipt #</th><th style="border:1px solid #000; padding:8px;">Description</th><th style="border:1px solid #000; padding:8px; text-align:right;">Amount</th></tr></thead><tbody>${(s.history || []).map(h => `<tr><td style="border:1px solid #000; padding:8px;">${h.date}</td><td style="border:1px solid #000; padding:8px;">${h.receiptNo}</td><td style="border:1px solid #000; padding:8px;">${h.category}</td><td style="border:1px solid #000; padding:8px; text-align:right;">₹${h.amount}</td></tr>`).join('')}</tbody><tfoot><tr><td colspan="3" style="text-align:right; border:1px solid #000; padding:8px;"><b>Total Paid:</b></td><td style="text-align:right; border:1px solid #000; padding:8px;"><b>₹${s.paid}</b></td></tr><tr><td colspan="3" style="text-align:right; border:1px solid #000; padding:8px; color:red;"><b>Outstanding Balance:</b></td><td style="text-align:right; border:1px solid #000; padding:8px; color:red;"><b>₹${(s.totalFee+s.oldDue)-s.paid}</b></td></tr></tfoot></table></div>`;
                 window.print();
             },
             printReceipt: (studentId, rNo) => {
                 const s = state.students.find(x => x.id === studentId);
                 const h = s.history.find(x => x.receiptNo === rNo);
                 const area = document.getElementById('printable-area');
-                area.innerHTML = `<div style="border:5px double #000; padding:40px; max-width:650px; margin:auto; font-family:sans-serif;"><center><h1>SRI SAI VIDYALAYAM</h1><p>Pulagalipalem, Pendurthi, Visakhapatnam, AP</p><h2 style="background:#000; color:#fff; display:inline-block; padding:5px 20px;">FEE RECEIPT</h2></center><div style="margin-top:30px;"><p><b>Receipt No:</b> ${h.receiptNo} <span style="float:right;"><b>Date:</b> ${h.date}</span></p><p><b>Student:</b> ${s.name}</p><p><b>Class:</b> ${s.classGrade} <span style="float:right;"><b>ID:</b> ${s.admnNo}</span></p><p><b>Payment Toward:</b> ${h.category}</p><div style="border:2px solid #000; padding:20px; text-align:center; font-size:24px; margin-top:20px;"><b>AMOUNT PAID: ₹${h.amount}/-</b></div></div><div style="margin-top:60px; display:flex; justify-content:space-between;"><div>___________________<br/>Receiver Sign</div><div>___________________<br/>Auth. Signatory</div></div></div>`;
+                area.innerHTML = `<div style="border:5px double #000; padding:40px; max-width:650px; margin:auto;"><center><h1>SRI SAI VIDYALAYAM</h1><p>Pulagalipalem, Pendurthi, Visakhapatnam, AP</p><h2 style="background:#000; color:#fff; display:inline-block; padding:5px 20px;">FEE RECEIPT</h2></center><div style="margin-top:30px;"><p><b>Receipt No:</b> ${h.receiptNo} <span style="float:right;"><b>Date:</b> ${h.date}</span></p><p><b>Student:</b> ${s.name}</p><p><b>Class:</b> ${s.classGrade} <span style="float:right;"><b>ID:</b> ${s.admnNo}</span></p><p><b>Payment Toward:</b> ${h.category}</p><div style="border:2px solid #000; padding:20px; text-align:center; font-size:24px; margin-top:20px;"><b>AMOUNT PAID: ₹${h.amount}/-</b></div></div><div style="margin-top:60px; display:flex; justify-content:space-between;"><div>___________________<br/>Receiver Sign</div><div>___________________<br/>Auth. Signatory</div></div></div>`;
                 window.print();
             }
         };
 
-        // Execution Start
+        // STARTUP
         (async () => {
             const success = await initFirebase();
             if (success) {
