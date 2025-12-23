@@ -53,10 +53,10 @@
         /* ANIMATIONS */
         .cloud-slow { animation: drift 60s linear infinite; }
         .cloud-very-slow { animation: drift 90s linear infinite; }
-        @keyframes drift { from { transform: translateX(-150px); } to { transform: translateX(950px); } }
+        @keyframes drift { from { transform: translateX(-150px); } to { transform: translateX(110vw); } }
 
         .bird-fly { animation: flyAcross 80s linear infinite; }
-        @keyframes flyAcross { from { transform: translate(-150px, 60px); } to { transform: translate(950px, 30px); } }
+        @keyframes flyAcross { from { transform: translate(-150px, 60px); } to { transform: translate(110vw, 30px); } }
         .bird-wing { animation: flap 2.5s ease-in-out infinite alternate; transform-origin: center; }
         @keyframes flap { from { transform: scaleY(1); } to { transform: scaleY(0.2); } }
 
@@ -121,7 +121,8 @@
                 <div class="flex items-center space-x-4 cursor-pointer group" onclick="router.navigate('home')">
                     <div class="bg-white text-indigo-950 h-12 w-12 rounded-2xl flex items-center justify-center font-bold text-xl border-2 border-amber-400 transform group-hover:rotate-6 transition">SSV</div>
                     <div>
-                        <span class="bg-amber-500 text-indigo-950 px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-wider mb-1 inline-block leading-none">Recognised by Govt of AP</span>
+                        <!-- Increased size of Recognised text -->
+                        <span class="bg-amber-500 text-indigo-950 px-2 py-0.5 rounded text-[11px] font-black uppercase tracking-wide mb-1 inline-block leading-none">Recognised by Govt of AP</span>
                         <h1 class="text-2xl font-bold tracking-tight leading-none uppercase">Sri Sai Vidyalayam</h1>
                         <p class="text-[9px] text-amber-400 uppercase tracking-[0.3em] font-black mt-1 font-bold">Excellence in Education</p>
                     </div>
@@ -268,7 +269,7 @@
                 <div class="bg-indigo-950 rounded-[40px] shadow-2xl p-8 md:p-12 mb-12 w-full">
                     <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
                         <h3 class="text-3xl font-black text-white uppercase flex items-center gap-4">
-                            <span class="material-symbols-outlined text-amber-400 text-5xl font-bold">campaign</span> School Notice Board
+                            <span class="material-symbols-outlined text-amber-400 text-5 font-bold">campaign</span> School Notice Board
                         </h3>
                         <div class="w-full md:w-80">
                             <select id="board-class-filter" class="w-full bg-indigo-900 border border-indigo-700 text-white rounded-2xl p-4 font-bold outline-none" onchange="home.renderUpdates()"></select>
