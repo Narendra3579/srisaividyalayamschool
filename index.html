@@ -47,21 +47,25 @@
         @media print {
             body * { visibility: hidden !important; }
             #printable-area, #printable-area * { visibility: visible !important; }
-            #printable-area { display: block !important; position: absolute !important; left: 0 !important; top: 0 !important; width: 100% !important; background: white !important; color: black !important; padding: 20px !important; }
+            #printable-area { display: block !important; position: absolute !important; left: 0 !important; width: 100% !important; background: white !important; color: black !important; padding: 20px !important; }
         }
 
         /* ANIMATIONS */
         .cloud-slow { animation: drift 60s linear infinite; }
         .cloud-very-slow { animation: drift 90s linear infinite; }
-        @keyframes drift { from { transform: translateX(-150px); } to { transform: translateX(110vw); } }
+        @keyframes drift { from { transform: translateX(-150px); } to { transform: translateX(950px); } }
 
         .bird-fly { animation: flyAcross 80s linear infinite; }
-        @keyframes flyAcross { from { transform: translate(-150px, 60px); } to { transform: translate(110vw, 30px); } }
+        @keyframes flyAcross { from { transform: translate(-150px, 60px); } to { transform: translate(950px, 30px); } }
         .bird-wing { animation: flap 2.5s ease-in-out infinite alternate; transform-origin: center; }
         @keyframes flap { from { transform: scaleY(1); } to { transform: scaleY(0.2); } }
 
-        .bus-drive { animation: driveAcross 18s linear infinite; transform-box: view-box; }
-        @keyframes driveAcross { from { transform: translateX(110vw); } to { transform: translateX(-350px); } }
+        /* Optimized Bus Animation for Page Load Visibility */
+        .bus-drive { animation: driveAcross 15s linear infinite; transform-box: fill-box; }
+        @keyframes driveAcross { 
+            from { transform: translateX(850px); } 
+            to { transform: translateX(-250px); } 
+        }
 
         #hero-text-slider .slide { display: none; }
         #hero-text-slider .slide.active { display: block; animation: slideUpFade 0.8s ease-out; }
