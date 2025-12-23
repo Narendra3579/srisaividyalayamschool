@@ -112,6 +112,13 @@
                 transform: translateY(0);
             }
         }
+
+        /* ADMIN FEEDBACK TOAST */
+        #admin-toast {
+            position: fixed; top: 24px; right: 24px; z-index: 200;
+            transition: all 0.3s ease; opacity: 0; pointer-events: none; transform: translateY(-20px);
+        }
+        #admin-toast.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 w-full min-h-screen">
@@ -126,14 +133,23 @@
         <p id="loader-text" class="text-xs font-bold tracking-[0.3em] uppercase text-indigo-900 text-center px-4">Sri Sai Vidyalayam</p>
     </div>
 
+    <!-- FEEDBACK TOAST -->
+    <div id="admin-toast" class="bg-indigo-950 text-white px-6 py-4 rounded-2xl shadow-2xl font-bold flex items-center gap-3">
+        <span id="toast-icon" class="material-symbols-outlined text-amber-400">info</span>
+        <span id="toast-msg">Action Successful</span>
+    </div>
+
     <!-- NAVBAR -->
     <nav class="bg-indigo-950 text-white shadow-xl sticky top-0 z-40 no-print border-b border-indigo-800 w-full">
         <div class="w-full px-4 md:px-8 lg:px-12">
             <div class="flex justify-between h-20 items-center">
                 <div class="flex items-center space-x-3 md:space-x-4 cursor-pointer group" onclick="router.navigate('home')">
-                    <div class="bg-white text-indigo-950 h-10 w-10 md:h-12 md:w-12 rounded-xl md:rounded-2xl flex items-center justify-center font-bold text-lg border-2 border-amber-400 transform group-hover:rotate-6 transition flex-shrink-0">SSV</div>
+                    <!-- Logo Implementation -->
+                    <div class="bg-white h-10 w-10 md:h-12 md:w-12 rounded-xl md:rounded-2xl flex items-center justify-center border-2 border-amber-400 transform group-hover:rotate-6 transition flex-shrink-0 overflow-hidden">
+                        <img src="ssv logo 1.png" alt="SSV Logo" class="w-full h-full object-contain p-1" onerror="this.outerHTML='<span class=\'font-bold text-indigo-950 text-lg\'>SSV</span>'">
+                    </div>
                     <div class="overflow-hidden">
-                        <span class="bg-amber-500 text-indigo-950 px-2 py-0.5 rounded text-[9px] md:text-[11px] font-black uppercase tracking-wide mb-1 inline-block leading-none whitespace-nowrap">Recognised by Govt of AP</span>
+                        <span class="bg-amber-500 text-indigo-950 px-2 py-0.5 rounded text-[11px] md:text-[13px] font-black uppercase tracking-wide mb-1 inline-block leading-none whitespace-nowrap">Recognised by Govt of AP</span>
                         <h1 class="text-lg md:text-2xl font-bold tracking-tight leading-none uppercase truncate">Sri Sai Vidyalayam</h1>
                         <p class="text-[8px] md:text-[9px] text-amber-400 uppercase tracking-[0.2em] md:tracking-[0.3em] font-black mt-1 font-bold whitespace-nowrap">Excellence in Education</p>
                     </div>
@@ -311,7 +327,7 @@
         <div id="view-admin" class="min-h-screen bg-gray-50 flex flex-col md:flex-row hidden font-bold w-full overflow-hidden">
             <div class="bg-blue-900 text-white w-full md:w-64 lg:w-72 flex-shrink-0 flex flex-col md:h-screen md:sticky top-0 no-print shadow-xl">
                 <div class="p-6 md:p-8 border-b border-blue-800 font-black text-xl md:text-2xl flex items-center gap-2">
-                    <span class="material-symbols-outlined text-yellow-400 font-bold">school</span> Admin
+                    <span class="material-symbols-outlined text-yellow-400 font-bold">school</span> Admin Console
                 </div>
                 <nav class="flex-1 p-4 md:p-6 space-y-1 font-bold overflow-y-auto">
                     <button class="admin-tab w-full text-left px-4 py-3 md:py-4 rounded-xl hover:bg-blue-800 flex items-center gap-3 transition text-sm md:text-lg" data-tab="dashboard" onclick="admin.switchTab('dashboard')">Dashboard</button>
@@ -522,11 +538,25 @@
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, collection, onSnapshot, addDoc, deleteDoc, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Firebase Configuration
+        // Global Variables & Configuration
         const firebaseConfigRaw = typeof __firebase_config !== 'undefined' ? __firebase_config : '{}';
         const firebaseConfig = JSON.parse(firebaseConfigRaw);
         let app, auth, db, user;
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'sri-sai-vidyalayam';
+
+        // Utility: Show Admin Feedback (Instead of Alert)
+        window.showFeedback = (msg, type = 'success') => {
+            const toast = document.getElementById('admin-toast');
+            const toastMsg = document.getElementById('toast-msg');
+            const toastIcon = document.getElementById('toast-icon');
+            
+            toastMsg.innerText = msg;
+            toast.style.backgroundColor = type === 'success' ? '#064e3b' : '#7f1d1d';
+            toastIcon.innerText = type === 'success' ? 'check_circle' : 'error';
+            
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        };
 
         window.initCloud = async function() {
             if (!firebaseConfig.apiKey) { 
@@ -561,7 +591,7 @@
                     }
                 });
             } catch (e) {
-                document.getElementById('loader-text').innerHTML = "<span style='color:red;'>Connection Error. Refresh.</span>";
+                document.getElementById('loader-text').innerHTML = "<span style='color:red;'>Connection Error. Please refresh.</span>";
             }
         }
 
@@ -574,7 +604,7 @@
                     admin.renderDash(); 
                     admin.renderStudents(); 
                 }
-            }, (err) => console.error("Sync error:", err));
+            }, (err) => console.error("Students sync error:", err));
 
             onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'updates'), (snap) => {
                 const newUpdates = snap.docs.map(d => ({ firestoreId: d.id, ...d.data() })).sort((a, b) => b.id - a.id);
@@ -586,13 +616,13 @@
                 updatesInitialLoad = false;
                 home.renderUpdates();
                 if (document.getElementById('view-admin').offsetParent) admin.renderHistory();
-            });
+            }, (err) => console.error("Updates sync error:", err));
 
             onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'blogPosts'), (snap) => {
                 state.blogPosts = snap.docs.map(d => ({ firestoreId: d.id, ...d.data() })).sort((a, b) => b.id - a.id);
                 home.renderBlog();
                 if (document.getElementById('view-admin').offsetParent) admin.renderBlogList();
-            });
+            }, (err) => console.error("Blogs sync error:", err));
         };
 
         window.state = {
@@ -619,7 +649,7 @@
                 e.preventDefault();
                 if(document.getElementById('userid').value === 'admin' && document.getElementById('password').value === '123') {
                     state.isLoggedIn = true; router.navigate('admin');
-                } else alert('Invalid Credentials');
+                } else showFeedback('Invalid Admin Credentials', 'error');
             },
             logout: () => { state.isLoggedIn = false; router.navigate('home'); }
         };
@@ -745,17 +775,22 @@
             },
             submitAdmission: async (e) => {
                 e.preventDefault();
+                if (!auth.currentUser) { showFeedback('Cloud error: Not Authenticated', 'error'); return; }
+                
                 const fd = new FormData(e.target);
                 const sId = Date.now().toString();
                 const slip = document.getElementById('admit-slip').files[0];
+                
                 const save = async (url) => {
-                    const data = { id: sId, admnNo: fd.get('admnNo'), name: fd.get('name'), father: fd.get('father'), contact: fd.get('contact'), classGrade: fd.get('classGrade'), totalFee: parseFloat(fd.get('totalFee')), oldDue: parseFloat(fd.get('oldDue') || 0), paid: 0, history: [], concessionSlipData: url };
-                    const initPay = parseFloat(fd.get('initialPay') || 0);
-                    if(initPay > 0) {
-                        data.paid = initPay; data.history.push({ receiptNo: 'REC-'+sId.slice(-4), date: new Date().toISOString().split('T')[0], amount: initPay, category: 'Academic Fee', mode: 'Cash' });
-                    }
-                    await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', sId), data);
-                    e.target.reset(); admin.switchTab('students');
+                    try {
+                        const data = { id: sId, admnNo: fd.get('admnNo'), name: fd.get('name'), father: fd.get('father'), contact: fd.get('contact'), classGrade: fd.get('classGrade'), totalFee: parseFloat(fd.get('totalFee')), oldDue: parseFloat(fd.get('oldDue') || 0), paid: 0, history: [], concessionSlipData: url };
+                        const initPay = parseFloat(fd.get('initialPay') || 0);
+                        if(initPay > 0) {
+                            data.paid = initPay; data.history.push({ receiptNo: 'REC-'+sId.slice(-4), date: new Date().toISOString().split('T')[0], amount: initPay, category: 'Academic Fee', mode: 'Cash' });
+                        }
+                        await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', sId), data);
+                        e.target.reset(); showFeedback('Student Registered Successfully'); admin.switchTab('students');
+                    } catch (err) { showFeedback('Save Failed: Check Connection', 'error'); }
                 };
                 if(slip && slip.size < 700000){ const r = new FileReader(); r.onload = (ev) => save(ev.target.result); r.readAsDataURL(slip); } else { save(null); }
             },
@@ -773,7 +808,7 @@
                         <td class="p-4 md:p-6 font-black text-blue-900 text-sm md:text-lg">₹${((s.totalFee+s.oldDue)-s.paid).toLocaleString()}</td>
                         <td class="p-4 md:p-6 text-right"><button class="bg-blue-900 text-white px-4 py-2 rounded-lg text-[10px] font-black uppercase">Manage</button></td>
                     </tr>
-                `).join('') || '<tr><td colspan="6" class="p-10 text-center opacity-40">No records.</td></tr>';
+                `).join('') || '<tr><td colspan="6" class="p-10 text-center opacity-40">No records found.</td></tr>';
             },
             openModal: (id) => {
                 state.activeStudentId = id; const s = state.students.find(x => x.id === id); if(!s) return;
@@ -791,22 +826,35 @@
             },
             viewSlip: () => { const s = state.students.find(x => x.id === state.activeStudentId); const win = window.open(); win.document.write(`<iframe src="${s.concessionSlipData}" frameborder="0" style="width:100%; height:100%;"></iframe>`); },
             payFee: async (e) => {
-                e.preventDefault(); const s = state.students.find(x => x.id === state.activeStudentId); const amt = parseFloat(document.getElementById('pay-amt').value);
-                s.paid += amt; if(!s.history) s.history = [];
-                s.history.push({ receiptNo: document.getElementById('pay-rec').value, date: document.getElementById('pay-date').value, category: document.getElementById('pay-category').value, mode: document.getElementById('pay-mode').value, amount: amt });
-                await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', s.id), s);
-                admin.openModal(s.id);
+                e.preventDefault();
+                if (!auth.currentUser) { showFeedback('Cloud error: Not Authenticated', 'error'); return; }
+                try {
+                    const s = state.students.find(x => x.id === state.activeStudentId); const amt = parseFloat(document.getElementById('pay-amt').value);
+                    s.paid += amt; if(!s.history) s.history = [];
+                    s.history.push({ receiptNo: document.getElementById('pay-rec').value, date: document.getElementById('pay-date').value, category: document.getElementById('pay-category').value, mode: document.getElementById('pay-mode').value, amount: amt });
+                    await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', s.id), s);
+                    showFeedback('Payment Recorded'); admin.openModal(s.id);
+                } catch (err) { showFeedback('Update Failed', 'error'); }
             },
             addUpdate: async (e) => {
                 e.preventDefault();
-                const data = { id: Date.now(), text: document.getElementById('update-text').value, category: document.getElementById('update-category').value, subject: document.getElementById('update-subject').value, classGrade: document.getElementById('update-class').value, date: document.getElementById('update-date').value };
-                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'updates'), data);
-                document.getElementById('update-text').value = '';
+                if (!auth.currentUser) { showFeedback('Cloud error: Not Authenticated', 'error'); return; }
+                try {
+                    const data = { id: Date.now(), text: document.getElementById('update-text').value, category: document.getElementById('update-category').value, subject: document.getElementById('update-subject').value, classGrade: document.getElementById('update-class').value, date: document.getElementById('update-date').value };
+                    await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'updates'), data);
+                    document.getElementById('update-text').value = '';
+                    showFeedback('Notice Posted Successfully');
+                } catch (err) { showFeedback('Notice Failed', 'error'); }
             },
             renderHistory: () => {
                 document.getElementById('admin-updates-list').innerHTML = state.updates.map(u => `<li class="bg-slate-50 p-4 rounded-xl flex justify-between items-center border font-bold"><div><div class="text-[9px] text-gray-400 uppercase">${u.category}</div><div class="text-sm font-bold text-indigo-950">${u.text}</div></div><button onclick="admin.deleteUpdate('${u.firestoreId}')" class="text-red-600 p-2"><span class="material-symbols-outlined">delete</span></button></li>`).join('');
             },
-            deleteUpdate: async (id) => { if(confirm("Delete notice?")) await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'updates', id)); },
+            deleteUpdate: async (id) => { 
+                if (!auth.currentUser) return;
+                if(confirm("Delete this notice?")) {
+                    try { await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'updates', id)); showFeedback('Notice Deleted'); } catch (e) { showFeedback('Delete Failed', 'error'); }
+                }
+            },
             toggleBlogInputs: () => {
                 const type = document.getElementById('blog-type').value;
                 document.getElementById('blog-file-area').classList.toggle('hidden', type !== 'image' && type !== 'local_video');
@@ -814,25 +862,40 @@
                 document.getElementById('blog-embed-area').classList.toggle('hidden', type !== 'embed');
             },
             addBlogPost: async (e) => {
-                e.preventDefault(); const type = document.getElementById('blog-type').value; const title = document.getElementById('blog-title').value; const date = document.getElementById('blog-date').value; const embedCode = document.getElementById('blog-embed').value;
-                const savePost = async (url) => { const data = { id: Date.now(), title, date, type, url, embedCode: type === 'embed' ? embedCode : null }; await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'blogPosts'), data); e.target.reset(); admin.toggleBlogInputs(); };
+                e.preventDefault();
+                if (!auth.currentUser) { showFeedback('Cloud error', 'error'); return; }
+                const type = document.getElementById('blog-type').value; const title = document.getElementById('blog-title').value; const date = document.getElementById('blog-date').value; const embedCode = document.getElementById('blog-embed').value;
+                const savePost = async (url) => { 
+                    try {
+                        const data = { id: Date.now(), title, date, type, url, embedCode: type === 'embed' ? embedCode : null }; 
+                        await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'blogPosts'), data); 
+                        e.target.reset(); admin.toggleBlogInputs(); showFeedback('Post Published');
+                    } catch (e) { showFeedback('Post Failed', 'error'); }
+                };
                 if(type === 'image' || type === 'local_video') {
                     const file = document.getElementById('blog-file').files[0];
-                    if(file && file.size < 700000) { const r = new FileReader(); r.onload = (ev) => savePost(ev.target.result); r.readAsDataURL(file); }
+                    if(file && file.size < 700000) { const r = new FileReader(); r.onload = (ev) => savePost(ev.target.result); r.readAsDataURL(file); } else { showFeedback('File too large', 'error'); }
                 } else if (type === 'embed') { savePost(null); } else { savePost(document.getElementById('blog-url').value); }
             },
             renderBlogList: () => {
                 document.getElementById('admin-blog-list').innerHTML = state.blogPosts.map(p => `<li class="flex justify-between items-center p-4 border rounded-xl font-bold bg-indigo-50/50"><div><div class="text-[9px] text-gray-400 uppercase font-black">${p.type}</div><div class="text-sm font-black text-indigo-950">${p.title}</div></div><button onclick="admin.deleteBlogPost('${p.firestoreId}')" class="text-red-600 p-2"><span class="material-symbols-outlined">delete</span></button></li>`).join('');
             },
-            deleteBlogPost: async (id) => { if(confirm("Delete highlight?")) await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'blogPosts', id)); },
+            deleteBlogPost: async (id) => { 
+                if (!auth.currentUser) return;
+                if(confirm("Delete highlight?")) {
+                    try { await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'blogPosts', id)); showFeedback('Post Deleted'); } catch (e) { showFeedback('Delete Failed', 'error'); }
+                }
+            },
             closeModal: () => document.getElementById('profile-modal').classList.add('hidden-modal'),
             showDeleteConfirm: () => { document.getElementById('delete-password').value = ''; document.getElementById('delete-modal').classList.remove('hidden-modal'); },
             closeDeleteModal: () => document.getElementById('delete-modal').classList.add('hidden-modal'),
             confirmDelete: async () => {
-                if(document.getElementById('delete-password').value === '123' && db) {
-                    await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', state.activeStudentId));
-                    admin.closeDeleteModal(); admin.closeModal(); alert('Deleted');
-                } else alert('Wrong PIN');
+                if(document.getElementById('delete-password').value === '123' && db && auth.currentUser) {
+                    try {
+                        await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', state.activeStudentId));
+                        admin.closeDeleteModal(); admin.closeModal(); showFeedback('Record Deleted');
+                    } catch (e) { showFeedback('Delete Failed', 'error'); }
+                } else showFeedback('Incorrect PIN', 'error');
             },
             exportExcel: () => {
                 const d = state.students.map(s => ({ "ID": s.admnNo, "Name": s.name, "Class": s.classGrade, "Balance": (s.totalFee + s.oldDue) - s.paid }));
