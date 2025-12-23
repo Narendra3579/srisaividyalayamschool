@@ -78,18 +78,34 @@
         .play-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.3); transition: background 0.3s; z-index: 10; }
         .sync-pulse { width: 8px; height: 8px; background: #10b981; border-radius: 50%; display: inline-block; animation: pulse 2s infinite; }
         @keyframes pulse { 0% { transform: scale(0.95); opacity: 0.7; } 70% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(0.95); opacity: 0.7; } }
+
+        /* SPLASH SCREEN */
+        #cloud-loader {
+            position: fixed; inset: 0; background: #f8fafc; z-index: 1000;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+
+        /* ADMISSION POPUP STYLES */
+        #admission-popup {
+            position: fixed;
+            bottom: 24px;
+            left: -450px; /* Hidden state */
+            z-index: 50;
+            transition: left 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        #admission-popup.show {
+            left: 24px;
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
 
     <!-- SPLASH SCREEN -->
     <div id="cloud-loader">
-        <div class="loader-container mb-6">
-            <div class="book-wrap">
-                <div class="book-base"></div>
-                <div class="book-page"></div>
-                <div class="book-cover"></div>
-            </div>
+        <div class="mb-6 flex space-x-2">
+            <div class="w-4 h-4 bg-indigo-600 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+            <div class="w-4 h-4 bg-indigo-600 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+            <div class="w-4 h-4 bg-indigo-600 rounded-full animate-bounce" style="animation-delay: 0.3s"></div>
         </div>
         <p id="loader-text" class="text-xs font-bold tracking-[0.3em] uppercase text-indigo-900">Sri Sai Vidyalayam</p>
     </div>
@@ -101,8 +117,9 @@
                 <div class="flex items-center space-x-4 cursor-pointer group" onclick="router.navigate('home')">
                     <div class="bg-white text-indigo-950 h-12 w-12 rounded-2xl flex items-center justify-center font-bold text-xl border-2 border-amber-400 transform group-hover:rotate-6 transition">SSV</div>
                     <div>
+                        <span class="bg-amber-500 text-indigo-950 px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-wider mb-1 inline-block leading-none">Recognised by Govt of AP</span>
                         <h1 class="text-2xl font-bold tracking-tight leading-none uppercase">Sri Sai Vidyalayam</h1>
-                        <p class="text-[9px] text-amber-400 uppercase tracking-[0.3em] font-black mt-1 text-center">Excellence in Education</p>
+                        <p class="text-[9px] text-amber-400 uppercase tracking-[0.3em] font-black mt-1 font-bold">Excellence in Education</p>
                     </div>
                 </div>
                 <div class="hidden md:flex space-x-4 items-center font-bold">
@@ -183,7 +200,7 @@
                 </div>
             </section>
             
-            <!-- BLOG SLIDER -->
+            <!-- HIGHLIGHTS SLIDER -->
             <section class="max-w-7xl mx-auto px-4 py-24 text-center font-bold">
                 <h2 class="text-4xl font-black text-indigo-950 uppercase border-b-4 border-amber-400 inline-block pb-2 mb-12">Recent Highlights</h2>
                 <div class="flex items-center justify-center gap-4">
@@ -199,7 +216,7 @@
                 </div>
             </section>
 
-            <!-- FOOTER INFO -->
+            <!-- FOOTER -->
             <footer class="bg-indigo-950 text-indigo-100 pt-24 pb-12">
                 <div class="max-w-7xl mx-auto px-4">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
@@ -249,7 +266,7 @@
                         <h3 class="text-2xl font-black text-white uppercase flex items-center gap-3">
                             <span class="material-symbols-outlined text-amber-400 text-4xl font-bold">campaign</span> Class Board
                         </h3>
-                        <div class="w-full md:w-64 font-bold">
+                        <div class="w-full md:w-64">
                             <select id="board-class-filter" class="w-full bg-indigo-900 border border-indigo-700 text-white rounded-2xl p-4 font-bold outline-none" onchange="home.renderUpdates()"></select>
                         </div>
                     </div>
@@ -295,7 +312,7 @@
                 </div>
             </div>
 
-            <div class="flex-1 p-6 md:p-8 overflow-y-auto font-bold">
+            <div class="flex-1 p-6 md:p-8 overflow-y-auto">
                 <div id="tab-dashboard" class="admin-content space-y-6">
                     <h2 class="text-2xl font-black">Overview</h2>
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 font-bold">
@@ -308,7 +325,7 @@
                 </div>
 
                 <div id="tab-admissions" class="admin-content hidden space-y-6">
-                    <h2 class="text-2xl font-black font-bold">New Admission</h2>
+                    <h2 class="text-2xl font-black">New Admission</h2>
                     <form onsubmit="admin.submitAdmission(event)" class="bg-white rounded-3xl shadow-xl p-8 border grid grid-cols-1 md:grid-cols-2 gap-6 font-bold">
                         <div><label class="block text-sm">Admission ID</label><input type="text" name="admnNo" class="w-full border-2 p-3 rounded-xl focus:border-blue-500" required></div>
                         <div><label class="block text-sm">Grade</label><select id="admit-class" name="classGrade" class="w-full border-2 p-3 rounded-xl font-bold"></select></div>
@@ -325,15 +342,25 @@
                     </form>
                 </div>
 
-                <div id="tab-students" class="admin-content hidden space-y-6">
-                    <div class="flex justify-between items-center font-bold font-bold"><h2 class="text-2xl font-black">Student Records</h2>
+                <div id="tab-students" class="admin-content hidden space-y-6 font-bold">
+                    <div class="flex justify-between items-center"><h2 class="text-2xl font-black">Student Records</h2>
                         <div class="flex gap-2">
                             <button onclick="printer.printMasterLedger()" class="bg-indigo-700 text-white px-5 py-2 rounded-xl font-bold shadow-md">Ledger</button>
                             <button onclick="admin.exportExcel()" class="bg-indigo-950 text-white px-5 py-2 rounded-xl font-bold shadow-md">Excel</button>
                         </div>
                     </div>
-                    <div class="flex gap-2 font-bold"><select id="filter-class" class="border-2 rounded-xl bg-white px-4 font-bold" onchange="admin.renderStudents()"></select><input type="text" id="filter-search" class="border-2 rounded-xl flex-1 px-4 py-2 font-bold" placeholder="Search..." oninput="admin.renderStudents()"></div>
-                    <div class="bg-white rounded-3xl shadow-xl overflow-x-auto"><table class="min-w-full text-sm"><thead class="bg-gray-50 border-b"><tr><th class="p-5 text-left">ID</th><th class="p-5 text-left">Name</th><th class="p-5 text-left">Class</th><th class="p-5 text-left text-orange-600">Old Fee</th><th class="p-5 text-left font-black">Balance</th><th class="p-5 text-right">Actions</th></tr></thead><tbody id="student-list-body" class="divide-y font-bold"></tbody></table></div>
+                    <div class="flex gap-2 font-bold">
+                        <select id="filter-class" class="border-2 rounded-xl bg-white px-4 font-bold" onchange="admin.renderStudents()"></select>
+                        <input type="text" id="filter-search" class="border-2 rounded-xl flex-1 px-4 py-2 font-bold" placeholder="Search by name..." oninput="admin.renderStudents()">
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-xl overflow-x-auto">
+                        <table class="min-w-full text-sm">
+                            <thead class="bg-gray-50 border-b">
+                                <tr><th class="p-5 text-left">ID</th><th class="p-5 text-left">Name</th><th class="p-5 text-left">Class</th><th class="p-5 text-left text-orange-600">Old Fee</th><th class="p-5 text-left font-black">Balance</th><th class="p-5 text-right">Actions</th></tr>
+                            </thead>
+                            <tbody id="student-list-body" class="divide-y font-bold"></tbody>
+                        </table>
+                    </div>
                 </div>
 
                 <div id="tab-manage_blog" class="admin-content hidden space-y-6">
@@ -358,24 +385,54 @@
                                 <button type="submit" class="w-full bg-orange-600 text-white py-3 rounded-xl font-bold">Publish Post</button>
                             </form>
                         </div>
-                        <div class="bg-white p-6 rounded-3xl shadow h-[550px] overflow-y-auto font-bold"><ul id="admin-blog-list" class="space-y-3 font-bold"></ul></div>
+                        <div class="bg-white p-6 rounded-3xl shadow h-[550px] overflow-y-auto">
+                            <ul id="admin-blog-list" class="space-y-3 font-bold"></ul>
+                        </div>
                     </div>
                 </div>
 
                 <div id="tab-dailyboard" class="admin-content hidden space-y-6">
-                    <h2 class="text-2xl font-black">Notice Management</h2>
+                    <h2 class="text-2xl font-black">Daily Board Notices</h2>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 font-bold">
                         <form id="notice-form" onsubmit="admin.addUpdate(event)" class="bg-white p-8 rounded-3xl shadow border space-y-4">
                             <div class="grid grid-cols-2 gap-4">
                                 <select id="update-class" class="border p-3 rounded-xl font-bold"></select>
-                                <select id="update-category" class="border p-3 rounded-xl font-bold font-bold"><option>Homework</option><option>Class Test</option><option>Event</option><option>General News</option></select>
+                                <select id="update-category" class="border p-3 rounded-xl font-bold"><option>Homework</option><option>Class Test</option><option>Event</option><option>General News</option></select>
                             </div>
-                            <select id="update-subject" class="w-full border p-3 rounded-xl font-bold font-bold"><option value="General">General</option><option value="Telugu">Telugu</option><option value="Hindi">Hindi</option><option value="English">English</option><option value="Mathematics">Mathematics</option><option value="Science">Science</option><option value="Social">Social</option><option value="E.V.S">E.V.S</option></select>
+                            <select id="update-subject" class="w-full border p-3 rounded-xl font-bold">
+                                <option value="General">General</option><option value="Telugu">Telugu</option><option value="Hindi">Hindi</option><option value="English">English</option><option value="Mathematics">Mathematics</option><option value="Science">Science</option><option value="Social">Social</option><option value="E.V.S">E.V.S</option>
+                            </select>
                             <input type="date" id="update-date" class="w-full border p-3 rounded-xl font-bold" required>
-                            <textarea id="update-text" class="w-full border p-4 rounded-xl h-32 font-bold" placeholder="Message..." required></textarea>
-                            <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold font-bold">Post Notice</button>
+                            <textarea id="update-text" class="w-full border p-4 rounded-xl h-32 font-bold" placeholder="Notice message..." required></textarea>
+                            <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold">Post Notice</button>
                         </form>
-                        <div class="bg-white p-6 rounded-3xl shadow h-[500px] overflow-y-auto font-bold font-bold font-bold"><ul id="admin-updates-list" class="space-y-3"></ul></div>
+                        <div class="bg-white p-6 rounded-3xl shadow h-[500px] overflow-y-auto">
+                            <ul id="admin-updates-list" class="space-y-3 font-bold"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ADMISSION POPUP -->
+        <div id="admission-popup" class="max-w-sm bg-white rounded-[2.5rem] shadow-2xl p-6 border-2 border-amber-400 no-print font-bold">
+            <button onclick="document.getElementById('admission-popup').classList.remove('show')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                <span class="material-symbols-outlined font-black text-xl">close</span>
+            </button>
+            <div class="flex items-start gap-4">
+                <div class="bg-amber-100 h-12 w-12 flex-shrink-0 flex items-center justify-center rounded-2xl">
+                    <span class="material-symbols-outlined text-amber-600 font-bold">school</span>
+                </div>
+                <div>
+                    <p class="text-[10px] text-amber-600 uppercase tracking-widest font-black mb-1">Enrolment Phase</p>
+                    <h4 class="text-indigo-950 text-xl font-black leading-tight uppercase tracking-tighter">Admissions Open<br>2026-2027</h4>
+                    <p class="text-[11px] text-slate-500 mt-2 font-bold leading-relaxed italic">"Nurturing young minds in a peaceful environment."</p>
+                    
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <!-- Direct Call Link -->
+                        <a href="tel:8121218825" class="bg-amber-500 hover:bg-amber-600 text-indigo-950 px-5 py-2.5 rounded-xl text-xs font-black uppercase shadow-lg shadow-amber-100 transition flex items-center justify-center gap-1 active:scale-95 w-full md:w-auto">
+                            <span class="material-symbols-outlined text-sm font-bold">call</span> Call Now
+                        </a>
                     </div>
                 </div>
             </div>
@@ -384,181 +441,331 @@
         <!-- PROFILE MODAL -->
         <div id="profile-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black bg-opacity-70 hidden-modal modal no-print p-4">
             <div class="bg-white w-full max-w-5xl h-[90vh] rounded-[3rem] shadow-2xl flex flex-col overflow-hidden font-bold">
-                <div class="bg-blue-900 text-white p-6 flex justify-between items-center font-bold font-bold font-bold"><h2 id="modal-title" class="text-2xl font-black"></h2><button onclick="admin.closeModal()" class="text-white text-4xl font-bold font-bold">&times;</button></div>
-                <div class="flex-1 overflow-y-auto p-10 bg-gray-50 font-bold font-bold">
+                <div class="bg-blue-900 text-white p-6 flex justify-between items-center font-bold">
+                    <h2 id="modal-title" class="text-2xl font-black uppercase"></h2>
+                    <button onclick="admin.closeModal()" class="text-white text-4xl font-bold">&times;</button>
+                </div>
+                <div class="flex-1 overflow-y-auto p-6 md:p-10 bg-gray-50">
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         <div class="space-y-6">
-                            <div class="bg-white p-5 rounded-lg shadow border font-bold">
-                                <p>Grade: <span id="modal-class"></span></p><p>Parent: <span id="modal-father"></span></p><p>Mobile: <span id="modal-contact"></span></p>
-                                <div id="modal-slip-box" class="hidden mt-4 border-t pt-4 font-bold"><button onclick="admin.viewSlip()" class="w-full bg-indigo-50 text-indigo-700 p-2 rounded-xl text-xs font-bold uppercase font-bold font-bold">View Slip</button></div>
+                            <div class="bg-white p-6 rounded-2xl shadow border space-y-3 font-bold">
+                                <p class="text-xs uppercase text-slate-400">Student Info</p>
+                                <p>Grade: <span id="modal-class" class="text-blue-900"></span></p>
+                                <p>Parent: <span id="modal-father"></span></p>
+                                <p>Mobile: <span id="modal-contact"></span></p>
+                                <div id="modal-slip-box" class="hidden mt-4 border-t pt-4">
+                                    <button onclick="admin.viewSlip()" class="w-full bg-indigo-50 text-indigo-700 p-2 rounded-xl text-xs font-bold uppercase">View Concession Slip</button>
+                                </div>
                             </div>
-                            <div class="bg-blue-50 p-5 rounded-3xl border border-blue-200 font-bold font-bold font-bold">
-                                <div class="flex justify-between"><span>Old Fee:</span> <span id="modal-fee-old"></span></div>
-                                <div class="flex justify-between text-red-600 font-bold font-bold"><span>Balance:</span> <span id="modal-fee-due"></span></div>
+                            <div class="bg-blue-50 p-6 rounded-2xl border border-blue-200 font-bold">
+                                <div class="flex justify-between mb-2"><span>Old Fee:</span> <span id="modal-fee-old"></span></div>
+                                <div class="flex justify-between text-red-600 font-black text-lg"><span>Total Balance:</span> <span id="modal-fee-due"></span></div>
                             </div>
-                            <button onclick="printer.printLedger()" class="w-full bg-white border-2 p-4 rounded-2xl font-bold shadow-sm font-bold font-bold">Print Ledger</button>
-                            <button onclick="admin.showDeleteConfirm()" class="w-full bg-red-50 text-red-600 p-3 rounded-2xl font-bold uppercase text-[10px] border border-red-200 font-bold">Delete</button>
+                            <div class="space-y-2">
+                                <button onclick="printer.printLedger()" class="w-full bg-white border-2 p-4 rounded-2xl font-bold shadow-sm hover:bg-slate-50">Print Statement</button>
+                                <button onclick="admin.showDeleteConfirm()" class="w-full bg-red-50 text-red-600 p-3 rounded-2xl font-bold uppercase text-[10px] border border-red-200">Delete Record</button>
+                            </div>
                         </div>
                         <div class="lg:col-span-2 space-y-6">
-                            <form onsubmit="admin.payFee(event)" class="bg-white p-8 rounded-3xl shadow border grid grid-cols-2 gap-4 font-bold font-bold">
+                            <form onsubmit="admin.payFee(event)" class="bg-white p-8 rounded-3xl shadow border grid grid-cols-2 gap-4 font-bold">
+                                <div class="col-span-2 text-xs uppercase text-slate-400 mb-2">New Payment Collection</div>
                                 <input type="text" id="pay-rec" class="border p-3 rounded-xl font-bold" placeholder="Receipt #" required>
                                 <input type="date" id="pay-date" class="border p-3 rounded-xl font-bold" required>
-                                <select id="pay-category" class="border p-3 rounded-xl font-bold font-bold"><option>Academic Fee</option><option>Old Fee</option></select>
-                                <select id="pay-mode" class="border p-3 rounded-xl font-bold font-bold font-bold font-bold"><option>Cash</option><option>UPI</option><option>Bank Transfer</option></select>
-                                <input type="number" id="pay-amt" class="col-span-2 border-2 border-green-500 p-3 rounded-xl font-black text-2xl font-bold font-bold" placeholder="Amount" required>
-                                <button type="submit" class="col-span-2 bg-green-600 text-white py-4 rounded-2xl font-bold font-bold">Record Collection</button>
+                                <select id="pay-category" class="border p-3 rounded-xl font-bold"><option>Academic Fee</option><option>Old Fee</option></select>
+                                <select id="pay-mode" class="border p-3 rounded-xl font-bold"><option>Cash</option><option>UPI</option><option>Bank Transfer</option></select>
+                                <input type="number" id="pay-amt" class="col-span-2 border-2 border-green-500 p-4 rounded-xl font-black text-2xl font-bold" placeholder="Amount (₹)" required>
+                                <button type="submit" class="col-span-2 bg-green-600 text-white py-4 rounded-2xl font-bold shadow-lg hover:bg-green-700 transition">Record Collection</button>
                             </form>
-                            <div class="bg-white rounded-3xl shadow border overflow-hidden font-bold font-bold"><table class="w-full text-xs text-left"><tbody id="modal-history" class="divide-y font-bold"></tbody></table></div>
+                            <div class="bg-white rounded-3xl shadow border overflow-hidden font-bold">
+                                <div class="p-4 bg-gray-50 text-xs font-black uppercase tracking-widest border-b">Payment History</div>
+                                <table class="w-full text-xs text-left">
+                                    <tbody id="modal-history" class="divide-y font-bold"></tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- DELETE MODAL -->
-        <div id="delete-modal" class="fixed inset-0 z-[110] flex items-center justify-center bg-black bg-opacity-80 hidden-modal modal font-bold font-bold"><div class="bg-white w-full max-w-sm rounded-[3rem] p-10 text-center shadow-2xl font-bold font-bold"><span class="material-symbols-outlined text-6xl text-red-600 mb-2 font-bold">security</span><h3 class="text-xl font-black mb-4 text-red-600 uppercase tracking-widest font-bold">Pin Required</h3><input type="password" id="delete-password" class="w-full border-2 p-5 rounded-2xl text-center mb-8 font-black text-3xl outline-none focus:border-red-500 font-bold" placeholder="••••"><div class="grid grid-cols-2 gap-4 font-bold"><button onclick="admin.closeDeleteModal()" class="bg-gray-100 py-3 rounded-2xl font-bold uppercase text-[10px]">Cancel</button><button onclick="admin.confirmDelete()" class="bg-red-600 text-white py-3 rounded-2xl font-bold uppercase text-[10px]">Delete</button></div></div></div>
+        <!-- DELETE CONFIRMATION MODAL -->
+        <div id="delete-modal" class="fixed inset-0 z-[110] flex items-center justify-center bg-black bg-opacity-80 hidden-modal modal">
+            <div class="bg-white w-full max-w-sm rounded-[3rem] p-10 text-center shadow-2xl font-bold">
+                <span class="material-symbols-outlined text-6xl text-red-600 mb-2 font-bold">security</span>
+                <h3 class="text-xl font-black mb-4 text-red-600 uppercase tracking-widest">Pin Required</h3>
+                <input type="password" id="delete-password" class="w-full border-2 p-5 rounded-2xl text-center mb-8 font-black text-3xl outline-none focus:border-red-500" placeholder="••••">
+                <div class="grid grid-cols-2 gap-4">
+                    <button onclick="admin.closeDeleteModal()" class="bg-gray-100 py-4 rounded-2xl font-bold uppercase text-[10px]">Cancel</button>
+                    <button onclick="admin.confirmDelete()" class="bg-red-600 text-white py-4 rounded-2xl font-bold uppercase text-[10px]">Confirm</button>
+                </div>
+            </div>
+        </div>
 
+        <!-- PRINT AREA (Hidden) -->
         <div id="printable-area" class="hidden"></div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, collection, onSnapshot, addDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, collection, onSnapshot, addDoc, deleteDoc, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
+        // Firebase Configuration
         const firebaseConfigRaw = typeof __firebase_config !== 'undefined' ? __firebase_config : '{}';
         const firebaseConfig = JSON.parse(firebaseConfigRaw);
-        let app, auth, db;
+        let app, auth, db, user;
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'sri-sai-vidyalayam';
 
         window.initCloud = async function() {
-            if (!firebaseConfig.apiKey) { document.getElementById('cloud-loader').style.display = 'none'; return; }
+            if (!firebaseConfig.apiKey) { 
+                document.getElementById('cloud-loader').style.display = 'none'; 
+                router.navigate('home');
+                // Trigger Admission Popup for Demo
+                setTimeout(() => document.getElementById('admission-popup').classList.add('show'), 3000);
+                return; 
+            }
             try {
-                app = initializeApp(firebaseConfig); auth = getAuth(app); db = getFirestore(app);
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) { await signInWithCustomToken(auth, __initial_auth_token); } else { await signInAnonymously(auth); }
-                initSync(); document.getElementById('cloud-loader').style.display = 'none';
-            } catch (e) { document.getElementById('loader-text').innerHTML = "<span style='color:red;'>Link Broken.</span>"; }
+                app = initializeApp(firebaseConfig); 
+                auth = getAuth(app); 
+                db = getFirestore(app);
+
+                const initAuth = async () => {
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+                };
+                await initAuth();
+                onAuthStateChanged(auth, (u) => {
+                    user = u;
+                    if (u) {
+                        initSync();
+                        document.getElementById('cloud-loader').style.display = 'none';
+                        router.navigate('home');
+                        
+                        // Show admission popup after 3 seconds on load
+                        setTimeout(() => {
+                            const pop = document.getElementById('admission-popup');
+                            if(pop) pop.classList.add('show');
+                        }, 3500);
+                    }
+                });
+            } catch (e) {
+                document.getElementById('loader-text').innerHTML = "<span style='color:red;'>Connection Error.</span>";
+            }
         }
 
         const initSync = () => {
-            if (!db) return;
+            if (!db || !user) return;
+
+            // Sync Students
             onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'students'), (snap) => {
                 state.students = snap.docs.map(d => ({ firestoreId: d.id, ...d.data() }));
-                if (document.getElementById('view-admin').offsetParent) { admin.renderDash(); admin.renderStudents(); }
-            });
+                if (document.getElementById('view-admin').offsetParent) { 
+                    admin.renderDash(); 
+                    admin.renderStudents(); 
+                }
+            }, (err) => console.error("Student sync error:", err));
+
+            // Sync Daily Updates
             onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'updates'), (snap) => {
-                const newUpdates = snap.docs.map(d => ({ firestoreId: d.id, ...d.data() })).sort((a,b) => b.id - a.id);
-                if (!updatesInitialLoad && newUpdates.length > state.updates.length) { unseenUpdatesCount += (newUpdates.length - state.updates.length); updateBadge(); }
-                state.updates = newUpdates; updatesInitialLoad = false; home.renderUpdates();
+                const newUpdates = snap.docs.map(d => ({ firestoreId: d.id, ...d.data() }))
+                    .sort((a, b) => b.id - a.id);
+                
+                if (!updatesInitialLoad && newUpdates.length > state.updates.length) {
+                    unseenUpdatesCount += (newUpdates.length - state.updates.length);
+                    updateBadge();
+                }
+                state.updates = newUpdates;
+                updatesInitialLoad = false;
+                home.renderUpdates();
                 if (document.getElementById('view-admin').offsetParent) admin.renderHistory();
-            });
+            }, (err) => console.error("Updates sync error:", err));
+
+            // Sync Blog Posts
             onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'blogPosts'), (snap) => {
-                state.blogPosts = snap.docs.map(d => ({ firestoreId: d.id, ...d.data() })).sort((a,b) => b.id - a.id);
-                home.renderBlog(); if (document.getElementById('view-admin').offsetParent) admin.renderBlogList();
-            });
+                state.blogPosts = snap.docs.map(d => ({ firestoreId: d.id, ...d.data() }))
+                    .sort((a, b) => b.id - a.id);
+                home.renderBlog();
+                if (document.getElementById('view-admin').offsetParent) admin.renderBlogList();
+            }, (err) => console.error("Blog sync error:", err));
+        };
+
+        // Local Application State
+        window.state = {
+            isLoggedIn: false,
+            activeStudentId: null,
+            activeBlogIndex: 0,
+            fees: { 
+                "Nursery": 15000, "LKG": 16000, "UKG": 17000, 
+                "1st Class": 18000, "2nd Class": 19000, "3rd Class": 20000, 
+                "4th Class": 21000, "5th Class": 22000, "6th Class": 23000, 
+                "7th Class": 24000, "8th Class": 25000, "9th Class": 28000, 
+                "10th Class": 30000 
+            },
+            students: [],
+            updates: [],
+            blogPosts: []
         };
 
         let updatesInitialLoad = true;
         let unseenUpdatesCount = 0;
+
         function updateBadge() {
             const b = document.getElementById('nav-updates-badge');
             const mb = document.getElementById('mobile-updates-badge');
             if (unseenUpdatesCount > 0) {
                 [b, mb].forEach(el => { if(el){ el.innerText = unseenUpdatesCount; el.classList.remove('hidden'); } });
-            } else { [b, mb].forEach(el => { if(el) el.classList.add('hidden'); }); }
-        }
-
-        window.state = {
-            isLoggedIn: false, activeStudentId: null, activeBlogIndex: 0,
-            fees: { "Nursery": 15000, "LKG": 16000, "UKG": 17000, "1st Class": 18000, "2nd Class": 19000, "3rd Class": 20000, "4th Class": 21000, "5th Class": 22000, "6th Class": 23000, "7th Class": 24000, "8th Class": 25000, "9th Class": 28000, "10th Class": 30000 },
-            students: [], updates: [], blogPosts: []
-        };
-
-        window.ui = {
-            showToast: (msg, isError = false) => {
-                const toast = document.getElementById('status-toast');
-                toast.querySelector('#toast-msg').innerText = msg;
-                toast.classList.remove('hidden'); toast.classList.add('show');
-                toast.style.backgroundColor = isError ? '#991b1b' : '#1e1b4b';
-                setTimeout(() => { toast.classList.add('hidden'); toast.classList.remove('show'); }, 3000);
+            } else { 
+                [b, mb].forEach(el => { if(el) el.classList.add('hidden'); }); 
             }
-        };
+        }
 
         window.auth_manager = {
             login: (e) => {
                 e.preventDefault();
-                if(document.getElementById('userid').value === 'admin' && document.getElementById('password').value === '123') {
-                    state.isLoggedIn = true; router.navigate('admin');
-                } else ui.showToast('Invalid PIN', true);
+                const uid = document.getElementById('userid').value;
+                const pass = document.getElementById('password').value;
+                if(uid === 'admin' && pass === '123') {
+                    state.isLoggedIn = true;
+                    router.navigate('admin');
+                } else {
+                    alert('Invalid Admin Credentials');
+                }
             },
-            logout: () => { state.isLoggedIn = false; router.navigate('home'); }
+            logout: () => {
+                state.isLoggedIn = false;
+                router.navigate('home');
+            }
         };
 
         window.router = {
             navigate: (view) => {
                 if(view === 'admin' && !state.isLoggedIn) return router.navigate('login');
+                
                 document.querySelectorAll('[id^="view-"]').forEach(el => el.classList.add('hidden'));
                 const target = document.getElementById(`view-${view}`);
                 if (target) target.classList.remove('hidden');
-                if (view === 'updates') { unseenUpdatesCount = 0; updateBadge(); }
+
+                if (view === 'updates') { 
+                    unseenUpdatesCount = 0; 
+                    updateBadge(); 
+                }
+                
                 if(view === 'home' || view === 'updates') home.init();
                 if(view === 'admin') admin.init();
+                
                 window.scrollTo(0,0);
             }
-        };
-
-        const parseVideoId = (url) => {
-            if(!url) return null;
-            const regExp = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/|youtube\.com\/shorts\/)([^"&?\/\s]{11})/;
-            const match = url.match(regExp); return match ? match[1] : null;
         };
 
         window.home = {
             init: () => {
                 const classOpts = Object.keys(state.fees).map(c => `<option value="${c}">${c}</option>`).join('');
-                document.querySelectorAll('#board-class-filter, #home-class-filter').forEach(s => s.innerHTML = `<option value="All">All Classes</option>` + classOpts);
-                home.renderUpdates(); home.renderBlog(); home.startTextSlider();
+                const boardFilter = document.getElementById('board-class-filter');
+                if (boardFilter) boardFilter.innerHTML = `<option value="All">All Classes</option>` + classOpts;
+                
+                home.renderUpdates();
+                home.renderBlog();
+                home.startTextSlider();
             },
             startTextSlider: () => {
                 let slides = document.querySelectorAll('#hero-text-slider .slide');
-                let current = 0; if(window.textInterval) clearInterval(window.textInterval);
-                window.textInterval = setInterval(() => { if(slides.length > 0) { slides[current].classList.remove('active'); current = (current + 1) % slides.length; slides[current].classList.add('active'); } }, 5000);
+                let current = 0;
+                if(window.textInterval) clearInterval(window.textInterval);
+                window.textInterval = setInterval(() => {
+                    if(slides.length > 0) {
+                        slides[current].classList.remove('active');
+                        current = (current + 1) % slides.length;
+                        slides[current].classList.add('active');
+                    }
+                }, 5000);
             },
             playMedia: (containerId, type, url) => {
-                const container = document.getElementById(containerId); if(!container) return;
-                if(type === 'youtube') { container.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${parseVideoId(url)}?autoplay=1" frameborder="0" allowfullscreen allow="autoplay; encrypted-media"></iframe>`; }
-                else if(type === 'local_video') { container.innerHTML = `<video width="100%" height="100%" controls autoplay playsinline><source src="${url}" type="video/mp4"></video>`; }
-                else if(type === 'instagram') { const cleanUrl = url.split('?')[0].replace(/\/$/, ""); container.innerHTML = `<iframe width="100%" height="100%" src="${cleanUrl}/embed/" frameborder="0" scrolling="no"></iframe>`; }
+                const container = document.getElementById(containerId);
+                if(!container) return;
+                
+                if(type === 'youtube') {
+                    const regExp = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/|youtube\.com\/shorts\/)([^"&?\/\s]{11})/;
+                    const match = url.match(regExp);
+                    const id = match ? match[1] : null;
+                    container.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}?autoplay=1" frameborder="0" allowfullscreen allow="autoplay; encrypted-media"></iframe>`;
+                } else if(type === 'local_video') {
+                    container.innerHTML = `<video width="100%" height="100%" controls autoplay playsinline><source src="${url}" type="video/mp4"></video>`;
+                } else if(type === 'instagram') {
+                    const cleanUrl = url.split('?')[0].replace(/\/$/, "");
+                    container.innerHTML = `<iframe width="100%" height="100%" src="${cleanUrl}/embed/" frameborder="0" scrolling="no"></iframe>`;
+                }
             },
-            nextBlog: () => { if (state.blogPosts.length <= 1) return; state.activeBlogIndex = (state.activeBlogIndex + 1) % state.blogPosts.length; home.updateBlogSlider(); },
-            prevBlog: () => { if (state.blogPosts.length <= 1) return; state.activeBlogIndex = (state.activeBlogIndex - 1 + state.blogPosts.length) % state.blogPosts.length; home.updateBlogSlider(); },
-            updateBlogSlider: () => { const track = document.getElementById('blog-posts-feed'); if (track) track.style.transform = `translateX(-${state.activeBlogIndex * 100}%)`; },
+            nextBlog: () => {
+                if (state.blogPosts.length <= 1) return;
+                state.activeBlogIndex = (state.activeBlogIndex + 1) % state.blogPosts.length;
+                home.updateBlogSlider();
+            },
+            prevBlog: () => {
+                if (state.blogPosts.length <= 1) return;
+                state.activeBlogIndex = (state.activeBlogIndex - 1 + state.blogPosts.length) % state.blogPosts.length;
+                home.updateBlogSlider();
+            },
+            updateBlogSlider: () => {
+                const track = document.getElementById('blog-posts-feed');
+                if (track) track.style.transform = `translateX(-${state.activeBlogIndex * 100}%)`;
+            },
             renderBlog: () => {
-                const feed = document.getElementById('blog-posts-feed'); if (!feed) return;
+                const feed = document.getElementById('blog-posts-feed');
+                if (!feed) return;
                 feed.innerHTML = state.blogPosts.map((p, idx) => {
-                    let media = ''; const cid = `blog-media-${idx}`;
+                    let media = '';
+                    const cid = `blog-media-${idx}`;
                     const isVertical = (p.type === 'instagram' || (p.type === 'youtube' && p.url && p.url.includes('shorts')));
+                    
                     if (p.type === 'embed') media = `<div class="embed-wrapper h-full flex items-center justify-center min-h-[300px]">${p.embedCode}</div>`;
                     else if(p.type === 'image') media = `<img src="${p.url}" class="w-full h-full object-cover rounded-[24px] shadow-md" style="max-height:450px">`;
                     else media = `<div id="${cid}" class="video-container ${isVertical ? 'vertical' : ''}" onclick="home.playMedia('${cid}','${p.type}','${p.url}')"><div class="play-overlay"><span class="material-symbols-outlined text-6xl text-white font-bold">play_circle</span></div></div>`;
-                    return `<div class="blog-slide"><div class="bg-white rounded-[3rem] p-8 shadow-xl border border-indigo-50 font-bold mx-auto max-w-lg">${media}<div class="mt-8 text-left font-bold"><h3 class="font-black text-2xl text-indigo-950 mb-3 uppercase tracking-tighter">${p.title}</h3><div class="text-xs text-slate-400 uppercase tracking-widest font-bold font-bold font-bold font-bold font-bold font-bold font-bold font-bold">${p.date} • ${p.type.replace('_',' ')}</div></div></div></div>`;
+                    
+                    return `
+                    <div class="blog-slide">
+                        <div class="bg-white rounded-[3rem] p-6 md:p-8 shadow-xl border border-indigo-50 font-bold mx-auto max-w-lg">
+                            ${media}
+                            <div class="mt-8 text-left font-bold">
+                                <h3 class="font-black text-2xl text-indigo-950 mb-3 uppercase tracking-tighter">${p.title}</h3>
+                                <div class="text-[10px] text-slate-400 uppercase tracking-widest font-black">${p.date} • ${p.type.replace('_',' ')}</div>
+                            </div>
+                        </div>
+                    </div>`;
                 }).join('') || '<div class="blog-slide text-center py-20 opacity-30 font-bold uppercase tracking-widest">No highlights found.</div>';
-                state.activeBlogIndex = 0; home.updateBlogSlider();
+                
+                state.activeBlogIndex = 0;
+                home.updateBlogSlider();
             },
             renderUpdates: () => {
                 const cls = document.getElementById('board-class-filter')?.value || 'All';
                 const filtered = state.updates.filter(u => u.classGrade === 'All' || u.classGrade === cls);
                 const list = document.getElementById('board-updates-list');
-                if (list) list.innerHTML = filtered.map(u => `<li class="bg-white p-6 rounded-3xl border-l-8 border-indigo-500 shadow-sm font-bold font-bold font-bold"><div class="text-xs text-slate-400 uppercase mb-1 font-bold">${u.category} • ${u.date}</div><p class="text-indigo-900 font-bold font-bold font-bold font-bold font-bold font-bold font-bold font-bold">${u.subject && u.subject !== 'General' ? '<b>'+u.subject+':</b> ' : ''}${u.text}</p></li>`).join('') || '<p class="text-slate-400 text-center col-span-full font-bold">No updates found.</p>';
+                if (list) {
+                    list.innerHTML = filtered.map(u => `
+                        <li class="bg-white p-6 rounded-3xl border-l-8 border-indigo-500 shadow-sm font-bold">
+                            <div class="text-[10px] text-slate-400 uppercase mb-1 font-black">${u.category} • ${u.date}</div>
+                            <p class="text-indigo-900 font-bold">
+                                ${u.subject && u.subject !== 'General' ? '<span class="text-amber-600 uppercase text-xs mr-2">['+u.subject+']</span>' : ''}
+                                ${u.text}
+                            </p>
+                        </li>
+                    `).join('') || '<p class="text-slate-400 text-center col-span-full font-bold">No updates found for this class.</p>';
+                }
             }
         };
 
         window.admin = {
             init: () => {
                 const opts = Object.keys(state.fees).map(c => `<option value="${c}">${c}</option>`).join('');
-                document.querySelectorAll('#admit-class, #filter-class, #update-class').forEach(s => s.innerHTML = (s.id.includes('filter') || s.id.includes('update') ? '<option value="All">All Classes</option>' : '') + opts);
+                document.querySelectorAll('#admit-class, #filter-class, #update-class').forEach(s => {
+                    s.innerHTML = (s.id.includes('filter') || s.id.includes('update') ? '<option value="All">All Classes</option>' : '') + opts;
+                });
                 document.getElementById('update-date').valueAsDate = new Date();
-                admin.renderDash(); admin.renderStudents();
+                admin.renderDash();
+                admin.renderStudents();
             },
             switchTab: (tab) => {
                 document.querySelectorAll('.admin-content').forEach(el => el.classList.add('hidden'));
@@ -568,98 +775,363 @@
                 if(tab === 'manage_blog') admin.renderBlogList();
             },
             renderDash: () => {
-                const canvas = document.getElementById('feeChart'); if (!canvas) return; 
-                let tT = 0, tP = 0, tO = 0; state.students.forEach(s => { tT += (s.totalFee + s.oldDue); tP += s.paid; tO += s.oldDue; });
+                const canvas = document.getElementById('feeChart');
+                if (!canvas) return;
+                
+                let tT = 0, tP = 0, tO = 0;
+                state.students.forEach(s => {
+                    tT += (s.totalFee + s.oldDue);
+                    tP += s.paid;
+                    tO += s.oldDue;
+                });
+                
                 document.getElementById('stat-total').innerText = `₹${tT.toLocaleString()}`;
                 document.getElementById('stat-old').innerText = `₹${tO.toLocaleString()}`;
                 document.getElementById('stat-collected').innerText = `₹${tP.toLocaleString()}`;
                 document.getElementById('stat-pending').innerText = `₹${(tT-tP).toLocaleString()}`;
-                const ctx = canvas.getContext('2d'); if(window.fChart) window.fChart.destroy();
-                window.fChart = new Chart(ctx, { type: 'bar', data: { labels: ['Target', 'Paid', 'Due'], datasets: [{ data: [tT, tP, tT-tP], backgroundColor: ['#1e3a8a', '#10b981', '#ef4444'] }] }, options: { maintainAspectRatio: false } });
+                
+                const ctx = canvas.getContext('2d');
+                if(window.fChart) window.fChart.destroy();
+                window.fChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Target', 'Paid', 'Due'],
+                        datasets: [{
+                            data: [tT, tP, tT-tP],
+                            backgroundColor: ['#1e3a8a', '#10b981', '#ef4444'],
+                            borderRadius: 8
+                        }]
+                    },
+                    options: { maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                });
             },
             submitAdmission: async (e) => {
-                e.preventDefault(); const fd = new FormData(e.target); const sId = Date.now().toString(); const slip = document.getElementById('admit-slip').files[0];
-                if(slip && slip.size > 700000) return ui.showToast('File too large (Max 700KB)', true);
-                const save = (url) => {
-                    const data = { id: sId, admnNo: fd.get('admnNo'), name: fd.get('name'), father: fd.get('father'), contact: fd.get('contact'), classGrade: fd.get('classGrade'), totalFee: parseFloat(fd.get('totalFee')), oldDue: parseFloat(fd.get('oldDue') || 0), paid: 0, history: [], concessionSlipData: url };
+                e.preventDefault();
+                const fd = new FormData(e.target);
+                const sId = Date.now().toString();
+                const slip = document.getElementById('admit-slip').files[0];
+                
+                if(slip && slip.size > 700000) return alert('File too large (Max 700KB)');
+                
+                const save = async (url) => {
+                    const data = {
+                        id: sId,
+                        admnNo: fd.get('admnNo'),
+                        name: fd.get('name'),
+                        father: fd.get('father'),
+                        contact: fd.get('contact'),
+                        classGrade: fd.get('classGrade'),
+                        totalFee: parseFloat(fd.get('totalFee')),
+                        oldDue: parseFloat(fd.get('oldDue') || 0),
+                        paid: 0,
+                        history: [],
+                        concessionSlipData: url
+                    };
                     const initPay = parseFloat(fd.get('initialPay') || 0);
-                    if(initPay > 0) { data.paid = initPay; data.history.push({ receiptNo: 'REC-'+sId.slice(-4), date: new Date().toISOString().split('T')[0], amount: initPay, category: 'Academic Fee', mode: 'Cash' }); }
-                    setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', sId), data).then(() => { ui.showToast('Saved'); e.target.reset(); admin.switchTab('students'); });
+                    if(initPay > 0) {
+                        data.paid = initPay;
+                        data.history.push({
+                            receiptNo: 'REC-'+sId.slice(-4),
+                            date: new Date().toISOString().split('T')[0],
+                            amount: initPay,
+                            category: 'Academic Fee',
+                            mode: 'Cash'
+                        });
+                    }
+                    await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', sId), data);
+                    e.target.reset();
+                    admin.switchTab('students');
                 };
-                if(slip){ const r = new FileReader(); r.onload = (ev) => save(ev.target.result); r.readAsDataURL(slip); } else save(null);
+
+                if(slip){
+                    const r = new FileReader();
+                    r.onload = (ev) => save(ev.target.result);
+                    r.readAsDataURL(slip);
+                } else {
+                    save(null);
+                }
             },
             renderStudents: () => {
                 const body = document.getElementById('student-list-body');
-                const filtered = state.students.filter(s => (document.getElementById('filter-class').value === 'All' || s.classGrade === document.getElementById('filter-class').value));
-                body.innerHTML = filtered.map(s => `<tr class="border-b font-bold cursor-pointer hover:bg-slate-50" onclick="admin.openModal('${s.id}')"><td class="p-4 text-xs font-mono text-slate-400 font-bold">${s.admnNo}</td><td class="p-4 font-black font-bold font-bold font-bold font-bold">${s.name}</td><td class="p-4 font-medium text-slate-500 font-bold">${s.classGrade}</td><td class="p-4 text-orange-600 font-bold font-bold font-bold font-bold font-bold font-bold font-bold">₹${(s.oldDue||0).toLocaleString()}</td><td class="p-4 font-black font-bold font-bold font-bold font-bold font-bold">₹${((s.totalFee+s.oldDue)-s.paid).toLocaleString()}</td><td class="p-4 text-right font-bold"><button class="bg-blue-900 text-white px-3 py-1 rounded text-xs font-bold font-bold">Manage</button></td></tr>`).join('');
+                const filterClass = document.getElementById('filter-class').value;
+                const search = document.getElementById('filter-search').value.toLowerCase();
+                
+                const filtered = state.students.filter(s => {
+                    const matchClass = filterClass === 'All' || s.classGrade === filterClass;
+                    const matchSearch = s.name.toLowerCase().includes(search);
+                    return matchClass && matchSearch;
+                });
+                
+                body.innerHTML = filtered.map(s => `
+                    <tr class="border-b font-bold cursor-pointer hover:bg-slate-50" onclick="admin.openModal('${s.id}')">
+                        <td class="p-4 text-xs font-mono text-slate-400 font-bold">${s.admnNo}</td>
+                        <td class="p-4 font-black uppercase text-indigo-950">${s.name}</td>
+                        <td class="p-4 font-medium text-slate-500">${s.classGrade}</td>
+                        <td class="p-4 text-orange-600">₹${(s.oldDue||0).toLocaleString()}</td>
+                        <td class="p-4 font-black text-blue-900">₹${((s.totalFee+s.oldDue)-s.paid).toLocaleString()}</td>
+                        <td class="p-4 text-right font-bold">
+                            <button class="bg-blue-900 text-white px-3 py-1 rounded text-xs font-bold">Manage</button>
+                        </td>
+                    </tr>
+                `).join('') || '<tr><td colspan="6" class="p-10 text-center opacity-40">No records found.</td></tr>';
             },
             openModal: (id) => {
-                state.activeStudentId = id; const s = state.students.find(x => x.id === id); if(!s) return;
-                document.getElementById('modal-title').innerText = s.name; document.getElementById('modal-class').innerText = s.classGrade;
-                document.getElementById('modal-father').innerText = s.father; document.getElementById('modal-contact').innerText = s.contact || 'N/A';
+                state.activeStudentId = id;
+                const s = state.students.find(x => x.id === id);
+                if(!s) return;
+                
+                document.getElementById('modal-title').innerText = s.name;
+                document.getElementById('modal-class').innerText = s.classGrade;
+                document.getElementById('modal-father').innerText = s.father;
+                document.getElementById('modal-contact').innerText = s.contact || 'N/A';
                 document.getElementById('modal-fee-old').innerText = `₹${(s.oldDue||0).toLocaleString()}`;
                 document.getElementById('modal-fee-due').innerText = `₹${((s.totalFee + s.oldDue) - s.paid).toLocaleString()}`;
-                document.getElementById('modal-history').innerHTML = (s.history || []).map(h => `<tr class="font-bold"><td class="p-4 text-slate-400 uppercase text-[10px] font-bold">${h.date}</td><td class="p-4 font-black text-blue-900 uppercase text-[10px] tracking-widest font-bold">${h.category} (${h.mode || 'Cash'})</td><td class="p-4 text-right font-black text-emerald-600 font-bold">₹${h.amount.toLocaleString()}</td><td class="p-4 text-right font-bold"><button onclick="printer.printReceipt('${s.id}', '${h.receiptNo}')" class="text-blue-600 hover:text-blue-900 transition font-bold font-bold"><span class="material-symbols-outlined text-sm font-bold font-bold">print</span></button></td></tr>`).join('');
+                
+                document.getElementById('modal-history').innerHTML = (s.history || []).map(h => `
+                    <tr class="font-bold">
+                        <td class="p-4 text-slate-400 uppercase text-[9px] font-black">${h.date}</td>
+                        <td class="p-4 font-black text-blue-900 uppercase text-[9px] tracking-widest">${h.category} (${h.mode || 'Cash'})</td>
+                        <td class="p-4 text-right font-black text-emerald-600">₹${h.amount.toLocaleString()}</td>
+                        <td class="p-4 text-right">
+                            <button onclick="printer.printReceipt('${s.id}', '${h.receiptNo}')" class="text-blue-600 hover:text-blue-900 transition font-bold">
+                                <span class="material-symbols-outlined text-sm font-bold">print</span>
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+                
                 document.getElementById('modal-slip-box').classList.toggle('hidden', !s.concessionSlipData);
                 document.getElementById('profile-modal').classList.remove('hidden-modal');
-                document.getElementById('pay-rec').value = 'REC-' + Date.now().toString().slice(-6); document.getElementById('pay-date').valueAsDate = new Date();
+                
+                document.getElementById('pay-rec').value = 'REC-' + Date.now().toString().slice(-6);
+                document.getElementById('pay-date').valueAsDate = new Date();
+                document.getElementById('pay-amt').value = '';
             },
             viewSlip: () => {
                 const s = state.students.find(x => x.id === state.activeStudentId);
-                const win = window.open(); win.document.write(`<iframe src="${s.concessionSlipData}" frameborder="0" style="width:100%; height:100%;"></iframe>`);
+                const win = window.open();
+                win.document.write(`<iframe src="${s.concessionSlipData}" frameborder="0" style="width:100%; height:100%;"></iframe>`);
             },
             payFee: async (e) => {
-                e.preventDefault(); const s = state.students.find(x => x.id === state.activeStudentId); const amt = parseFloat(document.getElementById('pay-amt').value);
-                s.paid += amt; if(!s.history) s.history = [];
-                s.history.push({ receiptNo: document.getElementById('pay-rec').value, date: document.getElementById('pay-date').value, category: document.getElementById('pay-category').value, mode: document.getElementById('pay-mode').value, amount: amt });
+                e.preventDefault();
+                const s = state.students.find(x => x.id === state.activeStudentId);
+                const amt = parseFloat(document.getElementById('pay-amt').value);
+                
+                s.paid += amt;
+                if(!s.history) s.history = [];
+                s.history.push({
+                    receiptNo: document.getElementById('pay-rec').value,
+                    date: document.getElementById('pay-date').value,
+                    category: document.getElementById('pay-category').value,
+                    mode: document.getElementById('pay-mode').value,
+                    amount: amt
+                });
+                
                 await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', s.id), s);
-                ui.showToast('Saved'); admin.openModal(s.id);
+                admin.openModal(s.id);
             },
             addUpdate: async (e) => {
-                e.preventDefault(); const curCls = document.getElementById('update-class').value; const curSub = document.getElementById('update-subject').value;
-                const data = { id: Date.now(), text: document.getElementById('update-text').value, category: document.getElementById('update-category').value, subject: document.getElementById('update-subject').value, classGrade: document.getElementById('update-class').value, date: document.getElementById('update-date').value };
+                e.preventDefault();
+                const data = {
+                    id: Date.now(),
+                    text: document.getElementById('update-text').value,
+                    category: document.getElementById('update-category').value,
+                    subject: document.getElementById('update-subject').value,
+                    classGrade: document.getElementById('update-class').value,
+                    date: document.getElementById('update-date').value
+                };
                 await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'updates'), data);
-                ui.showToast('Posted'); document.getElementById('update-text').value = ''; document.getElementById('update-class').value = curCls; document.getElementById('update-subject').value = curSub;
+                document.getElementById('update-text').value = '';
             },
-            renderHistory: () => { document.getElementById('admin-updates-list').innerHTML = state.updates.map(u => `<li class="bg-slate-50 p-4 rounded-xl flex justify-between items-center border font-bold"><div><div class="text-xs text-gray-400 font-bold font-bold font-bold font-bold">${u.category} • ${u.subject}</div><div class="text-sm font-bold font-bold font-bold font-bold font-bold font-bold">${u.text}</div></div><button onclick="admin.deleteUpdate('${u.firestoreId}')" class="text-red-600 font-bold"><span class="material-symbols-outlined">delete</span></button></li>`).join(''); },
-            deleteUpdate: async (id) => { await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'updates', id)); ui.showToast('Removed'); },
-            toggleBlogInputs: () => { const type = document.getElementById('blog-type').value; document.getElementById('blog-file-area').classList.toggle('hidden', type !== 'image' && type !== 'local_video'); document.getElementById('blog-url-area').classList.toggle('hidden', type !== 'youtube' && type !== 'instagram'); document.getElementById('blog-embed-area').classList.toggle('hidden', type !== 'embed'); },
+            renderHistory: () => {
+                document.getElementById('admin-updates-list').innerHTML = state.updates.map(u => `
+                    <li class="bg-slate-50 p-4 rounded-xl flex justify-between items-center border font-bold">
+                        <div>
+                            <div class="text-[9px] text-gray-400 font-black uppercase">${u.category} • ${u.subject} • ${u.classGrade}</div>
+                            <div class="text-sm font-bold text-indigo-950">${u.text}</div>
+                        </div>
+                        <button onclick="admin.deleteUpdate('${u.firestoreId}')" class="text-red-600 font-bold p-2">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    </li>
+                `).join('');
+            },
+            deleteUpdate: async (id) => {
+                if(confirm("Delete this notice?")) {
+                    await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'updates', id));
+                }
+            },
+            toggleBlogInputs: () => {
+                const type = document.getElementById('blog-type').value;
+                document.getElementById('blog-file-area').classList.toggle('hidden', type !== 'image' && type !== 'local_video');
+                document.getElementById('blog-url-area').classList.toggle('hidden', type !== 'youtube' && type !== 'instagram');
+                document.getElementById('blog-embed-area').classList.toggle('hidden', type !== 'embed');
+            },
             addBlogPost: async (e) => {
-                e.preventDefault(); const type = document.getElementById('blog-type').value; const title = document.getElementById('blog-title').value; const date = document.getElementById('blog-date').value; const embedCode = document.getElementById('blog-embed').value;
-                const savePost = async (url) => { const data = { id: Date.now(), title, date, type, url, embedCode: type === 'embed' ? embedCode : null }; await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'blogPosts'), data); ui.showToast('Post Live'); e.target.reset(); admin.toggleBlogInputs(); admin.renderBlogList(); };
+                e.preventDefault();
+                const type = document.getElementById('blog-type').value;
+                const title = document.getElementById('blog-title').value;
+                const date = document.getElementById('blog-date').value;
+                const embedCode = document.getElementById('blog-embed').value;
+                
+                const savePost = async (url) => {
+                    const data = { id: Date.now(), title, date, type, url, embedCode: type === 'embed' ? embedCode : null };
+                    await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'blogPosts'), data);
+                    e.target.reset();
+                    admin.toggleBlogInputs();
+                };
+
                 if(type === 'image' || type === 'local_video') {
-                    const file = document.getElementById('blog-file').files[0]; if(!file) return ui.showToast('Select file'); if(file.size > 700000) return ui.showToast('File too large (Max 700KB)', true);
-                    const reader = new FileReader(); reader.onload = (ev) => savePost(ev.target.result); reader.readAsDataURL(file);
-                } else if (type === 'embed') { savePost(null); } else { savePost(document.getElementById('blog-url').value); }
+                    const file = document.getElementById('blog-file').files[0];
+                    if(!file) return alert('Select file');
+                    if(file.size > 700000) return alert('File too large');
+                    const reader = new FileReader();
+                    reader.onload = (ev) => savePost(ev.target.result);
+                    reader.readAsDataURL(file);
+                } else if (type === 'embed') {
+                    savePost(null);
+                } else {
+                    savePost(document.getElementById('blog-url').value);
+                }
             },
-            renderBlogList: () => { document.getElementById('admin-blog-list').innerHTML = state.blogPosts.map(p => `<li class="flex justify-between items-center p-4 border rounded-xl font-bold bg-indigo-50/50"><div><div class="text-[9px] text-gray-400 uppercase font-bold font-bold font-bold">${p.type} • ${p.date}</div><div class="text-sm font-bold uppercase font-bold font-bold">${p.title}</div></div><button onclick="admin.deleteBlogPost('${p.firestoreId}')" class="text-red-600 font-bold font-bold font-bold font-bold font-bold"><span class="material-symbols-outlined">delete</span></button></li>`).join(''); },
-            deleteBlogPost: async (id) => { await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'blogPosts', id)); ui.showToast('Removed'); admin.renderBlogList(); },
+            renderBlogList: () => {
+                document.getElementById('admin-blog-list').innerHTML = state.blogPosts.map(p => `
+                    <li class="flex justify-between items-center p-4 border rounded-xl font-bold bg-indigo-50/50">
+                        <div>
+                            <div class="text-[9px] text-gray-400 uppercase font-black">${p.type} • ${p.date}</div>
+                            <div class="text-sm font-black uppercase text-indigo-950">${p.title}</div>
+                        </div>
+                        <button onclick="admin.deleteBlogPost('${p.firestoreId}')" class="text-red-600 font-bold p-2">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    </li>
+                `).join('');
+            },
+            deleteBlogPost: async (id) => {
+                if(confirm("Delete highlight?")) {
+                    await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'blogPosts', id));
+                }
+            },
             closeModal: () => document.getElementById('profile-modal').classList.add('hidden-modal'),
-            showDeleteConfirm: () => { document.getElementById('delete-password').value = ''; document.getElementById('delete-modal').classList.remove('hidden-modal'); },
+            showDeleteConfirm: () => {
+                document.getElementById('delete-password').value = '';
+                document.getElementById('delete-modal').classList.remove('hidden-modal');
+            },
             closeDeleteModal: () => document.getElementById('delete-modal').classList.add('hidden-modal'),
-            confirmDelete: async () => { if(document.getElementById('delete-password').value === '123' && db) { await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', state.activeStudentId)); admin.closeDeleteModal(); admin.closeModal(); admin.renderStudents(); admin.renderDash(); ui.showToast('Deleted'); } else ui.showToast('Invalid PIN', true); },
-            exportExcel: () => { const d = state.students.map(s => ({"ID": s.admnNo, "Name": s.name, "Balance": (s.totalFee + s.oldDue) - s.paid})); const ws = XLSX.utils.json_to_sheet(d); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "Students"); XLSX.writeFile(wb, `SSV_Data.xlsx`); }
+            confirmDelete: async () => {
+                if(document.getElementById('delete-password').value === '123' && db) {
+                    await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', state.activeStudentId));
+                    admin.closeDeleteModal();
+                    admin.closeModal();
+                    alert('Record Deleted Successfully');
+                } else alert('Incorrect Admin PIN');
+            },
+            exportExcel: () => {
+                const d = state.students.map(s => ({
+                    "Admn ID": s.admnNo, 
+                    "Name": s.name, 
+                    "Class": s.classGrade, 
+                    "Father": s.father,
+                    "Contact": s.contact,
+                    "Total Fee": s.totalFee,
+                    "Old Due": s.oldDue,
+                    "Total Paid": s.paid,
+                    "Balance": (s.totalFee + s.oldDue) - s.paid
+                }));
+                const ws = XLSX.utils.json_to_sheet(d);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, "Records");
+                XLSX.writeFile(wb, `SSV_Student_Report.xlsx`);
+            }
         };
 
         window.printer = {
             printMasterLedger: () => {
-                const rows = state.students.map(s => `<tr class="font-bold"><td style="border:1px solid #000; padding:8px;">${s.name}</td><td style="border:1px solid #000; padding:8px;">${s.classGrade}</td><td style="border:1px solid #000; padding:8px; text-align:right;">₹${((s.totalFee+s.oldDue)-s.paid).toLocaleString()}</td></tr>`).join('');
-                document.getElementById('printable-area').innerHTML = `<div style="padding:20px; color:#000;"><center><h1>Master Ledger</h1></center><table style="width:100%; border-collapse:collapse; border:1px solid #000;"><thead><tr style="background:#eee;"><th>Name</th><th>Class</th><th>Balance</th></tr></thead><tbody>${rows}</tbody></table></div>`;
-                document.getElementById('printable-area').classList.remove('hidden'); setTimeout(() => { window.print(); document.getElementById('printable-area').classList.add('hidden'); }, 300);
+                const rows = state.students.map(s => `
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding:10px;">${s.admnNo}</td>
+                        <td style="padding:10px;">${s.name}</td>
+                        <td style="padding:10px;">${s.classGrade}</td>
+                        <td style="padding:10px; text-align:right;">₹${((s.totalFee+s.oldDue)-s.paid).toLocaleString()}</td>
+                    </tr>`).join('');
+                
+                document.getElementById('printable-area').innerHTML = `
+                    <div style="padding:40px; color:#000; font-family: sans-serif;">
+                        <h1 style="text-align:center;">Sri Sai Vidyalayam</h1>
+                        <h3 style="text-align:center; border-bottom: 2px solid #000; padding-bottom: 10px;">Master Balance Ledger</h3>
+                        <table style="width:100%; border-collapse:collapse; margin-top:20px;">
+                            <thead style="background:#f4f4f4;">
+                                <tr><th style="padding:10px; text-align:left;">ID</th><th style="padding:10px; text-align:left;">Name</th><th style="padding:10px; text-align:left;">Class</th><th style="padding:10px; text-align:right;">Balance</th></tr>
+                            </thead>
+                            <tbody>${rows}</tbody>
+                        </table>
+                    </div>`;
+                document.getElementById('printable-area').classList.remove('hidden');
+                setTimeout(() => { window.print(); document.getElementById('printable-area').classList.add('hidden'); }, 300);
             },
             printLedger: () => {
                 const s = state.students.find(x => x.id === state.activeStudentId);
-                document.getElementById('printable-area').innerHTML = `<div style="padding:40px; border:1px solid #000; color:#000;"><center><h1>Statement</h1><p>${s.name} - ${s.classGrade}</p></center><hr/>${s.history.map(h => `<p>${h.date}: ${h.category} (${h.mode || 'Cash'}) - ₹${h.amount.toLocaleString()}</p>`).join('')}<p><b>Total Balance: ₹${((s.totalFee+s.oldDue)-s.paid).toLocaleString()}</b></p></div>`;
-                document.getElementById('printable-area').classList.remove('hidden'); setTimeout(() => { window.print(); document.getElementById('printable-area').classList.add('hidden'); }, 300);
+                document.getElementById('printable-area').innerHTML = `
+                    <div style="padding:50px; color:#000; font-family: sans-serif;">
+                        <h1 style="text-align:center;">Sri Sai Vidyalayam</h1>
+                        <h2 style="text-align:center; text-transform: uppercase;">Fee Statement</h2>
+                        <hr/>
+                        <div style="display:flex; justify-content: space-between; margin: 20px 0;">
+                            <div>
+                                <p><b>Student:</b> ${s.name}</p>
+                                <p><b>ID:</b> ${s.admnNo}</p>
+                            </div>
+                            <div>
+                                <p><b>Class:</b> ${s.classGrade}</p>
+                                <p><b>Parent:</b> ${s.father}</p>
+                            </div>
+                        </div>
+                        <table style="width:100%; border-collapse:collapse; border: 1px solid #000;">
+                            <thead><tr style="background:#eee;"><th style="padding:8px; border:1px solid #000;">Date</th><th style="padding:8px; border:1px solid #000;">Description</th><th style="padding:8px; border:1px solid #000; text-align:right;">Amount</th></tr></thead>
+                            <tbody>
+                                ${s.history.map(h => `<tr><td style="padding:8px; border:1px solid #000;">${h.date}</td><td style="padding:8px; border:1px solid #000;">${h.category} (${h.mode})</td><td style="padding:8px; border:1px solid #000; text-align:right;">₹${h.amount.toLocaleString()}</td></tr>`).join('')}
+                            </tbody>
+                        </table>
+                        <div style="text-align:right; margin-top:20px;">
+                            <p>Target Fee: ₹${(s.totalFee + s.oldDue).toLocaleString()}</p>
+                            <p>Total Paid: ₹${s.paid.toLocaleString()}</p>
+                            <h2 style="color:red;">Net Due: ₹${((s.totalFee + s.oldDue) - s.paid).toLocaleString()}</h2>
+                        </div>
+                    </div>`;
+                document.getElementById('printable-area').classList.remove('hidden');
+                setTimeout(() => { window.print(); document.getElementById('printable-area').classList.add('hidden'); }, 300);
             },
             printReceipt: (id, r) => {
-                const s = state.students.find(x => x.id === id); const h = s.history.find(x => x.receiptNo === r);
-                document.getElementById('printable-area').innerHTML = `<div style="border:2px solid #000; padding:40px; color:#000;"><center><h1>FEE RECEIPT</h1><p>Sri Sai Vidyalayam</p></center><hr/><p>Receipt No: ${h.receiptNo}</p><p>Student: ${s.name}</p><p>Category: ${h.category}</p><h2>Amount: ₹${h.amount.toLocaleString()}/-</h2></div>`;
-                document.getElementById('printable-area').classList.remove('hidden'); setTimeout(() => { window.print(); document.getElementById('printable-area').classList.add('hidden'); }, 300);
+                const s = state.students.find(x => x.id === id);
+                const h = s.history.find(x => x.receiptNo === r);
+                document.getElementById('printable-area').innerHTML = `
+                    <div style="border:5px double #000; padding:40px; color:#000; font-family: sans-serif; max-width:600px; margin:auto;">
+                        <h1 style="text-align:center; margin:0;">SRI SAI VIDYALAYAM</h1>
+                        <p style="text-align:center; font-size:12px;">Pulagalipalem, Pendurthi, VSP</p>
+                        <hr/>
+                        <div style="text-align:center; margin: 15px 0;"><b>OFFICIAL FEE RECEIPT</b></div>
+                        <p><b>Receipt No:</b> ${h.receiptNo}</p>
+                        <p><b>Date:</b> ${h.date}</p>
+                        <p><b>Student:</b> ${s.name} (${s.classGrade})</p>
+                        <p><b>Purpose:</b> ${h.category}</p>
+                        <p><b>Mode:</b> ${h.mode}</p>
+                        <div style="background:#eee; padding:20px; font-size:24px; text-align:center; font-weight:bold; border: 1px dashed #000;">
+                            AMOUNT PAID: ₹${h.amount.toLocaleString()}/-
+                        </div>
+                        <div style="margin-top:40px; display:flex; justify-content:space-between;">
+                            <div>Parent Signature</div>
+                            <div>Accountant/Principal</div>
+                        </div>
+                    </div>`;
+                document.getElementById('printable-area').classList.remove('hidden');
+                setTimeout(() => { window.print(); document.getElementById('printable-area').classList.add('hidden'); }, 300);
             }
         };
 
-        (async () => { await window.initCloud(); router.navigate('home'); })();
+        // Initialize Application
+        (async () => { 
+            await window.initCloud(); 
+        })();
     </script>
 </body>
 </html>
