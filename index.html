@@ -92,16 +92,6 @@
             box-shadow: 0 0 8px #ef4444;
         }
 
-        /* Intensity pulse for new updates */
-        .pulse-red {
-            animation: pulse-red-bg 1.5s infinite;
-        }
-        @keyframes pulse-red-bg {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
-        }
-
         /* Shake animation for wrong login */
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
@@ -111,6 +101,15 @@
         }
         .shake-element {
             animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        .pulse-red {
+            animation: pulse-red-bg 1.5s infinite;
+        }
+        @keyframes pulse-red-bg {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
         }
     </style>
 </head>
@@ -619,16 +618,26 @@
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
         import { getFirestore, doc, setDoc, getDoc, collection, addDoc, updateDoc, deleteDoc, onSnapshot } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
 
-        // Use hardcoded config for reliable live deployment with provide credentials
-        const firebaseConfig = {
-            apiKey: "AIzaSyCTBCeLms5kGsf966PB25I4H75i8BBxma0",
-            authDomain: "sri-sai-vidyalayam-9a21e.firebaseapp.com",
-            projectId: "sri-sai-vidyalayam-9a21e",
-            storageBucket: "sri-sai-vidyalayam-9a21e.firebasestorage.app",
-            messagingSenderId: "167964825322",
-            appId: "1:167964825322:web:7d22c335f98dc468fda993",
-            measurementId: "G-H28D1GK0HS"
-        };
+        let firebaseConfig = {};
+        try {
+            // Rule 3: Config provided by environment
+            if (typeof __firebase_config !== 'undefined') {
+                firebaseConfig = JSON.parse(__firebase_config);
+            } else {
+                // Fallback for local testing only
+                firebaseConfig = {
+                    apiKey: "AIzaSyCTBCeLms5kGsf966PB25I4H75i8BBxma0",
+                    authDomain: "sri-sai-vidyalayam-9a21e.firebaseapp.com",
+                    projectId: "sri-sai-vidyalayam-9a21e",
+                    storageBucket: "sri-sai-vidyalayam-9a21e.firebasestorage.app",
+                    messagingSenderId: "167964825322",
+                    appId: "1:167964825322:web:7d22c335f98dc468fda993",
+                    measurementId: "G-H28D1GK0HS"
+                };
+            }
+        } catch (e) {
+            console.error("Firebase config parsing failed");
+        }
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
@@ -640,7 +649,8 @@
             activeStudentId: null, blogIndex: 0, isLoggedIn: false,
             sort: { key: 'name', dir: 'asc' },
             selectedClass: 'All', 
-            sessionLastSeen: Date.now(), // Track new updates within session for red-highlighting
+            sessionLastSeen: Date.now(), // Tracking unread updates in session (Rule: NEVER use localStorage)
+            admissionsPopupDismissed: false,
             classes: ["Nursery", "LKG", "UKG", "1st Class", "2nd Class", "3rd Class", "4th Class", "5th Class", "6th Class", "7th Class", "8th Class", "9th Class", "10th Class"]
         };
 
@@ -651,7 +661,6 @@
         // Rule 3 Implementation: Auth FIRST and AWAIT it
         const initAuth = async (retryCount = 0) => {
             try { 
-                // Prioritize Custom Token for the specific artifact environment if available
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
                     await signInWithCustomToken(auth, __initial_auth_token);
                 } else {
@@ -661,18 +670,18 @@
                 if (retryCount < 5) {
                     const delay = Math.pow(2, retryCount) * 1000;
                     return new Promise(resolve => setTimeout(() => resolve(initAuth(retryCount + 1)), delay));
-                } else {
-                    const msg = document.createElement('div');
-                    msg.className = "fixed top-0 left-0 w-full bg-red-600 text-white p-4 z-[100] text-center font-bold uppercase tracking-widest text-xs";
-                    msg.innerText = "Connection Error: School Database Unreachable. Please check internet connection.";
-                    document.body.appendChild(msg);
                 }
             }
         };
 
         onAuthStateChanged(auth, async (u) => {
             state.user = u;
-            if (u) startSync();
+            if (u) {
+                startSync();
+            } else {
+                // If the user signed out, ensure we have an anonymous session to keep data flowing for landing page
+                initAuth();
+            }
             if (!document.querySelector('.view-section:not(.hidden)')) router.navigate('home');
         });
 
@@ -681,7 +690,7 @@
             unsubscribes.forEach(unsub => unsub());
             unsubscribes = [];
 
-            // Rule 1 Implementation: Strict Artifact Paths
+            // Rule 1: Strict artifacts paths
             const studentsRef = collection(db, 'artifacts', appId, 'public', 'data', 'students');
             const noticesRef = collection(db, 'artifacts', appId, 'public', 'data', 'notices');
             const highlightsRef = collection(db, 'artifacts', appId, 'public', 'data', 'highlights');
@@ -691,7 +700,7 @@
                 admin.updateDashboard(); 
                 admin.renderStudentList();
                 if (state.activeStudentId) admin.refreshModalContent();
-            }, (err) => {}));
+            }));
 
             unsubscribes.push(onSnapshot(noticesRef, (snap) => {
                 state.notices = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a,b) => b.timestamp - a.timestamp);
@@ -700,13 +709,13 @@
                 home.renderHomeNotices();
                 home.updateNavBadge();
                 home.updateHomeFilterNotifications();
-            }, (err) => {}));
+            }));
 
             unsubscribes.push(onSnapshot(highlightsRef, (snap) => {
                 state.highlights = snap.docs.map(d => ({ id: d.id, ...d.data() }));
                 home.renderHighlights(); 
                 admin.renderHighlights();
-            }, (err) => {}));
+            }));
         };
 
         window.router = {
@@ -738,7 +747,11 @@
                     }
                 }
             },
-            logout: () => { state.isLoggedIn = false; router.navigate('home'); }
+            logout: () => { 
+                state.isLoggedIn = false; 
+                router.navigate('home'); 
+                // We keep state.user (Firebase Auth) active so public data doesn't disappear
+            }
         };
 
         window.home = {
@@ -768,7 +781,7 @@
                 filter.innerHTML = '<option value="All">Select Class...</option>' + state.classes.map(c => {
                     const classHasNew = state.notices.some(n => n.class === c && n.timestamp > state.sessionLastSeen);
                     if (classHasNew) anyUnread = true;
-                    // BOLD RED text for categories with new updates in session
+                    // Red bold text for dropdown options with new data
                     return `<option value="${c}" style="color: ${classHasNew ? '#dc2626' : 'inherit'}; font-weight: ${classHasNew ? '900' : 'normal'}; text-transform: uppercase;">${c}${classHasNew ? ' • [NEW]' : ''}</option>`;
                 }).join('');
 
@@ -782,7 +795,6 @@
                     filter.innerHTML = '<option value="All">All Grades (View Full Board)</option>' + state.classes.map(c => `<option value="${c}">${c}</option>`).join('');
                     filter.value = state.selectedClass;
                 }
-                // When board is entered, mark current state as seen for session badges
                 state.sessionLastSeen = Date.now();
                 home.updateNavBadge();
                 home.updateHomeFilterNotifications();
@@ -801,9 +813,8 @@
                 if (label) label.innerText = val === 'All' ? 'Showing all Grades' : `Showing notices for ${val}`;
                 home.renderUpdates();
                 home.renderHomeNotices();
-                // Persist the dropdown value across different landing page sections
-                const homeSelect = document.getElementById('home-class-filter');
-                if (homeSelect) homeSelect.value = val;
+                // Ensure dropdown consistency
+                document.querySelectorAll('#home-class-filter, #board-class-filter').forEach(s => s.value = val);
             },
             closeAdmissionsPopup: () => {
                 const popup = document.getElementById('admissions-popup');
@@ -840,7 +851,8 @@
                     if (n.category === 'Home Work') colorClass = 'border-emerald-500';
                     if (n.category === 'Class Test') colorClass = 'border-amber-500';
                     if (n.category === 'Upcoming Events') colorClass = 'border-orange-600';
-                    const isNew = n.timestamp > (Date.now() - 86400000);
+                    
+                    const isNew = n.timestamp > state.sessionLastSeen;
                     return `
                         <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border-l-8 ${colorClass} hover:shadow-lg transition-all group relative overflow-hidden">
                             ${isNew ? `<div class="absolute top-2 right-2 bg-red-600 text-white text-[8px] font-black px-2 py-1 rounded-bl-xl uppercase animate-pulse z-20">NEW</div>` : ''}
@@ -931,6 +943,7 @@
                 if (statColl) statColl.innerText = `₹${collected.toLocaleString()}`;
                 if (statPend) statPend.innerText = `₹${(total - collected).toLocaleString()}`;
                 if (statCount) statCount.innerText = state.students.length;
+                
                 const ctx = document.getElementById('feeChart')?.getContext('2d');
                 if(!ctx) return; if(window.dashChart) window.dashChart.destroy();
                 window.dashChart = new Chart(ctx, { type: 'bar', data: { labels: ['Target', 'Revenue', 'Due'], datasets: [{ data: [total, collected, total - collected], backgroundColor: ['#312e81', '#10b981', '#ef4444'], borderRadius: 12 }] }, options: { maintainAspectRatio: false, plugins: { legend: { display: false } } } });
@@ -1063,6 +1076,7 @@
                 try {
                     if (nid) await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'notices', nid), data);
                     else await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'notices'), data);
+                    
                     const currentClass = fd.get('class'); const currentCat = fd.get('category');
                     admin.cancelNoticeEdit();
                     const form = document.getElementById('notice-form');
