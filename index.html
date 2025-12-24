@@ -59,17 +59,12 @@
         #hero-text-slider .slide.active { display: block; animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
         @keyframes slideUpFade { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        #cloud-loader {
-            position: fixed; inset: 0; background: #f8fafc; z-index: 1000;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: opacity 0.4s ease;
-        }
-
         .nav-badge {
-            position: absolute; top: -5px; right: -10px; background: #ef4444; color: white;
-            font-size: 10px; font-weight: 800; padding: 2px 6px; border-radius: 9999px;
-            animation: bounce 2s infinite;
+            position: absolute; top: -8px; right: -12px; background: #dc2626; color: white;
+            font-size: 9px; font-weight: 900; padding: 2px 6px; border-radius: 9999px;
+            animation: bounce 2s infinite; border: 2px solid #1e1b4b;
         }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-4px);} }
         
         .hover-lift { transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); }
         .hover-lift:hover { transform: translateY(-2px) scale(1.02); }
@@ -86,19 +81,40 @@
             width: calc(100% - 3rem);
             max-width: 350px;
         }
+
+        .notify-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #ef4444;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 6px;
+            box-shadow: 0 0 8px #ef4444;
+        }
+
+        /* Intensity pulse for new updates */
+        .pulse-red {
+            animation: pulse-red-bg 1.5s infinite;
+        }
+        @keyframes pulse-red-bg {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+        }
+
+        /* Shake animation for wrong login */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            50% { transform: translateX(8px); }
+            75% { transform: translateX(-8px); }
+        }
+        .shake-element {
+            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 w-full min-h-screen">
-
-    <!-- SPLASH SCREEN -->
-    <div id="cloud-loader">
-        <div class="mb-6 flex space-x-2">
-            <div class="w-4 h-4 bg-indigo-600 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
-            <div class="w-4 h-4 bg-indigo-600 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
-            <div class="w-4 h-4 bg-indigo-600 rounded-full animate-bounce" style="animation-delay: 0.3s"></div>
-        </div>
-        <p class="text-xs font-bold tracking-[0.3em] uppercase text-indigo-900 animate-pulse text-center px-4 font-bold">Sri Sai Vidyalayam</p>
-    </div>
 
     <!-- FLOATING ADMISSIONS POPUP -->
     <div id="admissions-popup" class="hidden-modal modal no-print">
@@ -134,10 +150,11 @@
                     </div>
                 </div>
                 
-                <div class="hidden md:flex space-x-6 items-center font-bold">
+                <div class="hidden md:flex space-x-8 items-center font-bold">
                     <button class="hover:text-amber-400 font-bold uppercase text-xs transition-colors" onclick="router.navigate('home')">Home</button>
                     <button class="relative hover:text-amber-400 font-bold uppercase text-xs transition-colors" onclick="router.navigate('updates')">
                         Daily Board
+                        <span id="nav-updates-badge" class="nav-badge hidden">0</span>
                     </button>
                     <button class="bg-amber-500 hover:bg-amber-400 text-indigo-950 px-5 py-2.5 rounded-xl transition-all duration-300 hover-lift flex items-center gap-2 text-xs font-black uppercase shadow-lg shadow-amber-500/20" onclick="router.navigate('login')">
                         <span class="material-symbols-outlined text-lg font-bold">admin_panel_settings</span> Admin
@@ -151,7 +168,10 @@
         </div>
         <div id="mobile-menu" class="hidden md:hidden bg-indigo-900 border-t border-indigo-800 p-4 space-y-3 font-bold">
             <button class="block w-full text-left py-2 font-bold hover:text-amber-400 transition" onclick="router.navigate('home'); toggleMobileMenu()">Home</button>
-            <button class="block w-full text-left py-2 font-bold hover:text-amber-400 transition" onclick="router.navigate('updates'); toggleMobileMenu()">Daily Board</button>
+            <button class="block w-full text-left py-2 font-bold hover:text-amber-400 transition relative" onclick="router.navigate('updates'); toggleMobileMenu()">
+                Daily Board
+                <span id="mobile-updates-badge" class="nav-badge hidden" style="top:5px; right: 20px;">0</span>
+            </button>
             <button class="block w-full bg-amber-500 text-indigo-950 p-3 rounded-xl font-black uppercase text-xs text-center font-bold" onclick="router.navigate('login'); toggleMobileMenu()">Admin Login</button>
         </div>
     </nav>
@@ -168,7 +188,7 @@
 
                 <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10 font-bold text-indigo-950">
                     <div class="space-y-8 font-bold">
-                        <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-xs font-bold uppercase tracking-widest animate-pulse">Recognised by Govt of AP</span>
+                        <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-[10px] font-black uppercase tracking-widest animate-pulse">Recognised by Govt of AP</span>
                         <div id="hero-text-slider" class="min-h-[160px] font-bold">
                             <div class="slide active">
                                 <h2 class="text-4xl md:text-6xl font-extrabold text-indigo-950 leading-tight tracking-tighter uppercase font-black">Pollution Free <br><span class="text-green-600 underline decoration-amber-400 underline-offset-8">Green Campus</span></h2>
@@ -204,7 +224,34 @@
                 </div>
             </section>
 
-            <section class="py-20 bg-slate-50 font-bold">
+            <!-- LATEST FROM NOTICE BOARD PREVIEW -->
+            <section class="py-20 bg-indigo-50 font-bold">
+                <div class="max-w-7xl mx-auto px-6">
+                    <div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
+                        <div>
+                            <span class="text-indigo-600 font-black uppercase text-[10px] tracking-widest">Board Updates</span>
+                            <h2 class="text-3xl md:text-4xl font-black text-indigo-950 uppercase tracking-tighter mt-2">Notice Board Preview</h2>
+                        </div>
+                        <div class="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
+                             <div class="relative w-full md:w-auto">
+                                 <div class="absolute -top-6 left-0 flex items-center gap-2">
+                                     <label class="text-[10px] text-slate-400 font-black uppercase tracking-widest">Filter by Class</label>
+                                     <span id="home-filter-badge" class="hidden bg-red-600 text-white text-[8px] font-black px-2 py-0.5 rounded shadow-lg pulse-red uppercase ring-2 ring-white">NEW UPDATES</span>
+                                 </div>
+                                 <select id="home-class-filter" class="bg-white border-2 border-indigo-200 rounded-2xl px-6 py-3 font-black text-indigo-950 outline-none shadow-xl focus:border-indigo-600 transition-all cursor-pointer w-full md:min-w-[240px]" onchange="home.handleClassChange(this.value)">
+                                     <option value="All">Select Class...</option>
+                                 </select>
+                             </div>
+                             <button onclick="router.navigate('updates')" class="whitespace-nowrap px-6 py-4 bg-indigo-950 text-white rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-indigo-800 transition-all shadow-lg w-full md:w-auto">Full Board</button>
+                        </div>
+                    </div>
+                    <div id="home-notices-preview" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Content loaded via JS -->
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-20 bg-white font-bold">
                 <div class="max-w-6xl mx-auto px-4 text-center">
                     <h2 class="text-3xl font-black text-indigo-950 uppercase mb-12 inline-block border-b-4 border-amber-400 font-bold tracking-tight">Recent Highlights</h2>
                     <div class="flex items-center gap-4">
@@ -220,17 +267,110 @@
                     </div>
                 </div>
             </section>
+
+            <!-- SCHOOL DETAILS SECTION -->
+            <section class="py-24 bg-indigo-950 text-white font-bold overflow-hidden relative">
+                <div class="absolute inset-0 opacity-5 pointer-events-none">
+                    <div class="absolute top-0 left-0 w-full h-full" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 40px 40px;"></div>
+                </div>
+                
+                <div class="max-w-7xl mx-auto px-6 relative z-10">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                        <div class="space-y-10">
+                            <div>
+                                <span class="bg-amber-400 text-indigo-950 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest">About Sri Sai Vidyalayam</span>
+                                <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tighter mt-6 leading-tight">Nurturing Excellence Since Inception</h2>
+                                <p class="text-indigo-200 mt-6 text-lg leading-relaxed">Sri Sai Vidyalayam is dedicated to providing quality education in a serene, pollution-free environment. Located in Pulagalipalem, our campus is designed to foster both academic and personal growth through expert faculty and modern infrastructure.</p>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                                <div class="flex gap-4">
+                                    <div class="bg-indigo-800 p-3 rounded-2xl h-fit"><span class="material-symbols-outlined text-amber-400">verified</span></div>
+                                    <div>
+                                        <h4 class="font-black uppercase text-sm tracking-tight">Govt Recognised</h4>
+                                        <p class="text-indigo-300 text-xs mt-1">Recognised by the Government of Andhra Pradesh for academic standards.</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-4">
+                                    <div class="bg-indigo-800 p-3 rounded-2xl h-fit"><span class="material-symbols-outlined text-amber-400">psychology</span></div>
+                                    <div>
+                                        <h4 class="font-black uppercase text-sm tracking-tight">Expert Faculty</h4>
+                                        <p class="text-indigo-300 text-xs mt-1">Qualified subject experts providing personalized attention to every student.</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-4">
+                                    <div class="bg-indigo-800 p-3 rounded-2xl h-fit"><span class="material-symbols-outlined text-amber-400">eco</span></div>
+                                    <div>
+                                        <h4 class="font-black uppercase text-sm tracking-tight">Green Campus</h4>
+                                        <p class="text-indigo-300 text-xs mt-1">A noise-free, lush green environment conducive to healthy learning.</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-4">
+                                    <div class="bg-indigo-800 p-3 rounded-2xl h-fit"><span class="material-symbols-outlined text-amber-400">school</span></div>
+                                    <div>
+                                        <h4 class="font-black uppercase text-sm tracking-tight">Modern Labs</h4>
+                                        <p class="text-indigo-300 text-xs mt-1">Equipped with science and computer labs for practical knowledge.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-indigo-900/50 p-8 md:p-12 rounded-[3rem] border border-indigo-800 shadow-2xl space-y-8">
+                            <h3 class="text-2xl font-black uppercase tracking-tight text-amber-400">Quick School Registry</h3>
+                            <div class="space-y-6">
+                                <div class="flex items-center gap-6 p-6 bg-indigo-950/50 rounded-3xl border border-indigo-800 hover:border-amber-400/50 transition-colors">
+                                    <span class="material-symbols-outlined text-4xl text-amber-400">location_on</span>
+                                    <div>
+                                        <p class="text-[10px] text-indigo-400 uppercase font-black tracking-widest">Campus Location</p>
+                                        <p class="text-sm font-bold mt-1">Pulagalipalem, Pendurthi, Visakhapatnam, AP</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-6 p-6 bg-indigo-950/50 rounded-3xl border border-indigo-800 hover:border-amber-400/50 transition-colors">
+                                    <span class="material-symbols-outlined text-4xl text-amber-400">call</span>
+                                    <div>
+                                        <p class="text-[10px] text-indigo-400 uppercase font-black tracking-widest">Office Hotline</p>
+                                        <p class="text-sm font-bold mt-1">+91 8121218825</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-6 p-6 bg-indigo-950/50 rounded-3xl border border-indigo-800 hover:border-amber-400/50 transition-colors">
+                                    <span class="material-symbols-outlined text-4xl text-amber-400">history_edu</span>
+                                    <div>
+                                        <p class="text-[10px] text-indigo-400 uppercase font-black tracking-widest">Classes Offered</p>
+                                        <p class="text-sm font-bold mt-1">Nursery up to 10th Class</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <footer class="bg-slate-50 border-t border-slate-200 py-12 font-bold no-print">
+                <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-indigo-950 text-white h-8 w-8 rounded-lg flex items-center justify-center font-bold text-xs border border-amber-400">SSV</div>
+                        <span class="text-indigo-950 font-black uppercase text-sm tracking-tight">Sri Sai Vidyalayam</span>
+                    </div>
+                    <p class="text-slate-400 text-xs uppercase tracking-widest font-black">&copy; 2024 SSV Educational Portal. All rights reserved.</p>
+                </div>
+            </footer>
         </div>
 
         <!-- VIEW: DAILY UPDATES -->
         <div id="view-updates" class="hidden min-h-screen py-16 bg-slate-50 view-section font-bold text-indigo-950">
-            <div class="max-w-4xl mx-auto px-6 font-bold">
-                <div class="flex justify-between items-center mb-10 font-bold">
-                    <h2 class="text-3xl font-black uppercase tracking-tighter text-indigo-950 font-bold">Daily Notice Board</h2>
-                    <select id="board-class-filter" class="bg-white border-2 border-slate-200 rounded-xl px-4 py-2 font-bold outline-none shadow-sm focus:border-indigo-500 transition-colors font-bold" onchange="home.renderUpdates()"></select>
+            <div class="w-full px-6 font-bold">
+                <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 mb-12 font-bold">
+                    <div>
+                        <h2 class="text-3xl font-black uppercase tracking-tighter text-indigo-950">Daily Notice Board</h2>
+                        <p class="text-xs text-slate-400 mt-2 font-bold uppercase tracking-widest" id="board-selected-label">Showing all Grades</p>
+                    </div>
+                    <div class="flex flex-col items-center md:items-end gap-2">
+                        <label class="text-[10px] text-slate-400 font-black uppercase tracking-widest">Filter by Class</label>
+                        <select id="board-class-filter" class="bg-white border-2 border-indigo-100 rounded-2xl px-8 py-4 font-black text-indigo-950 outline-none shadow-xl focus:border-indigo-600 transition-all cursor-pointer appearance-none min-w-[240px] text-center" onchange="home.handleClassChange(this.value)"></select>
+                    </div>
                 </div>
-                <div id="board-updates-list" class="space-y-6 font-bold"></div>
-                <div class="mt-12 text-center font-bold">
+                <div id="board-updates-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 font-bold"></div>
+                <div class="mt-16 text-center font-bold">
                     <button onclick="router.navigate('home')" class="text-indigo-600 font-bold hover:underline flex items-center justify-center gap-2 mx-auto font-bold uppercase tracking-widest text-xs font-black transition-all"><span class="material-symbols-outlined text-sm font-bold">arrow_back</span> Back to Home</button>
                 </div>
             </div>
@@ -238,10 +378,10 @@
 
         <!-- VIEW: LOGIN -->
         <div id="view-login" class="hidden min-h-screen bg-indigo-50 flex items-center justify-center p-6 view-section font-bold">
-            <div class="bg-white w-full max-w-md p-10 rounded-[2.5rem] shadow-2xl font-bold">
+            <div id="login-card" class="bg-white w-full max-w-md p-10 rounded-[2.5rem] shadow-2xl font-bold">
                 <div class="text-center mb-8 font-bold text-indigo-950">
                     <div class="bg-indigo-950 text-white w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 text-3xl font-bold border-4 border-amber-400 font-bold shadow-xl">SSV</div>
-                    <h2 class="text-2xl font-bold uppercase tracking-tight font-black">Portal Secure Entry</h2>
+                    <h2 class="text-2xl font-bold uppercase tracking-tight font-black">Admin Login</h2>
                 </div>
                 <form onsubmit="auth_manager.login(event)" class="space-y-6 font-bold text-indigo-950">
                     <div><label class="block text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-widest">Username</label><input type="text" id="userid" class="w-full border-2 border-slate-100 p-4 rounded-2xl outline-none focus:border-indigo-600 transition-all font-bold" required></div>
@@ -353,15 +493,32 @@
                         <form id="notice-form" onsubmit="admin.publishNotice(event)" class="bg-white p-8 rounded-[2rem] shadow-sm space-y-6 font-bold">
                             <input type="hidden" name="noticeId">
                             <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Class</label><select id="notice-class-select" name="class" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 outline-none font-bold"></select></div>
-                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Subject</label>
-                                <select name="subject" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-bold">
-                                    <option value="General News">General News</option><option value="Telugu">Telugu</option><option value="Hindi">Hindi</option>
-                                    <option value="English">English</option><option value="Mathematics">Mathematics</option><option value="Science">Science</option>
-                                    <option value="Social">Social</option><option value="E.V.S">E.V.S</option>
+                            
+                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest font-black font-bold">Type / Category</label>
+                                <select name="category" id="notice-category-select" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-bold font-bold">
+                                    <option>Announcement</option>
+                                    <option>Home Work</option>
+                                    <option>Class Test</option>
+                                    <option>Upcoming Events</option>
+                                    <option>Holiday</option>
                                 </select>
                             </div>
-                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Label</label><select name="category" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-bold font-bold"><option>Announcement</option><option>Homework</option><option>Holiday</option></select></div>
-                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Message</label><textarea name="content" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 h-32 focus:bg-white transition-all outline-none font-bold text-slate-800 font-bold" required></textarea></div>
+
+                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Subject</label>
+                                <select name="subject" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-bold">
+                                    <option value="General News">General News</option>
+                                    <option value="Telugu">Telugu</option>
+                                    <option value="Hindi">Hindi</option>
+                                    <option value="English">English</option>
+                                    <option value="Mathematics">Mathematics</option>
+                                    <option value="Science">Science</option>
+                                    <option value="Social">Social</option>
+                                    <option value="E.V.S">E.V.S</option>
+                                    <option value="Computers">Computers</option>
+                                </select>
+                            </div>
+
+                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Message Content</label><textarea name="content" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 h-32 focus:bg-white transition-all outline-none font-bold text-slate-800 font-bold" required></textarea></div>
                             <div class="flex gap-3">
                                 <button type="button" id="notice-cancel-btn" class="hidden flex-1 bg-slate-100 py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest" onclick="admin.cancelNoticeEdit()">Cancel</button>
                                 <button type="submit" id="notice-submit-btn" class="flex-[2] bg-indigo-600 text-white py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest font-bold">Publish Notice</button>
@@ -462,7 +619,13 @@
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
         import { getFirestore, doc, setDoc, getDoc, collection, addDoc, updateDoc, deleteDoc, onSnapshot } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
 
-        const firebaseConfig = JSON.parse(__firebase_config);
+        let firebaseConfig = {};
+        try {
+            firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        } catch (e) {
+            console.error("Firebase config parsing failed");
+        }
+
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
@@ -472,12 +635,15 @@
             user: null, students: [], notices: [], highlights: [],
             activeStudentId: null, blogIndex: 0, isLoggedIn: false,
             sort: { key: 'name', dir: 'asc' },
+            selectedClass: 'All', 
             classes: ["Nursery", "LKG", "UKG", "1st Class", "2nd Class", "3rd Class", "4th Class", "5th Class", "6th Class", "7th Class", "8th Class", "9th Class", "10th Class"]
         };
 
+        let unsubscribes = [];
+
         window.toggleMobileMenu = () => document.getElementById('mobile-menu').classList.toggle('hidden');
 
-        const initAuth = async () => {
+        const initAuth = async (retryCount = 0) => {
             try { 
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
                     await signInWithCustomToken(auth, __initial_auth_token);
@@ -485,38 +651,49 @@
                     await signInAnonymously(auth); 
                 }
             } catch (err) { 
-                console.error("Auth Failed", err); 
+                if (retryCount < 5) {
+                    const delay = Math.pow(2, retryCount) * 1000;
+                    setTimeout(() => initAuth(retryCount + 1), delay);
+                }
             }
         };
 
         onAuthStateChanged(auth, async (u) => {
             state.user = u;
-            const loader = document.getElementById('cloud-loader');
-            if(loader) { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 300); }
             if (u) startSync();
             if (!document.querySelector('.view-section:not(.hidden)')) router.navigate('home');
         });
 
         const startSync = () => {
             if (!state.user) return;
+            unsubscribes.forEach(unsub => unsub());
+            unsubscribes = [];
+
             const studentsRef = collection(db, 'artifacts', appId, 'public', 'data', 'students');
             const noticesRef = collection(db, 'artifacts', appId, 'public', 'data', 'notices');
             const highlightsRef = collection(db, 'artifacts', appId, 'public', 'data', 'highlights');
 
-            onSnapshot(studentsRef, (snap) => {
+            unsubscribes.push(onSnapshot(studentsRef, (snap) => {
                 state.students = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-                admin.updateDashboard(); admin.renderStudentList();
-            }, (err) => console.error("Students sync error:", err));
+                admin.updateDashboard(); 
+                admin.renderStudentList();
+                if (state.activeStudentId) admin.refreshModalContent();
+            }, (err) => {}));
 
-            onSnapshot(noticesRef, (snap) => {
+            unsubscribes.push(onSnapshot(noticesRef, (snap) => {
                 state.notices = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a,b) => b.timestamp - a.timestamp);
-                home.renderUpdates(); admin.renderNotices();
-            }, (err) => console.error("Notices sync error:", err));
+                home.renderUpdates(); 
+                admin.renderNotices();
+                home.renderHomeNotices();
+                home.updateNavBadge();
+                home.updateHomeFilterNotifications();
+            }, (err) => {}));
 
-            onSnapshot(highlightsRef, (snap) => {
+            unsubscribes.push(onSnapshot(highlightsRef, (snap) => {
                 state.highlights = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-                home.renderHighlights(); admin.renderHighlights();
-            }, (err) => console.error("Highlights sync error:", err));
+                home.renderHighlights(); 
+                admin.renderHighlights();
+            }, (err) => {}));
         };
 
         window.router = {
@@ -529,6 +706,7 @@
                     target.style.display = (view === 'login' || view === 'admin') ? 'flex' : 'block';
                 }
                 if (view === 'home') home.init();
+                if (view === 'updates') home.initUpdatesBoard();
                 if (view === 'admin') admin.init();
                 window.scrollTo(0,0);
             }
@@ -537,9 +715,16 @@
         window.auth_manager = {
             login: (e) => {
                 e.preventDefault();
+                const card = document.getElementById('login-card');
                 if (document.getElementById('userid').value === 'admin' && document.getElementById('password').value === '123') {
                     state.isLoggedIn = true; router.navigate('admin');
-                } else alert('Access Denied');
+                } else {
+                    // Shake effect on error
+                    if (card) {
+                        card.classList.add('shake-element');
+                        setTimeout(() => card.classList.remove('shake-element'), 500);
+                    }
+                }
             },
             logout: () => { state.isLoggedIn = false; router.navigate('home'); }
         };
@@ -547,16 +732,68 @@
         window.home = {
             init: () => {
                 home.startHeroSlider();
-                const filter = document.getElementById('board-class-filter');
-                if(filter) filter.innerHTML = '<option value="All">All Grades (Full Board)</option>' + state.classes.map(c => `<option value="${c}">${c}</option>`).join('');
-                
-                // Floating Admissions Popup logic
+                home.renderHomeNotices();
+                home.initHomeFilter();
                 if (!sessionStorage.getItem('admissions_popup_dismissed')) {
                     setTimeout(() => {
                         const popup = document.getElementById('admissions-popup');
                         if (popup) popup.classList.remove('hidden-modal');
-                    }, 1500);
+                    }, 3000); 
                 }
+            },
+            initHomeFilter: () => {
+                const filter = document.getElementById('home-class-filter');
+                if (filter) {
+                    home.updateHomeFilterNotifications();
+                    filter.value = state.selectedClass;
+                }
+            },
+            updateHomeFilterNotifications: () => {
+                const filter = document.getElementById('home-class-filter');
+                if (!filter) return;
+                
+                const lastSeen = parseInt(localStorage.getItem('ssv_last_seen_updates') || '0');
+                
+                let anyUnread = false;
+                filter.innerHTML = '<option value="All">Select Class...</option>' + state.classes.map(c => {
+                    const classHasNew = state.notices.some(n => n.class === c && n.timestamp > lastSeen);
+                    if (classHasNew) anyUnread = true;
+                    // Apply bold red text for [NEW] marker classes
+                    return `<option value="${c}" style="color: ${classHasNew ? '#dc2626' : 'inherit'}; font-weight: ${classHasNew ? 'bold' : 'normal'}; text-transform: uppercase;">${c}${classHasNew ? ' • [NEW]' : ''}</option>`;
+                }).join('');
+
+                const badge = document.getElementById('home-class-filter').parentElement.querySelector('#home-filter-badge');
+                if (badge) badge.classList.toggle('hidden', !anyUnread);
+            },
+            initUpdatesBoard: () => {
+                const filter = document.getElementById('board-class-filter');
+                if(filter) {
+                    filter.innerHTML = '<option value="All">All Grades (View Full Board)</option>' + state.classes.map(c => `<option value="${c}">${c}</option>`).join('');
+                    filter.value = state.selectedClass;
+                }
+                localStorage.setItem('ssv_last_seen_updates', Date.now().toString());
+                home.updateNavBadge();
+                home.updateHomeFilterNotifications();
+                home.renderUpdates();
+            },
+            updateNavBadge: () => {
+                const lastSeen = parseInt(localStorage.getItem('ssv_last_seen_updates') || '0');
+                const newCount = state.notices.filter(n => n.timestamp > lastSeen).length;
+                const badge = document.getElementById('nav-updates-badge');
+                const mobileBadge = document.getElementById('mobile-updates-badge');
+                if (badge) { badge.innerText = newCount; badge.classList.toggle('hidden', newCount === 0); }
+                if (mobileBadge) { mobileBadge.innerText = newCount; mobileBadge.classList.toggle('hidden', newCount === 0); }
+            },
+            handleClassChange: (val) => {
+                state.selectedClass = val;
+                const label = document.getElementById('board-selected-label');
+                if (label) label.innerText = val === 'All' ? 'Showing all Grades' : `Showing notices for ${val}`;
+                home.renderUpdates();
+                home.renderHomeNotices();
+                const fullFilter = document.getElementById('board-class-filter');
+                if (fullFilter) fullFilter.value = val;
+                const homeFilter = document.getElementById('home-class-filter');
+                if (homeFilter) homeFilter.value = val;
             },
             closeAdmissionsPopup: () => {
                 const popup = document.getElementById('admissions-popup');
@@ -570,6 +807,44 @@
                     if(!slides.length) return; slides[current].classList.remove('active');
                     current = (current + 1) % slides.length; slides[current].classList.add('active');
                 }, 4500);
+            },
+            renderHomeNotices: () => {
+                const container = document.getElementById('home-notices-preview');
+                if (!container) return;
+                
+                if (state.selectedClass === 'All') {
+                    container.innerHTML = `
+                        <div class="col-span-full text-center py-16">
+                            <div class="max-w-md mx-auto bg-white p-10 rounded-[3rem] shadow-sm border-2 border-dashed border-indigo-100">
+                                <span class="material-symbols-outlined text-indigo-200 text-6xl mb-4">school</span>
+                                <p class="text-slate-400 font-bold">Please select a class above to see the latest updates.</p>
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const filtered = state.notices.filter(n => n.class === state.selectedClass || n.class === 'All').slice(0, 6);
+                container.innerHTML = filtered.map(n => {
+                    let colorClass = 'border-indigo-600';
+                    if (n.category === 'Home Work') colorClass = 'border-emerald-500';
+                    if (n.category === 'Class Test') colorClass = 'border-amber-500';
+                    if (n.category === 'Upcoming Events') colorClass = 'border-orange-600';
+                    const isNew = n.timestamp > (Date.now() - 86400000);
+                    return `
+                        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border-l-8 ${colorClass} hover:shadow-lg transition-all group relative overflow-hidden">
+                            ${isNew ? `<div class="absolute top-2 right-2 bg-red-600 text-white text-[8px] font-black px-2 py-1 rounded-bl-xl uppercase animate-pulse z-20">NEW</div>` : ''}
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full font-black uppercase text-[9px] tracking-tighter flex items-center">
+                                    ${n.class} ${isNew ? '<span class="notify-dot animate-ping ml-2 bg-red-600"></span>' : ''}
+                                </span>
+                                <span class="text-[9px] font-black uppercase text-slate-300 tracking-widest">${new Date(n.timestamp).toLocaleDateString()}</span>
+                            </div>
+                            <h4 class="text-indigo-600 font-black uppercase text-[10px] tracking-widest mb-1">${n.category}</h4>
+                            <p class="text-slate-700 font-bold line-clamp-3 text-sm leading-relaxed">${n.content}</p>
+                        </div>
+                    `;
+                }).join('') || '<div class="col-span-full text-center py-10 opacity-30 italic">No recent announcements for this class.</div>';
             },
             renderHighlights: () => {
                 const track = document.getElementById('blog-posts-feed');
@@ -593,10 +868,30 @@
             updateSlider: () => { const track = document.getElementById('blog-posts-feed'); if(track) track.style.transform = `translateX(-${state.blogIndex * 100}%)`; },
             renderUpdates: () => {
                 const list = document.getElementById('board-updates-list');
-                const filter = document.getElementById('board-class-filter').value;
                 if(!list) return;
-                const filtered = state.notices.filter(n => filter === 'All' || n.class === filter || n.class === 'All');
-                list.innerHTML = filtered.map(n => `<div class="bg-white p-10 rounded-[2.5rem] shadow-sm border-l-[12px] border-indigo-600 hover:shadow-md transition-all"><div class="flex justify-between items-start mb-4 text-indigo-400 uppercase tracking-widest text-[10px] font-bold"><span>${n.category} • ${new Date(n.timestamp).toLocaleDateString()}</span><span class="bg-indigo-50 text-indigo-700 px-3 py-1.5 rounded-full font-black uppercase tracking-tighter">${n.class}</span></div><p class="text-slate-800 text-xl leading-relaxed">${n.subject && n.subject !== 'General News' ? '<span class="text-indigo-600 font-black">['+n.subject+'] </span>' : ''}${n.content}</p></div>`).join('') || '<div class="text-center py-10 text-slate-400 font-bold italic">No announcements.</div>';
+                const filtered = state.notices.filter(n => state.selectedClass === 'All' || n.class === state.selectedClass || n.class === 'All');
+                list.innerHTML = filtered.map(n => {
+                    let colorClass = 'border-indigo-600';
+                    if (n.category === 'Home Work') colorClass = 'border-emerald-500';
+                    if (n.category === 'Class Test') colorClass = 'border-amber-500';
+                    if (n.category === 'Upcoming Events') colorClass = 'border-orange-600';
+                    if (n.category === 'Holiday') colorClass = 'border-red-500';
+                    const isNew = n.timestamp > (Date.now() - 86400000);
+                    return `
+                        <div class="bg-white p-10 rounded-[2.5rem] shadow-sm border-l-[12px] ${colorClass} hover:shadow-xl transition-all h-full flex flex-col group relative overflow-hidden">
+                            ${isNew ? `<div class="absolute top-2 right-2 bg-red-600 text-white text-[9px] font-black px-3 py-1 rounded-bl-2xl uppercase shadow-sm animate-pulse z-10">NEW UPDATE</div>` : ''}
+                            <div class="flex justify-between items-start mb-6">
+                                <div class="flex flex-col">
+                                    <span class="text-[9px] font-black uppercase tracking-widest text-slate-400">${new Date(n.timestamp).toLocaleDateString()}</span>
+                                    <span class="inline-block mt-1 px-3 py-1 bg-slate-100 text-slate-600 text-[10px] font-black uppercase rounded-full tracking-tighter">${n.category}</span>
+                                </div>
+                                <span class="bg-indigo-50 text-indigo-700 px-4 py-1.5 rounded-full font-black uppercase tracking-tighter text-xs">${n.class}</span>
+                            </div>
+                            <h4 class="text-indigo-600 font-black uppercase text-xs tracking-widest mb-2">${n.subject && n.subject !== 'General News' ? n.subject : 'Notice'}</h4>
+                            <p class="text-slate-800 text-xl leading-relaxed font-bold flex-1">${n.content}</p>
+                        </div>
+                    `;
+                }).join('') || '<div class="col-span-full text-center py-32"><div class="bg-indigo-50 inline-block p-10 rounded-[3rem] border border-indigo-100"><span class="material-symbols-outlined text-indigo-300 text-6xl mb-4">notifications_off</span><p class="text-slate-400 font-bold italic">No notices available for this grade yet.</p></div></div>';
             }
         };
 
@@ -618,66 +913,40 @@
             updateDashboard: () => {
                 let total = 0, collected = 0;
                 state.students.forEach(s => { total += (s.fee + (s.oldDue || 0)); collected += (s.paid || 0); });
-                document.getElementById('stat-total').innerText = `₹${total.toLocaleString()}`;
-                document.getElementById('stat-collected').innerText = `₹${collected.toLocaleString()}`;
-                document.getElementById('stat-pending').innerText = `₹${(total - collected).toLocaleString()}`;
-                document.getElementById('stat-count').innerText = state.students.length;
+                const statTotal = document.getElementById('stat-total');
+                const statColl = document.getElementById('stat-collected');
+                const statPend = document.getElementById('stat-pending');
+                const statCount = document.getElementById('stat-count');
+                if (statTotal) statTotal.innerText = `₹${total.toLocaleString()}`;
+                if (statColl) statColl.innerText = `₹${collected.toLocaleString()}`;
+                if (statPend) statPend.innerText = `₹${(total - collected).toLocaleString()}`;
+                if (statCount) statCount.innerText = state.students.length;
                 const ctx = document.getElementById('feeChart')?.getContext('2d');
                 if(!ctx) return; if(window.dashChart) window.dashChart.destroy();
                 window.dashChart = new Chart(ctx, { type: 'bar', data: { labels: ['Target', 'Revenue', 'Due'], datasets: [{ data: [total, collected, total - collected], backgroundColor: ['#312e81', '#10b981', '#ef4444'], borderRadius: 12 }] }, options: { maintainAspectRatio: false, plugins: { legend: { display: false } } } });
             },
-
-            // --- ADMISSIONS (CREATE & EDIT) ---
             registerStudent: async (e) => {
                 e.preventDefault(); if (!state.user) return;
                 const fd = new FormData(e.target);
                 const editId = fd.get('editId');
                 const btn = document.getElementById('admit-submit-btn');
                 btn.disabled = true; btn.innerText = "Syncing...";
-                
                 let slipBase64 = null;
                 const slipFile = document.getElementById('admit-slip-input').files[0];
-                if(slipFile && slipFile.size < 800000) {
-                    slipBase64 = await new Promise(r => { const rd = new FileReader(); rd.onload = () => r(rd.result); rd.readAsDataURL(slipFile); });
-                }
-
-                const data = { 
-                    admnNo: fd.get('admnNo'), name: fd.get('name'), class: fd.get('class'), 
-                    father: fd.get('father'), contact: fd.get('contact'), 
-                    fee: parseFloat(fd.get('fee')), oldDue: parseFloat(fd.get('oldDue') || 0) 
-                };
-
+                if(slipFile && slipFile.size < 800000) { slipBase64 = await new Promise(r => { const rd = new FileReader(); rd.onload = () => r(rd.result); rd.readAsDataURL(slipFile); }); }
+                const data = { admnNo: fd.get('admnNo'), name: fd.get('name'), class: fd.get('class'), father: fd.get('father'), contact: fd.get('contact'), fee: parseFloat(fd.get('fee')), oldDue: parseFloat(fd.get('oldDue') || 0) };
                 try {
-                    if (editId) {
-                        await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', editId), data);
-                        admin.cancelAdmitEdit();
-                    } else {
-                        const initialPay = parseFloat(fd.get('initialPay') || 0);
-                        const newData = { ...data, paid: initialPay, history: initialPay > 0 ? [{ amount: initialPay, timestamp: Date.now(), remark: 'Initial Enrollment' }] : [], concessionSlip: slipBase64, timestamp: Date.now() };
-                        await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'students'), newData);
-                    }
+                    if (editId) { await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', editId), data); admin.cancelAdmitEdit(); }
+                    else { const initialPay = parseFloat(fd.get('initialPay') || 0); const newData = { ...data, paid: initialPay, history: initialPay > 0 ? [{ amount: initialPay, timestamp: Date.now(), remark: 'Initial Enrollment' }] : [], concessionSlip: slipBase64, timestamp: Date.now() }; await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'students'), newData); }
                     admin.switchTab('students'); e.target.reset();
-                } catch(err) {
-                    alert("Operation failed. Ensure you are connected and logged in.");
-                } finally {
-                    btn.disabled = false; btn.innerText = "Complete Admission";
-                }
+                } catch(err) { alert("Write failed."); } finally { btn.disabled = false; btn.innerText = "Complete Admission"; }
             },
             initiateAdmitEdit: () => {
                 const s = state.students.find(x => x.id === state.activeStudentId);
                 if (!s) return;
-                admin.closeModal();
-                admin.switchTab('admissions');
+                admin.closeModal(); admin.switchTab('admissions');
                 const form = document.getElementById('admissions-form');
-                form.editId.value = s.id;
-                form.admnNo.value = s.admnNo;
-                form.name.value = s.name;
-                form.class.value = s.class;
-                form.father.value = s.father;
-                form.contact.value = s.contact;
-                form.fee.value = s.fee;
-                form.oldDue.value = s.oldDue || 0;
-                
+                form.editId.value = s.id; form.admnNo.value = s.admnNo; form.name.value = s.name; form.class.value = s.class; form.father.value = s.father; form.contact.value = s.contact; form.fee.value = s.fee; form.oldDue.value = s.oldDue || 0;
                 document.getElementById('admission-title').innerText = "Update Record";
                 document.getElementById('admit-submit-btn').innerText = "Save Changes";
                 document.getElementById('admit-initial-group').style.display = 'none';
@@ -685,15 +954,12 @@
             },
             cancelAdmitEdit: () => {
                 const form = document.getElementById('admissions-form');
-                form.reset();
-                form.editId.value = "";
+                if (form) { form.reset(); form.editId.value = ""; }
                 document.getElementById('admission-title').innerText = "Admission Entry";
                 document.getElementById('admit-submit-btn').innerText = "Complete Admission";
                 document.getElementById('admit-initial-group').style.display = 'block';
                 document.getElementById('admit-cancel-btn').classList.add('hidden');
             },
-
-            // --- STUDENT LIST & SORT ---
             sortStudents: (key) => {
                 if (state.sort.key === key) state.sort.dir = state.sort.dir === 'asc' ? 'desc' : 'asc';
                 else { state.sort.key = key; state.sort.dir = 'asc'; }
@@ -701,12 +967,12 @@
             },
             renderStudentList: () => {
                 const body = document.getElementById('student-list-body');
-                const search = document.getElementById('record-search').value.toLowerCase();
-                const filter = document.getElementById('record-class-filter').value || 'All';
+                const searchEl = document.getElementById('record-search');
+                const search = searchEl ? searchEl.value.toLowerCase() : "";
+                const filterEl = document.getElementById('record-class-filter');
+                const filter = filterEl ? filterEl.value : 'All';
                 if(!body) return;
-                
                 let filtered = state.students.filter(s => (filter === 'All' || s.class === filter) && (s.name.toLowerCase().includes(search) || s.admnNo.includes(search)));
-                
                 filtered.sort((a, b) => {
                     let valA = a[state.sort.key];
                     let valB = b[state.sort.key];
@@ -718,7 +984,6 @@
                     if (valA > valB) return state.sort.dir === 'asc' ? 1 : -1;
                     return 0;
                 });
-
                 body.innerHTML = filtered.map(s => `
                     <tr class="hover:bg-indigo-50/50 cursor-pointer transition-colors border-b" onclick="admin.openModal('${s.id}')">
                         <td class="p-6 font-mono text-[10px] text-slate-400">${s.admnNo}</td><td class="p-6 uppercase font-black">${s.name}</td>
@@ -727,17 +992,21 @@
                     </tr>
                 `).join('') || '<tr><td colspan="5" class="p-10 text-center text-slate-400 italic">No records found.</td></tr>';
             },
-
-            // --- MODAL & HISTORY ---
             openModal: (id) => {
-                state.activeStudentId = id; const s = state.students.find(x => x.id === id); if(!s) return;
+                state.activeStudentId = id; admin.refreshModalContent();
+                document.getElementById('student-modal').classList.remove('hidden-modal'); 
+                document.getElementById('pay-date').valueAsDate = new Date();
+            },
+            refreshModalContent: () => {
+                if (!state.activeStudentId) return;
+                const s = state.students.find(x => x.id === state.activeStudentId); 
+                if(!s) { admin.closeModal(); return; }
                 document.getElementById('modal-name').innerText = s.name; document.getElementById('modal-class').innerText = s.class;
                 document.getElementById('modal-father').innerText = s.father; document.getElementById('modal-contact').innerText = s.contact;
                 document.getElementById('modal-balance').innerText = `₹${((s.fee + (s.oldDue || 0)) - (s.paid || 0)).toLocaleString()}`;
-                document.getElementById('modal-slip-area').classList.toggle('hidden', !s.concessionSlip);
-                admin.resetHistoryFilter();
-                document.getElementById('student-modal').classList.remove('hidden-modal'); 
-                document.getElementById('pay-date').valueAsDate = new Date();
+                const slipArea = document.getElementById('modal-slip-area');
+                if (slipArea) slipArea.classList.toggle('hidden', !s.concessionSlip);
+                admin.renderHistory();
             },
             resetHistoryFilter: () => {
                 document.getElementById('history-start').value = ""; document.getElementById('history-end').value = "";
@@ -745,136 +1014,120 @@
             },
             renderHistory: () => {
                 const s = state.students.find(x => x.id === state.activeStudentId);
+                if (!s) return;
                 const start = document.getElementById('history-start').valueAsNumber;
                 const end = document.getElementById('history-end').valueAsNumber;
                 let hist = s.history || [];
                 if(start && end) hist = hist.filter(h => h.timestamp >= start && h.timestamp <= (end + 86400000));
-                
-                document.getElementById('modal-history').innerHTML = hist.map(h => `
-                    <tr class="border-b">
-                        <td class="p-4 text-slate-400 text-xs">${new Date(h.timestamp).toLocaleDateString()}</td>
-                        <td class="p-4 font-bold">${h.remark || 'Fee Collection'}</td>
-                        <td class="p-4 text-right text-green-600 font-black">₹${h.amount.toLocaleString()}</td>
-                        <td class="p-4 text-right"><button onclick="printer.printReceipt('${h.timestamp}')"><span class="material-symbols-outlined text-indigo-900">print</span></button></td>
-                    </tr>
-                `).reverse().join('') || '<tr><td colspan="4" class="p-6 text-center text-slate-300 italic">No transactions in range.</td></tr>';
+                const tableBody = document.getElementById('modal-history');
+                if (tableBody) {
+                    tableBody.innerHTML = hist.map(h => `
+                        <tr class="border-b">
+                            <td class="p-4 text-slate-400 text-xs">${new Date(h.timestamp).toLocaleDateString()}</td>
+                            <td class="p-4 font-bold">${h.remark || 'Fee Collection'}</td>
+                            <td class="p-4 text-right text-green-600 font-black">₹${h.amount.toLocaleString()}</td>
+                            <td class="p-4 text-right"><button onclick="printer.printReceipt('${h.timestamp}')"><span class="material-symbols-outlined text-indigo-900">print</span></button></td>
+                        </tr>
+                    `).reverse().join('') || '<tr><td colspan="4" class="p-6 text-center text-slate-300 italic">No transactions in range.</td></tr>';
+                }
             },
-            closeModal: () => document.getElementById('student-modal').classList.add('hidden-modal'),
+            closeModal: () => { document.getElementById('student-modal').classList.add('hidden-modal'); state.activeStudentId = null; },
             recordPayment: async (e) => {
                 e.preventDefault(); if (!state.user) return;
-                const amt = parseFloat(document.getElementById('pay-amt').value); 
-                const dateVal = document.getElementById('pay-date').value;
+                const amtEl = document.getElementById('pay-amt');
+                const dateEl = document.getElementById('pay-date');
+                const remarkEl = document.getElementById('pay-remark');
+                const amt = parseFloat(amtEl.value); const dateVal = dateEl.value;
                 const s = state.students.find(x => x.id === state.activeStudentId);
                 if(!s || isNaN(amt)) return;
                 const ts = dateVal ? new Date(dateVal).getTime() : Date.now();
-                s.paid = (s.paid || 0) + amt;
-                if(!s.history) s.history = [];
-                s.history.push({ amount: amt, timestamp: ts, remark: document.getElementById('pay-remark').value });
-                await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', s.id), { paid: s.paid, history: s.history });
-                admin.renderHistory(); document.getElementById('pay-amt').value = ''; document.getElementById('pay-remark').value = '';
+                const newPaid = (s.paid || 0) + amt;
+                const newHistory = [...(s.history || []), { amount: amt, timestamp: ts, remark: remarkEl.value }];
+                try { await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', s.id), { paid: newPaid, history: newHistory }); amtEl.value = ''; remarkEl.value = ''; } catch (err) { alert("Failed."); }
             },
-
-            // --- NOTICES ---
             publishNotice: async (e) => {
                 e.preventDefault(); if (!state.user) return;
                 const fd = new FormData(e.target);
                 const nid = fd.get('noticeId');
                 const data = { class: fd.get('class'), subject: fd.get('subject'), category: fd.get('category'), content: fd.get('content'), timestamp: Date.now() };
-                if (nid) await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'notices', nid), data);
-                else await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'notices'), data);
-                admin.cancelNoticeEdit();
+                try {
+                    if (nid) await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'notices', nid), data);
+                    else await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'notices'), data);
+                    const currentClass = fd.get('class'); const currentCat = fd.get('category');
+                    admin.cancelNoticeEdit();
+                    const form = document.getElementById('notice-form');
+                    if (form) { form.class.value = currentClass; form.category.value = currentCat; }
+                } catch(e) { alert("Action failed."); }
             },
             initiateNoticeEdit: (id) => {
                 const n = state.notices.find(x => x.id === id); if(!n) return;
                 const form = document.getElementById('notice-form');
-                form.noticeId.value = n.id;
-                form.class.value = n.class;
-                form.subject.value = n.subject;
-                form.category.value = n.category;
-                form.content.value = n.content;
+                form.noticeId.value = n.id; form.class.value = n.class; form.category.value = n.category; form.subject.value = n.subject; form.content.value = n.content;
                 document.getElementById('notice-form-title').innerText = "Update Notice";
                 document.getElementById('notice-submit-btn').innerText = "Update";
                 document.getElementById('notice-cancel-btn').classList.remove('hidden');
             },
             cancelNoticeEdit: () => {
                 const form = document.getElementById('notice-form');
-                form.reset(); form.noticeId.value = "";
-                document.getElementById('notice-form-title').innerText = "New Notice";
-                document.getElementById('notice-submit-btn').innerText = "Publish Notice";
-                document.getElementById('notice-cancel-btn').classList.add('hidden');
+                const previousClass = form ? form.class.value : null; const previousCat = form ? form.category.value : null;
+                if (form) { form.reset(); form.noticeId.value = ""; if (previousClass) form.class.value = previousClass; if (previousCat) form.category.value = previousCat; }
+                const title = document.getElementById('notice-form-title'); if (title) title.innerText = "New Notice";
+                const btn = document.getElementById('notice-submit-btn'); if (btn) btn.innerText = "Publish Notice";
+                const cancelBtn = document.getElementById('notice-cancel-btn'); if (cancelBtn) cancelBtn.classList.add('hidden');
             },
             renderNotices: () => {
                 const list = document.getElementById('admin-notices-list');
                 if(!list) return;
                 list.innerHTML = state.notices.map(n => `
-                    <div class="bg-white p-5 rounded-2xl flex justify-between items-center shadow-sm border border-slate-50">
-                        <div>
+                    <div class="bg-white p-5 rounded-2xl flex justify-between items-center shadow-sm border border-slate-50 group hover:shadow-md transition-shadow">
+                        <div class="flex-1">
                             <div class="text-[9px] uppercase font-black text-indigo-400 tracking-tighter">${n.class} • ${n.category} ${n.subject !== 'General News' ? '• ' + n.subject : ''}</div>
-                            <div class="text-indigo-950 font-bold">${n.content.substring(0,80)}${n.content.length > 80 ? '...' : ''}</div>
+                            <div class="text-indigo-950 font-bold">${n.content.substring(0,100)}${n.content.length > 100 ? '...' : ''}</div>
                         </div>
-                        <div class="flex gap-2">
-                            <button onclick="admin.initiateNoticeEdit('${n.id}')" class="text-indigo-400 hover:text-indigo-600"><span class="material-symbols-outlined">edit</span></button>
-                            <button onclick="admin.deleteNotice('${n.id}')" class="text-slate-300 hover:text-red-600"><span class="material-symbols-outlined">delete</span></button>
+                        <div class="flex gap-4 ml-6">
+                            <button onclick="admin.initiateNoticeEdit('${n.id}')" class="text-indigo-400 hover:text-indigo-600 transition-colors flex items-center gap-1"><span class="material-symbols-outlined text-xl">edit_note</span></button>
+                            <button onclick="admin.deleteNotice('${n.id}')" class="text-slate-300 hover:text-red-600 transition-colors flex items-center gap-1"><span class="material-symbols-outlined text-xl">delete_sweep</span></button>
                         </div>
                     </div>
-                `).join('') || '<div class="text-slate-300 py-10 text-center italic">No notices.</div>';
+                `).join('') || '<div class="text-slate-300 py-10 text-center italic">No notices found.</div>';
             },
-            deleteNotice: async (id) => { if (!state.user) return; if(confirm('Delete notice?')) await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'notices', id)); },
-
-            // --- HIGHLIGHTS ---
+            deleteNotice: async (id) => { if (!state.user) return; await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'notices', id)); },
             publishHighlight: async (e) => {
                 e.preventDefault(); if (!state.user) return;
-                const fd = new FormData(e.target);
-                const hid = fd.get('hId');
+                const fd = new FormData(e.target); const hid = fd.get('hId');
                 const data = { title: fd.get('title'), type: fd.get('type'), url: fd.get('url') };
-                if (hid) await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'highlights', hid), data);
-                else await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'highlights'), data);
-                admin.cancelHighlightEdit();
+                try { if (hid) await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'highlights', hid), data); else await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'highlights'), data); admin.cancelHighlightEdit(); } catch(e) { alert("Failed."); }
             },
             initiateHighlightEdit: (id) => {
                 const h = state.highlights.find(x => x.id === id); if(!h) return;
                 const form = document.getElementById('highlight-form');
                 form.hId.value = h.id; form.title.value = h.title; form.type.value = h.type; form.url.value = h.url;
-                document.getElementById('highlight-form-title').innerText = "Edit Highlight";
-                document.getElementById('highlight-submit-btn').innerText = "Update Highlight";
+                document.getElementById('highlight-form-title').innerText = "Edit Highlight"; document.getElementById('highlight-submit-btn').innerText = "Update Highlight";
                 document.getElementById('highlight-cancel-btn').classList.remove('hidden');
             },
             cancelHighlightEdit: () => {
-                const form = document.getElementById('highlight-form');
-                form.reset(); form.hId.value = "";
-                document.getElementById('highlight-form-title').innerText = "Gallery";
-                document.getElementById('highlight-submit-btn').innerText = "Post Image";
-                document.getElementById('highlight-cancel-btn').classList.add('hidden');
+                const form = document.getElementById('highlight-form'); if (form) { form.reset(); form.hId.value = ""; }
+                document.getElementById('highlight-form-title').innerText = "Gallery"; document.getElementById('highlight-submit-btn').innerText = "Post Image";
+                const cancelBtn = document.getElementById('highlight-cancel-btn'); if (cancelBtn) cancelBtn.classList.add('hidden');
             },
             viewHighlight: (id) => {
-                const h = state.highlights.find(x => x.id === id);
-                if (h.type === 'image') window.open(h.url, '_blank');
+                const h = state.highlights.find(x => x.id === id); if (h.type === 'image') window.open(h.url, '_blank');
                 else window.open(`https://www.youtube.com/watch?v=${h.url.split('v=')[1]?.split('&')[0] || h.url.split('/').pop()}`, '_blank');
             },
             renderHighlights: () => {
-                const list = document.getElementById('admin-highlights-list');
-                if(!list) return;
+                const list = document.getElementById('admin-highlights-list'); if(!list) return;
                 list.innerHTML = state.highlights.map(h => `
                     <div class="bg-white p-4 rounded-3xl flex flex-col gap-3 shadow-sm border border-slate-50">
-                        <img src="${h.type === 'image' ? h.url : 'https://img.youtube.com/vi/'+(h.url.split('v=')[1]?.split('&')[0] || h.url.split('/').pop())+'/mqdefault.jpg'}" class="h-32 w-full object-cover rounded-xl bg-slate-50">
-                        <div class="flex justify-between items-center px-1 font-black text-sm text-indigo-950">
-                            <span class="truncate flex-1">${h.title}</span>
-                            <div class="flex gap-1 ml-2">
-                                <button onclick="admin.viewHighlight('${h.id}')" class="text-indigo-400 hover:text-indigo-600"><span class="material-symbols-outlined text-sm">visibility</span></button>
-                                <button onclick="admin.initiateHighlightEdit('${h.id}')" class="text-indigo-400 hover:text-indigo-600"><span class="material-symbols-outlined text-sm">edit</span></button>
-                                <button onclick="admin.deleteHighlight('${h.id}')" class="text-red-300 hover:text-red-600"><span class="material-symbols-outlined text-sm">delete</span></button>
-                            </div>
-                        </div>
+                        <img src="${h.type === 'image' ? h.url : 'https://img.youtube.com/vi/'+(h.url.split('v=')[1]?.split('&')[0] || h.url.split('/').pop())+'/mqdefault.jpg'}" class="h-32 w-full object-cover rounded-xl bg-slate-50" onerror="this.src='https://via.placeholder.com/300x200?text=No+Preview'">
+                        <div class="flex justify-between items-center px-1 font-black text-sm text-indigo-950"><span class="truncate flex-1">${h.title}</span><div class="flex gap-1 ml-2"><button onclick="admin.viewHighlight('${h.id}')" class="text-indigo-400 hover:text-indigo-600"><span class="material-symbols-outlined text-sm">visibility</span></button><button onclick="admin.initiateHighlightEdit('${h.id}')" class="text-indigo-400 hover:text-indigo-600"><span class="material-symbols-outlined text-sm">edit</span></button><button onclick="admin.deleteHighlight('${h.id}')" class="text-red-300 hover:text-red-600"><span class="material-symbols-outlined text-sm">delete</span></button></div></div>
                     </div>
                 `).join('') || '<div class="text-slate-300 py-10 text-center col-span-full italic">No highlights.</div>';
             },
-            deleteHighlight: async (id) => { if (!state.user) return; if(confirm('Delete?')) await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'highlights', id)); },
-
-            // --- SECURE DELETE & UTILS ---
-            initiateSecureDelete: () => { document.getElementById('delete-pin-input').value = ''; document.getElementById('delete-pin-modal').classList.remove('hidden-modal'); },
+            deleteHighlight: async (id) => { if (!state.user) return; await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'highlights', id)); },
+            initiateSecureDelete: () => { const pinInput = document.getElementById('delete-pin-input'); if (pinInput) pinInput.value = ''; document.getElementById('delete-pin-modal').classList.remove('hidden-modal'); },
             closeDeleteModal: () => document.getElementById('delete-pin-modal').classList.add('hidden-modal'),
             executeSecureDelete: async () => { if (!state.user) return; if (document.getElementById('delete-pin-input').value === '123') { const sId = state.activeStudentId; admin.closeDeleteModal(); admin.closeModal(); await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', sId)); } else alert('Incorrect PIN'); },
-            viewConcessionSlip: () => { const s = state.students.find(x => x.id === state.activeStudentId); if(s?.concessionSlip) { const w = window.open(); w.document.write(`<iframe src="${s.concessionSlip}" style="width:100%;height:100%;border:none;"></iframe>`); } },
+            viewConcessionSlip: () => { const s = state.students.find(x => x.id === state.activeStudentId); if(s?.concessionSlip) window.open(s.concessionSlip, '_blank'); },
             exportExcel: () => { const rows = state.students.map(s => ({ ID: s.admnNo, Name: s.name, Grade: s.class, Parent: s.father, Contact: s.contact, Fee: s.fee, Paid: s.paid })); const ws = XLSX.utils.json_to_sheet(rows); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "Records"); XLSX.writeFile(wb, `SSV_Export.xlsx`); },
             importBulkData: (event) => { if (!state.user) return; const f = event.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = (e) => { const b = e.target.result; const w = XLSX.read(b, {type:'binary'}); const j = XLSX.utils.sheet_to_json(w.Sheets[w.SheetNames[0]]); const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'students'); j.forEach(async row => { const d = { admnNo:String(row.ID||''), name:String(row.Name||''), class:String(row.Grade||'Nursery'), father:String(row.Parent||''), contact:String(row.Contact||''), fee:parseFloat(row.Fee||0), paid:parseFloat(row.Paid||0), history:[], timestamp:Date.now() }; if(d.name) await addDoc(colRef, d); }); alert('Bulk migration started.'); }; r.readAsBinaryString(f); },
             exportJSON: () => { const b = new Blob([JSON.stringify(state.students, null, 2)], { type: "application/json" }); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = `SSV_Backup.json`; a.click(); },
@@ -891,7 +1144,7 @@
                 document.getElementById('printable-area').innerHTML = `<div style="padding:40px;font-family:sans-serif;background:white;"><h1>Summary: ${s.name}</h1><p>ID: ${s.admnNo} | Class: ${s.class}</p><table style="width:100%;border-collapse:collapse;margin-top:20px;"><thead><tr style="background:#1e1b4b;color:#fff;"><th style="padding:10px;text-align:left;">Date</th><th style="padding:10px;text-align:left;">Remark</th><th style="padding:10px;text-align:right;">Amount</th></tr></thead><tbody>${s.history.map(h => `<tr><td style="border:1px solid #ddd;padding:10px;">${new Date(h.timestamp).toLocaleDateString()}</td><td style="border:1px solid #ddd;padding:10px;">${h.remark||'Fee'}</td><td style="border:1px solid #ddd;padding:10px;text-align:right;">₹${h.amount.toLocaleString()}</td></tr>`).join('')}</tbody></table></div>`; window.print();
             },
             printMasterLedger: () => {
-                document.getElementById('printable-area').innerHTML = `<div style="padding:40px;font-family:sans-serif;background:white;"><h1 style="text-align:center;">Registry Ledger</h1><table style="width:100%;border-collapse:collapse;margin-top:30px;"><thead style="background:#1e1b4b;color:#fff;"><tr><th>ID</th><th>Name</th><th>Class</th><th style="text-align:right;">Due</th></tr></thead><tbody>${state.students.map(s => `<tr><td style="border:1px solid #ddd;padding:10px;">${s.admnNo}</td><td style="border:1px solid #ddd;padding:10px;">${s.name}</td><td style="border:1px solid #ddd;padding:10px;">${s.class}</td><td style="border:1px solid #ddd;padding:10px;text-align:right;">₹${((s.fee+(s.oldDue||0))-s.paid).toLocaleString()}</td></tr>`).join('')}</tbody></table></div>`; window.print();
+                document.getElementById('printable-area').innerHTML = `<div style="padding:40px;font-family:sans-serif;background:white;"><h1 style="text-align:center;">Registry Ledger</h1><table style="width:100%;border-collapse:collapse;margin-top:30px;"><thead style="background:#1e1b4b;color:#fff;"><tr><th style="padding:10px;border:1px solid #ddd;">ID</th><th style="padding:10px;border:1px solid #ddd;">Name</th><th style="padding:10px;border:1px solid #ddd;">Class</th><th style="padding:10px;border:1px solid #ddd;text-align:right;">Due</th></tr></thead><tbody>${state.students.map(s => `<tr><td style="border:1px solid #ddd;padding:10px;">${s.admnNo}</td><td style="border:1px solid #ddd;padding:10px;">${s.name}</td><td style="border:1px solid #ddd;padding:10px;">${s.class}</td><td style="border:1px solid #ddd;padding:10px;text-align:right;">₹${((s.fee+(s.oldDue||0))-s.paid).toLocaleString()}</td></tr>`).join('')}</tbody></table></div>`; window.print();
             }
         };
 
