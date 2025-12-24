@@ -619,13 +619,7 @@
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
         import { getFirestore, doc, setDoc, getDoc, collection, addDoc, updateDoc, deleteDoc, onSnapshot } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
 
-        let firebaseConfig = {};
-        try {
-            firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-        } catch (e) {
-            console.error("Firebase config parsing failed");
-        }
-
+        const firebaseConfig = JSON.parse(__firebase_config);
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
@@ -719,7 +713,6 @@
                 if (document.getElementById('userid').value === 'admin' && document.getElementById('password').value === '123') {
                     state.isLoggedIn = true; router.navigate('admin');
                 } else {
-                    // Shake effect on error
                     if (card) {
                         card.classList.add('shake-element');
                         setTimeout(() => card.classList.remove('shake-element'), 500);
@@ -758,12 +751,13 @@
                 filter.innerHTML = '<option value="All">Select Class...</option>' + state.classes.map(c => {
                     const classHasNew = state.notices.some(n => n.class === c && n.timestamp > lastSeen);
                     if (classHasNew) anyUnread = true;
-                    // Apply bold red text for [NEW] marker classes
-                    return `<option value="${c}" style="color: ${classHasNew ? '#dc2626' : 'inherit'}; font-weight: ${classHasNew ? 'bold' : 'normal'}; text-transform: uppercase;">${c}${classHasNew ? ' • [NEW]' : ''}</option>`;
+                    // Explicit bold red text for Classes with unread updates
+                    return `<option value="${c}" style="color: ${classHasNew ? '#dc2626' : 'inherit'}; font-weight: ${classHasNew ? '900' : 'normal'}; text-transform: uppercase;">${c}${classHasNew ? ' • [NEW]' : ''}</option>`;
                 }).join('');
 
                 const badge = document.getElementById('home-class-filter').parentElement.querySelector('#home-filter-badge');
                 if (badge) badge.classList.toggle('hidden', !anyUnread);
+                filter.value = state.selectedClass; // Ensure value isn't lost after innerHTML overwrite
             },
             initUpdatesBoard: () => {
                 const filter = document.getElementById('board-class-filter');
