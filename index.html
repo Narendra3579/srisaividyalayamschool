@@ -106,7 +106,7 @@
                 <div class="flex items-center space-x-3 cursor-pointer group" onclick="router.navigate('home')">
                     <div class="bg-white text-indigo-950 h-10 w-10 rounded-xl flex items-center justify-center font-bold text-lg border-2 border-amber-400 group-hover:rotate-6 transition duration-300">SSV</div>
                     <div>
-                        <h1 class="text-lg md:text-xl font-bold uppercase tracking-tight">Sri Sai Vidyalayam</h1>
+                        <h1 class="text-lg md:text-xl font-bold uppercase tracking-tight text-white">Sri Sai Vidyalayam</h1>
                         <p class="text-[9px] text-amber-400 uppercase font-black tracking-widest">Excellence in Education</p>
                     </div>
                 </div>
@@ -140,7 +140,6 @@
         <div id="view-home" class="hidden view-section">
             <!-- Hero -->
             <section class="py-12 md:py-24 bg-white overflow-hidden relative">
-                <!-- Decorative Elements -->
                 <!-- Sun -->
                 <div class="absolute top-10 right-10 lg:right-20 text-amber-400 opacity-60 pointer-events-none sun-rotate">
                     <span class="material-symbols-outlined text-9xl lg:text-[10rem]">wb_sunny</span>
@@ -177,17 +176,14 @@
                     </div>
                     <div class="relative h-[300px] md:h-[400px]">
                         <svg viewBox="0 0 800 500" class="w-full h-full drop-shadow-2xl">
-                            <!-- Road -->
                             <rect x="0" y="400" width="800" height="100" fill="#334155" />
                             <rect x="0" y="445" width="800" height="10" fill="#475569" />
-                            <!-- Bus -->
                             <g class="bus-drive">
                                 <rect x="0" y="320" width="180" height="90" rx="15" fill="#fbbf24" />
                                 <rect x="0" y="380" width="180" height="5" fill="#1e293b" opacity="0.1" />
                                 <rect x="20" y="335" width="35" height="25" rx="4" fill="#fff" opacity="0.9" />
                                 <rect x="65" y="335" width="35" height="25" rx="4" fill="#fff" opacity="0.9" />
                                 <rect x="110" y="335" width="50" height="25" rx="4" fill="#fff" opacity="0.9" />
-                                <!-- Wheels -->
                                 <g transform="translate(45, 410)">
                                     <circle r="15" fill="#1e293b" />
                                     <circle r="6" fill="#475569" class="wheel-spin" />
@@ -240,15 +236,15 @@
                             <ul class="space-y-4 font-bold">
                                 <li class="flex gap-3 items-start">
                                     <span class="material-symbols-outlined text-amber-500 text-lg">location_on</span>
-                                    <span class="text-sm">Pulagalipalem, Pendurthi,<br>Visakhapatnam, AP - 531173</span>
+                                    <span class="text-sm text-indigo-100">Pulagalipalem, Pendurthi,<br>Visakhapatnam, AP - 531173</span>
                                 </li>
                                 <li class="flex gap-3 items-center">
                                     <span class="material-symbols-outlined text-amber-500 text-lg">call</span>
-                                    <a href="tel:8121218825" class="text-sm hover:text-amber-400 transition-colors">8121218825</a>
+                                    <a href="tel:8121218825" class="text-sm text-indigo-100 hover:text-amber-400 transition-colors">8121218825</a>
                                 </li>
                                 <li class="flex gap-3 items-center">
                                     <span class="material-symbols-outlined text-amber-500 text-lg">mail</span>
-                                    <a href="mailto:shriisaividyallayem@gmail.com" class="text-sm break-all hover:text-amber-400 transition-colors">shriisaividyallayem@gmail.com</a>
+                                    <a href="mailto:shriisaividyallayem@gmail.com" class="text-sm text-indigo-100 break-all hover:text-amber-400 transition-colors">shriisaividyallayem@gmail.com</a>
                                 </li>
                             </ul>
                         </div>
@@ -256,7 +252,7 @@
                         <!-- Quick Links -->
                         <div class="space-y-6">
                             <h4 class="text-amber-400 uppercase tracking-widest text-[10px] font-black">Quick Links</h4>
-                            <ul class="space-y-3 font-bold text-sm">
+                            <ul class="space-y-3 font-bold text-sm text-indigo-100">
                                 <li><button onclick="router.navigate('home')" class="hover:text-amber-400 transition-colors">School Home</button></li>
                                 <li><button onclick="router.navigate('updates')" class="hover:text-amber-400 transition-colors">Daily Notice Board</button></li>
                                 <li><button onclick="router.navigate('login')" class="hover:text-amber-400 transition-colors">Admin Portal Access</button></li>
@@ -266,7 +262,7 @@
                         <!-- Operational Hours -->
                         <div class="space-y-6">
                             <h4 class="text-amber-400 uppercase tracking-widest text-[10px] font-black">Working Hours</h4>
-                            <div class="bg-indigo-900/50 p-6 rounded-3xl border border-indigo-800 font-bold text-sm space-y-3">
+                            <div class="bg-indigo-900/50 p-6 rounded-3xl border border-indigo-800 font-bold text-sm space-y-3 text-indigo-100">
                                 <div class="flex justify-between border-b border-indigo-800 pb-2">
                                     <span class="opacity-70">Mon - Fri</span>
                                     <span class="text-white">8:30 - 4:30</span>
@@ -279,7 +275,6 @@
                             </div>
                         </div>
                     </div>
-                    
                     <div class="border-t border-indigo-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-black uppercase tracking-widest opacity-40">
                         <p>© 2025 Sri Sai Vidyalayam. All rights reserved.</p>
                         <p>Recognised by Govt. of Andhra Pradesh</p>
@@ -324,6 +319,9 @@
                     </div>
                     <button type="submit" class="w-full bg-indigo-950 text-white py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-indigo-900 transition-all active:scale-95 shadow-xl shadow-indigo-100">Sign In</button>
                 </form>
+                <div class="mt-6 text-center">
+                    <button onclick="router.navigate('home')" class="text-xs text-slate-400 font-bold hover:text-indigo-600">Return to Public Site</button>
+                </div>
             </div>
         </div>
 
@@ -333,7 +331,7 @@
                 <div class="p-8 border-b border-indigo-900 font-black text-xl flex items-center gap-3">
                     <span class="material-symbols-outlined text-amber-400">dashboard</span> Admin Portal
                 </div>
-                <nav class="flex-1 p-6 space-y-2 overflow-y-auto">
+                <nav class="flex-1 p-6 space-y-2 overflow-y-auto font-bold">
                     <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all" onclick="admin.switchTab('dashboard')"><span class="material-symbols-outlined">analytics</span> Dashboard</button>
                     <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all" onclick="admin.switchTab('admissions')"><span class="material-symbols-outlined">person_add</span> Admissions</button>
                     <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all" onclick="admin.switchTab('students')"><span class="material-symbols-outlined">groups</span> Student Records</button>
@@ -438,7 +436,7 @@
                                 
                                 <div class="relative group">
                                     <input type="file" id="import-file-input" class="hidden" accept=".xlsx, .xls, .csv" onchange="admin.importBulkData(event)">
-                                    <button onclick="document.getElementById('import-file-input').click()" class="w-full bg-emerald-600 text-white p-5 rounded-3xl font-black uppercase text-xs flex items-center justify-center gap-3 hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-50">
+                                    <button onclick="document.getElementById('import-file-input').click()" class="w-full bg-emerald-600 text-white p-5 rounded-3xl font-black uppercase text-xs flex items-center justify-center gap-3 hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-50 font-bold">
                                         <span class="material-symbols-outlined">upload_file</span> Import from Excel/CSV
                                     </button>
                                 </div>
@@ -460,7 +458,7 @@
                                 
                                 <div class="relative group">
                                     <input type="file" id="import-json-input" class="hidden" accept=".json" onchange="admin.importJSON(event)">
-                                    <button onclick="document.getElementById('import-json-input').click()" class="w-full bg-indigo-950 text-white p-5 rounded-3xl font-black uppercase text-xs flex items-center justify-center gap-3 hover:bg-indigo-900 transition-all shadow-lg shadow-indigo-100">
+                                    <button onclick="document.getElementById('import-json-input').click()" class="w-full bg-indigo-950 text-white p-5 rounded-3xl font-black uppercase text-xs flex items-center justify-center gap-3 hover:bg-indigo-900 transition-all shadow-lg shadow-indigo-100 font-bold">
                                         <span class="material-symbols-outlined">restore</span> Restore Database (JSON)
                                     </button>
                                 </div>
@@ -613,6 +611,7 @@
         onAuthStateChanged(auth, (u) => {
             state.user = u;
             
+            // IMMEDIATE ACTION: Hide loader once auth state is determined
             const loader = document.getElementById('cloud-loader');
             if(loader) {
                 loader.style.opacity = '0';
@@ -629,6 +628,7 @@
         const startSync = () => {
             if (!state.user) return;
             
+            // Guard every snapshot with an error callback and user check
             onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'students'), (snap) => {
                 state.students = snap.docs.map(d => ({ id: d.id, ...d.data() }));
                 admin.updateDashboard(); 
@@ -637,18 +637,24 @@
                 if(document.getElementById('view-login').offsetParent || !document.querySelector('.view-section:not(.hidden)')) {
                    router.navigate('home');
                 }
-            }, (err) => console.error("Sync Error:", err));
+            }, (err) => {
+                console.error("Student Sync Error:", err);
+            });
 
             onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'notices'), (snap) => {
                 state.notices = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a,b) => b.timestamp - a.timestamp);
                 home.renderUpdates(); 
                 admin.renderNotices();
+            }, (err) => {
+                console.error("Notice Sync Error:", err);
             });
 
             onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'highlights'), (snap) => {
                 state.highlights = snap.docs.map(d => ({ id: d.id, ...d.data() }));
                 home.renderHighlights(); 
                 admin.renderHighlights();
+            }, (err) => {
+                console.error("Highlight Sync Error:", err);
             });
         };
 
@@ -700,7 +706,7 @@
                     <div class="blog-slide">
                         <div class="bg-white p-6 rounded-[2.5rem] shadow-xl border border-indigo-50">
                             ${h.type === 'youtube' ? `<div class="video-container" onclick="home.playVideo('${h.id}', '${h.url}')" id="vid-${h.id}"><div class="absolute inset-0 flex items-center justify-center bg-black/30 text-white"><span class="material-symbols-outlined text-6xl">play_circle</span></div></div>` : `<img src="${h.url}" class="w-full h-64 md:h-96 object-cover rounded-2xl shadow-inner bg-slate-50">`}
-                            <div class="mt-6 text-left"><h3 class="font-black text-xl text-indigo-950 uppercase tracking-tight">${h.title}</h3></div>
+                            <div class="mt-6 text-left"><h3 class="font-black text-xl text-indigo-950 uppercase tracking-tight text-indigo-950">${h.title}</h3></div>
                         </div>
                     </div>
                 `).join('') || '<div class="w-full py-10 opacity-30 font-black text-center italic">Highlights Loading...</div>';
@@ -718,7 +724,7 @@
                 const filter = document.getElementById('board-class-filter').value;
                 if(!list) return;
                 const filtered = state.notices.filter(n => filter === 'All' || n.class === filter);
-                list.innerHTML = filtered.map(n => `<div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-indigo-500 hover:shadow-md transition-shadow"><div class="flex justify-between items-start mb-2"><span class="text-[10px] font-black text-indigo-400 uppercase tracking-widest">${n.category} • ${new Date(n.timestamp).toLocaleDateString()}</span><span class="text-[9px] bg-indigo-50 text-indigo-700 px-2 py-1 rounded font-black">${n.class}</span></div><p class="font-bold text-slate-700 text-lg">${n.subject && n.subject !== 'General News' ? '<span class="text-indigo-600 font-black">['+n.subject+'] </span>' : ''}${n.content}</p></div>`).join('') || '<div class="text-center py-10 text-slate-400 font-bold">No announcements yet.</div>';
+                list.innerHTML = filtered.map(n => `<div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-indigo-500 hover:shadow-md transition-shadow"><div class="flex justify-between items-start mb-2"><span class="text-[10px] font-black text-indigo-400 uppercase tracking-widest">${n.category} • ${new Date(n.timestamp).toLocaleDateString()}</span><span class="text-[9px] bg-indigo-50 text-indigo-700 px-2 py-1 rounded font-black">${n.class}</span></div><p class="font-bold text-slate-700 text-lg">${n.subject && n.subject !== 'General News' ? '<span class="text-indigo-600 font-black">['+n.subject+'] </span>' : ''}${n.content}</p></div>`).join('') || '<div class="text-center py-10 text-slate-400 font-bold italic">No announcements yet.</div>';
             }
         };
 
@@ -779,7 +785,7 @@
                 document.getElementById('modal-name').innerText = s.name; document.getElementById('modal-class').innerText = s.class;
                 document.getElementById('modal-father').innerText = s.father; document.getElementById('modal-contact').innerText = s.contact;
                 document.getElementById('modal-balance').innerText = `₹${((s.fee + (s.oldDue || 0)) - (s.paid || 0)).toLocaleString()}`;
-                document.getElementById('modal-history').innerHTML = (s.history || []).map(h => `<tr class="border-b font-bold"><td class="p-4 text-slate-400 text-xs">${new Date(h.timestamp).toLocaleDateString()}</td><td class="p-4 text-xs font-bold">${h.remark || 'Academic Fee'}</td><td class="p-4 text-right text-green-600 font-black">₹${h.amount.toLocaleString()}</td><td class="p-4 text-right"><button onclick="printer.printReceipt('${h.timestamp}')"><span class="material-symbols-outlined">print</span></button></td></tr>`).reverse().join('');
+                document.getElementById('modal-history').innerHTML = (s.history || []).map(h => `<tr class="border-b font-bold text-slate-700"><td class="p-4 text-slate-400 text-xs">${new Date(h.timestamp).toLocaleDateString()}</td><td class="p-4 text-xs font-bold">${h.remark || 'Academic Fee'}</td><td class="p-4 text-right text-green-600 font-black">₹${h.amount.toLocaleString()}</td><td class="p-4 text-right"><button onclick="printer.printReceipt('${h.timestamp}')"><span class="material-symbols-outlined text-indigo-900">print</span></button></td></tr>`).reverse().join('');
                 document.getElementById('modal-slip-area').classList.toggle('hidden', !s.concessionSlip);
                 document.getElementById('student-modal').classList.remove('hidden-modal'); document.getElementById('pay-date').valueAsDate = new Date();
             },
@@ -804,11 +810,11 @@
                 const r = new FileReader(); r.onload = (e) => {
                     const b = e.target.result; const w = XLSX.read(b, {type:'binary'});
                     const j = XLSX.utils.sheet_to_json(w.Sheets[w.SheetNames[0]]);
-                    j.forEach(async r => {
-                        const d = { admnNo:String(r.ID||''), name:String(r.Name||''), class:String(r.Class||'Nursery'), father:String(r.Parent||''), contact:String(r.Contact||''), fee:parseFloat(r.Fee||0), oldDue:parseFloat(r.OldDue||0), paid:parseFloat(r.Paid||0), history:[], timestamp:Date.now() };
+                    j.forEach(async row => {
+                        const d = { admnNo:String(row.ID||''), name:String(row.Name||''), class:String(row.Class||'Nursery'), father:String(row.Parent||''), contact:String(row.Contact||''), fee:parseFloat(row.Fee||0), oldDue:parseFloat(row.OldDue||0), paid:parseFloat(row.Paid||0), history:[], timestamp:Date.now() };
                         if(d.name) await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'students'), d);
                     });
-                    alert('Excel Data Imported.'); evt.target.value = '';
+                    alert('Excel Data Imported Successfully.'); evt.target.value = '';
                 }; r.readAsBinaryString(f);
             },
             exportJSON: () => {
@@ -820,15 +826,15 @@
                 const r = new FileReader(); r.onload = async (evt) => {
                     const j = JSON.parse(evt.target.result);
                     for (const s of j) { const id = s.id || Date.now().toString(); delete s.id; await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', id), s); }
-                    alert('Database Restored.'); e.target.value = '';
+                    alert('Database Fully Restored.'); e.target.value = '';
                 }; r.readAsText(f);
             },
 
             addNotice: async (e) => { e.preventDefault(); if (!state.user) return; const fd = new FormData(e.target); await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'notices'), { class: fd.get('class'), subject: fd.get('subject'), category: fd.get('category'), content: fd.get('content'), timestamp: Date.now() }); e.target.reset(); },
-            renderNotices: () => { const list = document.getElementById('admin-notices-list'); if(!list) return; list.innerHTML = state.notices.map(n => `<div class="bg-white p-5 rounded-2xl flex justify-between items-center shadow-sm border border-slate-50 group hover:shadow-md transition-shadow"><div><div class="text-[9px] uppercase font-black text-indigo-400 tracking-tighter">${n.class} • ${n.category} ${n.subject && n.subject !== 'General News' ? '• ' + n.subject : ''}</div><div class="text-indigo-950 font-bold">${n.content.substring(0,80)}...</div></div><button onclick="admin.deleteNotice('${n.id}')" class="text-slate-300 hover:text-red-600 transition-colors"><span class="material-symbols-outlined">delete</span></button></div>`).join('') || '<div class="text-slate-300 py-10 font-bold text-center italic">Notice board empty.</div>'; },
+            renderNotices: () => { const list = document.getElementById('admin-notices-list'); if(!list) return; list.innerHTML = state.notices.map(n => `<div class="bg-white p-5 rounded-2xl flex justify-between items-center shadow-sm border border-slate-50 group hover:shadow-md transition-shadow"><div><div class="text-[9px] uppercase font-black text-indigo-400 tracking-tighter font-bold">${n.class} • ${n.category} ${n.subject && n.subject !== 'General News' ? '• ' + n.subject : ''}</div><div class="text-indigo-950 font-bold">${n.content.substring(0,80)}...</div></div><button onclick="admin.deleteNotice('${n.id}')" class="text-slate-300 hover:text-red-600 transition-colors"><span class="material-symbols-outlined">delete</span></button></div>`).join('') || '<div class="text-slate-300 py-10 font-bold text-center italic">No notices found.</div>'; },
             deleteNotice: async (id) => { if (!state.user) return; await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'notices', id)); },
             addHighlight: async (e) => { e.preventDefault(); if (!state.user) return; const fd = new FormData(e.target); await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'highlights'), { title: fd.get('title'), type: fd.get('type'), url: fd.get('url') }); e.target.reset(); },
-            renderHighlights: () => { const list = document.getElementById('admin-highlights-list'); if(!list) return; list.innerHTML = state.highlights.map(h => `<div class="bg-white p-4 rounded-2xl flex flex-col gap-3 shadow-sm border border-slate-50"><img src="${h.type === 'image' ? h.url : 'https://img.youtube.com/vi/'+(h.url.split('v=')[1]?.split('&')[0] || h.url.split('/').pop())+'/mqdefault.jpg'}" class="h-32 w-full object-cover rounded-xl bg-slate-50"><div class="flex justify-between items-center px-1"><span class="text-xs font-black truncate text-indigo-950">${h.title}</span><button onclick="admin.deleteHighlight('${h.id}')" class="text-red-400 hover:text-red-600 transition-colors"><span class="material-symbols-outlined text-sm">delete</span></button></div></div>`).join('') || '<div class="text-slate-300 py-10 font-bold text-center col-span-full italic">Highlights empty.</div>'; },
+            renderHighlights: () => { const list = document.getElementById('admin-highlights-list'); if(!list) return; list.innerHTML = state.highlights.map(h => `<div class="bg-white p-4 rounded-2xl flex flex-col gap-3 shadow-sm border border-slate-50"><img src="${h.type === 'image' ? h.url : 'https://img.youtube.com/vi/'+(h.url.split('v=')[1]?.split('&')[0] || h.url.split('/').pop())+'/mqdefault.jpg'}" class="h-32 w-full object-cover rounded-xl bg-slate-50"><div class="flex justify-between items-center px-1 font-bold"><span class="text-xs font-black truncate text-indigo-950">${h.title}</span><button onclick="admin.deleteHighlight('${h.id}')" class="text-red-400 hover:text-red-600 transition-colors"><span class="material-symbols-outlined text-sm">delete</span></button></div></div>`).join('') || '<div class="text-slate-300 py-10 font-bold text-center col-span-full italic">No highlights.</div>'; },
             deleteHighlight: async (id) => { if (!state.user) return; await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'highlights', id)); }
         };
 
