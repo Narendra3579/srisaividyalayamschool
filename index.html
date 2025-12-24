@@ -619,7 +619,16 @@
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
         import { getFirestore, doc, setDoc, getDoc, collection, addDoc, updateDoc, deleteDoc, onSnapshot } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
 
-        const firebaseConfig = JSON.parse(__firebase_config);
+        let firebaseConfig = {};
+        try {
+            // Environment provided config
+            if (typeof __firebase_config !== 'undefined') {
+                firebaseConfig = JSON.parse(__firebase_config);
+            }
+        } catch (e) {
+            console.error("Firebase config parsing failed");
+        }
+
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
@@ -630,6 +639,7 @@
             activeStudentId: null, blogIndex: 0, isLoggedIn: false,
             sort: { key: 'name', dir: 'asc' },
             selectedClass: 'All', 
+            sessionLastSeen: Date.now(), // Track new updates within session
             classes: ["Nursery", "LKG", "UKG", "1st Class", "2nd Class", "3rd Class", "4th Class", "5th Class", "6th Class", "7th Class", "8th Class", "9th Class", "10th Class"]
         };
 
@@ -637,6 +647,7 @@
 
         window.toggleMobileMenu = () => document.getElementById('mobile-menu').classList.toggle('hidden');
 
+        // Rule 3 Implementation: Auth FIRST and AWAIT it
         const initAuth = async (retryCount = 0) => {
             try { 
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
@@ -647,7 +658,13 @@
             } catch (err) { 
                 if (retryCount < 5) {
                     const delay = Math.pow(2, retryCount) * 1000;
-                    setTimeout(() => initAuth(retryCount + 1), delay);
+                    return new Promise(resolve => setTimeout(() => resolve(initAuth(retryCount + 1)), delay));
+                } else {
+                    // Non-alert UI failure message
+                    const msg = document.createElement('div');
+                    msg.className = "fixed top-0 left-0 w-full bg-red-600 text-white p-4 z-[100] text-center font-bold";
+                    msg.innerText = "Connection Error: Failed to reach school database. Please refresh.";
+                    document.body.appendChild(msg);
                 }
             }
         };
@@ -663,6 +680,7 @@
             unsubscribes.forEach(unsub => unsub());
             unsubscribes = [];
 
+            // Rule 1 Implementation: Strict Artifact Paths
             const studentsRef = collection(db, 'artifacts', appId, 'public', 'data', 'students');
             const noticesRef = collection(db, 'artifacts', appId, 'public', 'data', 'notices');
             const highlightsRef = collection(db, 'artifacts', appId, 'public', 'data', 'highlights');
@@ -727,7 +745,8 @@
                 home.startHeroSlider();
                 home.renderHomeNotices();
                 home.initHomeFilter();
-                if (!sessionStorage.getItem('admissions_popup_dismissed')) {
+                // Manage popup preference in memory
+                if (!state.admissionsPopupDismissed) {
                     setTimeout(() => {
                         const popup = document.getElementById('admissions-popup');
                         if (popup) popup.classList.remove('hidden-modal');
@@ -745,19 +764,18 @@
                 const filter = document.getElementById('home-class-filter');
                 if (!filter) return;
                 
-                const lastSeen = parseInt(localStorage.getItem('ssv_last_seen_updates') || '0');
-                
+                // Red highlight logic for unread updates in session
                 let anyUnread = false;
                 filter.innerHTML = '<option value="All">Select Class...</option>' + state.classes.map(c => {
-                    const classHasNew = state.notices.some(n => n.class === c && n.timestamp > lastSeen);
+                    const classHasNew = state.notices.some(n => n.class === c && n.timestamp > state.sessionLastSeen);
                     if (classHasNew) anyUnread = true;
-                    // Explicit bold red text for Classes with unread updates
+                    // Red text for the [NEW] option
                     return `<option value="${c}" style="color: ${classHasNew ? '#dc2626' : 'inherit'}; font-weight: ${classHasNew ? '900' : 'normal'}; text-transform: uppercase;">${c}${classHasNew ? ' • [NEW]' : ''}</option>`;
                 }).join('');
 
-                const badge = document.getElementById('home-class-filter').parentElement.querySelector('#home-filter-badge');
+                const badge = document.getElementById('home-filter-badge');
                 if (badge) badge.classList.toggle('hidden', !anyUnread);
-                filter.value = state.selectedClass; // Ensure value isn't lost after innerHTML overwrite
+                filter.value = state.selectedClass;
             },
             initUpdatesBoard: () => {
                 const filter = document.getElementById('board-class-filter');
@@ -765,14 +783,14 @@
                     filter.innerHTML = '<option value="All">All Grades (View Full Board)</option>' + state.classes.map(c => `<option value="${c}">${c}</option>`).join('');
                     filter.value = state.selectedClass;
                 }
-                localStorage.setItem('ssv_last_seen_updates', Date.now().toString());
+                // Clear session unread markers when board is visited
+                state.sessionLastSeen = Date.now();
                 home.updateNavBadge();
                 home.updateHomeFilterNotifications();
                 home.renderUpdates();
             },
             updateNavBadge: () => {
-                const lastSeen = parseInt(localStorage.getItem('ssv_last_seen_updates') || '0');
-                const newCount = state.notices.filter(n => n.timestamp > lastSeen).length;
+                const newCount = state.notices.filter(n => n.timestamp > state.sessionLastSeen).length;
                 const badge = document.getElementById('nav-updates-badge');
                 const mobileBadge = document.getElementById('mobile-updates-badge');
                 if (badge) { badge.innerText = newCount; badge.classList.toggle('hidden', newCount === 0); }
@@ -784,15 +802,13 @@
                 if (label) label.innerText = val === 'All' ? 'Showing all Grades' : `Showing notices for ${val}`;
                 home.renderUpdates();
                 home.renderHomeNotices();
-                const fullFilter = document.getElementById('board-class-filter');
-                if (fullFilter) fullFilter.value = val;
-                const homeFilter = document.getElementById('home-class-filter');
-                if (homeFilter) homeFilter.value = val;
+                // Sync all dropdowns
+                document.querySelectorAll('#board-class-filter, #home-class-filter').forEach(s => s.value = val);
             },
             closeAdmissionsPopup: () => {
                 const popup = document.getElementById('admissions-popup');
                 if (popup) popup.classList.add('hidden-modal');
-                sessionStorage.setItem('admissions_popup_dismissed', 'true');
+                state.admissionsPopupDismissed = true;
             },
             startHeroSlider: () => {
                 let current = 0; const slides = document.querySelectorAll('#hero-text-slider .slide');
@@ -824,7 +840,8 @@
                     if (n.category === 'Home Work') colorClass = 'border-emerald-500';
                     if (n.category === 'Class Test') colorClass = 'border-amber-500';
                     if (n.category === 'Upcoming Events') colorClass = 'border-orange-600';
-                    const isNew = n.timestamp > (Date.now() - 86400000);
+                    
+                    const isNew = n.timestamp > state.sessionLastSeen;
                     return `
                         <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border-l-8 ${colorClass} hover:shadow-lg transition-all group relative overflow-hidden">
                             ${isNew ? `<div class="absolute top-2 right-2 bg-red-600 text-white text-[8px] font-black px-2 py-1 rounded-bl-xl uppercase animate-pulse z-20">NEW</div>` : ''}
@@ -870,7 +887,7 @@
                     if (n.category === 'Class Test') colorClass = 'border-amber-500';
                     if (n.category === 'Upcoming Events') colorClass = 'border-orange-600';
                     if (n.category === 'Holiday') colorClass = 'border-red-500';
-                    const isNew = n.timestamp > (Date.now() - 86400000);
+                    const isNew = n.timestamp > state.sessionLastSeen;
                     return `
                         <div class="bg-white p-10 rounded-[2.5rem] shadow-sm border-l-[12px] ${colorClass} hover:shadow-xl transition-all h-full flex flex-col group relative overflow-hidden">
                             ${isNew ? `<div class="absolute top-2 right-2 bg-red-600 text-white text-[9px] font-black px-3 py-1 rounded-bl-2xl uppercase shadow-sm animate-pulse z-10">NEW UPDATE</div>` : ''}
@@ -933,7 +950,7 @@
                     if (editId) { await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', editId), data); admin.cancelAdmitEdit(); }
                     else { const initialPay = parseFloat(fd.get('initialPay') || 0); const newData = { ...data, paid: initialPay, history: initialPay > 0 ? [{ amount: initialPay, timestamp: Date.now(), remark: 'Initial Enrollment' }] : [], concessionSlip: slipBase64, timestamp: Date.now() }; await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'students'), newData); }
                     admin.switchTab('students'); e.target.reset();
-                } catch(err) { alert("Write failed."); } finally { btn.disabled = false; btn.innerText = "Complete Admission"; }
+                } catch(err) { console.error(err); } finally { btn.disabled = false; btn.innerText = "Complete Admission"; }
             },
             initiateAdmitEdit: () => {
                 const s = state.students.find(x => x.id === state.activeStudentId);
@@ -1037,7 +1054,7 @@
                 const ts = dateVal ? new Date(dateVal).getTime() : Date.now();
                 const newPaid = (s.paid || 0) + amt;
                 const newHistory = [...(s.history || []), { amount: amt, timestamp: ts, remark: remarkEl.value }];
-                try { await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', s.id), { paid: newPaid, history: newHistory }); amtEl.value = ''; remarkEl.value = ''; } catch (err) { alert("Failed."); }
+                try { await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', s.id), { paid: newPaid, history: newHistory }); amtEl.value = ''; remarkEl.value = ''; } catch (err) { console.error(err); }
             },
             publishNotice: async (e) => {
                 e.preventDefault(); if (!state.user) return;
@@ -1051,7 +1068,7 @@
                     admin.cancelNoticeEdit();
                     const form = document.getElementById('notice-form');
                     if (form) { form.class.value = currentClass; form.category.value = currentCat; }
-                } catch(e) { alert("Action failed."); }
+                } catch(e) { console.error(e); }
             },
             initiateNoticeEdit: (id) => {
                 const n = state.notices.find(x => x.id === id); if(!n) return;
@@ -1090,7 +1107,7 @@
                 e.preventDefault(); if (!state.user) return;
                 const fd = new FormData(e.target); const hid = fd.get('hId');
                 const data = { title: fd.get('title'), type: fd.get('type'), url: fd.get('url') };
-                try { if (hid) await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'highlights', hid), data); else await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'highlights'), data); admin.cancelHighlightEdit(); } catch(e) { alert("Failed."); }
+                try { if (hid) await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'highlights', hid), data); else await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'highlights'), data); admin.cancelHighlightEdit(); } catch(e) { console.error(e); }
             },
             initiateHighlightEdit: (id) => {
                 const h = state.highlights.find(x => x.id === id); if(!h) return;
@@ -1142,6 +1159,7 @@
             }
         };
 
+        // Execution Start
         (async () => { await initAuth(); })();
     </script>
 </body>
