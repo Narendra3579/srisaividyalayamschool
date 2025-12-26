@@ -252,7 +252,7 @@
                         </div>
                     </div>
                     <div id="home-notices-preview" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <!-- Content loaded via JS -->
+                        <!-- Loaded via JS -->
                     </div>
                 </div>
             </section>
@@ -283,7 +283,7 @@
             <div id="login-card" class="bg-white w-full max-w-md p-10 rounded-[2.5rem] shadow-2xl">
                 <div class="text-center mb-8">
                     <div class="bg-indigo-950 text-white w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 text-3xl font-black border-4 border-amber-400 shadow-xl">SSV</div>
-                    <h2 class="text-2xl font-black uppercase tracking-tight">Admin Login</h2>
+                    <h2 class="text-2xl font-black uppercase tracking-tight text-indigo-950">Admin Login</h2>
                 </div>
                 <form onsubmit="auth_manager.login(event)" class="space-y-6">
                     <div><label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest">Username</label><input type="text" id="userid" class="w-full border-2 border-slate-100 p-4 rounded-2xl outline-none focus:border-indigo-600 transition-all font-black" required></div>
@@ -309,7 +309,7 @@
                     </select>
                 </div>
 
-                <nav class="flex-1 p-6 space-y-2 overflow-y-auto text-sm font-black">
+                <nav class="flex-1 p-6 space-y-2 overflow-y-auto text-sm font-black text-indigo-100">
                     <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all" onclick="admin.switchTab('dashboard')"><span class="material-symbols-outlined">analytics</span> Dashboard</button>
                     <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all" onclick="admin.switchTab('admissions')"><span class="material-symbols-outlined">person_add</span> Admissions</button>
                     <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all" onclick="admin.switchTab('students')"><span class="material-symbols-outlined">groups</span> Database</button>
@@ -327,17 +327,17 @@
                 <div id="tab-dashboard" class="admin-content hidden space-y-10">
                     <h2 class="text-3xl font-black uppercase tracking-tighter">Performance Overview</h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-indigo-600 font-black"><p class="text-[10px] text-slate-400 uppercase tracking-widest">Target Revenue</p><div class="text-2xl mt-2" id="stat-total">₹0</div></div>
-                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-green-500 font-black"><p class="text-[10px] text-slate-400 uppercase tracking-widest">Collected</p><div class="text-2xl mt-2 text-green-600" id="stat-collected">₹0</div></div>
-                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-red-500 font-black"><p class="text-[10px] text-slate-400 uppercase tracking-widest">Pending</p><div class="text-2xl mt-2 text-red-600" id="stat-pending">₹0</div></div>
-                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-amber-400 font-black"><p class="text-[10px] text-slate-400 uppercase tracking-widest">Student Count</p><div class="text-2xl mt-2 text-amber-600" id="stat-count">0</div></div>
+                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-indigo-600"><p class="text-[10px] text-slate-400 uppercase tracking-widest">Target Revenue</p><div class="text-2xl mt-2" id="stat-total">₹0</div></div>
+                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-green-500"><p class="text-[10px] text-slate-400 uppercase tracking-widest">Collected</p><div class="text-2xl mt-2 text-green-600" id="stat-collected">₹0</div></div>
+                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-red-500"><p class="text-[10px] text-slate-400 uppercase tracking-widest">Pending</p><div class="text-2xl mt-2 text-red-600" id="stat-pending">₹0</div></div>
+                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-amber-400"><p class="text-[10px] text-slate-400 uppercase tracking-widest">Student Count</p><div class="text-2xl mt-2 text-amber-600" id="stat-count">0</div></div>
                     </div>
                     <div class="bg-white p-8 rounded-3xl shadow-sm h-96"><canvas id="feeChart"></canvas></div>
                 </div>
 
                 <div id="tab-admissions" class="admin-content hidden">
                     <h2 class="text-3xl font-black mb-10 uppercase tracking-tighter" id="admission-title">New Entry</h2>
-                    <form id="admissions-form" onsubmit="admin.registerStudent(event)" class="bg-white p-10 rounded-[3rem] shadow-sm grid grid-cols-1 md:grid-cols-2 gap-8 text-sm text-indigo-950">
+                    <form id="admissions-form" onsubmit="admin.registerStudent(event)" class="bg-white p-10 rounded-[3rem] shadow-sm grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
                         <input type="hidden" name="editId">
                         <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Admission ID *</label><input type="text" name="admnNo" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-black" required></div>
                         <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Student Name *</label><input type="text" name="name" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-black" required></div>
@@ -351,18 +351,18 @@
                         <div class="space-y-1" id="admit-initial-group"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Initial Pay *</label><input type="number" name="initialPay" value="0" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none text-green-600 font-black" required></div>
                         <div class="col-span-full flex gap-4">
                             <button type="button" id="admit-cancel-btn" class="hidden flex-1 bg-slate-200 text-indigo-950 py-5 rounded-3xl font-black uppercase text-xs" onclick="admin.cancelAdmitEdit()">Cancel</button>
-                            <button type="submit" id="admit-submit-btn" class="flex-[2] bg-indigo-600 text-white py-5 rounded-3xl font-black uppercase text-xs shadow-xl transition-all">Submit Entry</button>
+                            <button type="submit" id="admit-submit-btn" class="flex-[2] bg-indigo-600 text-white py-5 rounded-3xl font-black uppercase text-xs shadow-xl transition-all">Submit Student</button>
                         </div>
                     </form>
                 </div>
 
-                <div id="tab-students" class="admin-content hidden space-y-8 font-black text-indigo-950">
+                <div id="tab-students" class="admin-content hidden space-y-8">
                     <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-                        <h2 class="text-3xl font-black uppercase tracking-tighter">Student Registry</h2>
-                        <button onclick="printer.printMasterLedger()" class="bg-indigo-950 text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-md flex items-center gap-2 text-indigo-100"><span class="material-symbols-outlined text-lg">print</span> Master Ledger</button>
+                        <h2 class="text-3xl font-black uppercase tracking-tighter">Student Database</h2>
+                        <button onclick="printer.printMasterLedger()" class="bg-indigo-950 text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-md flex items-center gap-2"><span class="material-symbols-outlined text-lg">print</span> Master ledger</button>
                     </div>
                     <div class="flex gap-4">
-                        <input type="text" id="record-search" placeholder="Search name or ID..." class="flex-1 p-5 rounded-3xl border-2 border-white shadow-sm font-black outline-none focus:border-indigo-200" oninput="admin.renderStudentList()">
+                        <input type="text" id="record-search" placeholder="Search by name or ID..." class="flex-1 p-5 rounded-3xl border-2 border-white shadow-sm font-black outline-none focus:border-indigo-200" oninput="admin.renderStudentList()">
                         <select id="record-class-filter" class="w-48 p-5 rounded-3xl border-2 border-white shadow-sm font-black outline-none cursor-pointer" onchange="admin.renderStudentList()"></select>
                     </div>
                     <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100 overflow-x-auto text-indigo-950 font-black">
@@ -381,34 +381,37 @@
                     </div>
                 </div>
 
-                <div id="tab-data_management" class="admin-content hidden space-y-10 font-black text-indigo-950">
-                    <h2 class="text-3xl font-black uppercase tracking-tighter">Data Management</h2>
+                <div id="tab-data_management" class="admin-content hidden space-y-10">
+                    <h2 class="text-3xl font-black uppercase tracking-tighter">Data Tools</h2>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                        <div class="bg-white p-10 rounded-[3rem] shadow-sm border border-slate-100 space-y-8 text-center">
-                            <div class="flex items-center justify-center gap-3 text-emerald-600 font-black"><span class="material-symbols-outlined text-4xl font-black">table_chart</span><h3 class="text-2xl font-black uppercase tracking-tight">Bulk Transfer Tool</h3></div>
+                        <div class="bg-white p-10 rounded-[3rem] shadow-sm border border-slate-100 space-y-8 text-center font-black">
+                            <div class="flex items-center justify-center gap-3 text-emerald-600 font-black"><span class="material-symbols-outlined text-4xl font-black">table_chart</span><h3 class="text-2xl font-black uppercase tracking-tight">Bulk Year Migration</h3></div>
                             <div class="grid grid-cols-1 gap-4 text-indigo-950">
                                 <p class="text-slate-400 text-xs px-6">Migrate current year data to the next academic session. All grades will be promoted automatically.</p>
-                                <button onclick="admin.bulkTransferStudents()" class="bg-emerald-600 text-white p-5 rounded-3xl uppercase text-[10px] font-black tracking-widest shadow-lg shadow-emerald-50">Transfer to Next Year</button>
+                                <button onclick="admin.bulkTransferStudents()" class="bg-emerald-600 text-white p-5 rounded-3xl uppercase text-[10px] font-black tracking-widest shadow-lg shadow-emerald-50">Transfer current to next</button>
                             </div>
                         </div>
                         <div class="bg-white p-10 rounded-[3rem] shadow-sm border border-slate-100 space-y-8 text-center font-black">
-                            <div class="flex items-center justify-center gap-3 text-indigo-600"><span class="material-symbols-outlined text-4xl font-black">data_object</span><h3 class="text-2xl font-black uppercase tracking-tight">Excel Ops</h3></div>
+                            <div class="flex items-center justify-center gap-3 text-indigo-600"><span class="material-symbols-outlined text-4xl font-black">data_object</span><h3 class="text-2xl font-black uppercase tracking-tight">System Backup</h3></div>
                             <div class="grid grid-cols-1 gap-4 text-indigo-950">
-                                <button onclick="admin.exportExcel()" class="bg-slate-100 p-5 rounded-3xl uppercase text-[10px] font-black tracking-widest">Download current session</button>
-                                <button onclick="document.getElementById('import-file-input').click()" class="bg-indigo-950 text-white p-5 rounded-3xl uppercase text-[10px] font-black tracking-widest shadow-lg">Upload records</button>
-                                <input type="file" id="import-file-input" class="hidden" accept=".xlsx,.csv" onchange="admin.importBulkData(event)">
+                                <div class="flex gap-2">
+                                    <button onclick="admin.exportJSON()" class="flex-1 bg-slate-100 p-5 rounded-3xl uppercase text-[10px] font-black tracking-widest">JSON Export</button>
+                                    <button onclick="document.getElementById('import-json-input').click()" class="flex-1 bg-indigo-900 text-white p-5 rounded-3xl uppercase text-[10px] font-black tracking-widest">JSON Import</button>
+                                </div>
+                                <button onclick="admin.exportExcel()" class="bg-slate-100 p-5 rounded-3xl uppercase text-[10px] font-black tracking-widest">Excel Export</button>
+                                <input type="file" id="import-json-input" class="hidden" accept=".json" onchange="admin.importJSON(event)">
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div id="tab-updates_manager" class="admin-content hidden grid grid-cols-1 lg:grid-cols-3 gap-12 font-black text-indigo-950">
+                <div id="tab-updates_manager" class="admin-content hidden grid grid-cols-1 lg:grid-cols-3 gap-12">
                     <div class="lg:col-span-1 space-y-8">
-                        <h2 class="text-2xl font-black uppercase tracking-tighter" id="notice-form-title">New Notice</h2>
+                        <h2 class="text-2xl font-black uppercase tracking-tighter" id="notice-form-title">Board Entry</h2>
                         <form id="notice-form" onsubmit="admin.publishNotice(event)" class="bg-white p-8 rounded-[2rem] shadow-sm space-y-6">
                             <input type="hidden" name="noticeId">
                             <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Class</label><select id="notice-class-select" name="class" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 outline-none font-black"></select></div>
-                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest font-black">Category</label>
+                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Category</label>
                                 <select name="category" id="notice-category-select" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-black">
                                     <option>Announcement</option><option>Home Work</option><option>Class Test</option><option>Upcoming Events</option><option>Holiday</option>
                                 </select>
@@ -425,13 +428,13 @@
                             </div>
                         </form>
                     </div>
-                    <div class="lg:col-span-2 space-y-8"><h2 class="text-2xl font-black uppercase tracking-tighter">Live Board View</h2><div id="admin-notices-list" class="space-y-4"></div></div>
+                    <div class="lg:col-span-2 space-y-8"><h2 class="text-2xl font-black uppercase tracking-tighter">Live Updates</h2><div id="admin-notices-list" class="space-y-4"></div></div>
                 </div>
 
-                <div id="tab-blog_manager" class="admin-content hidden grid grid-cols-1 lg:grid-cols-3 gap-12 font-black text-indigo-950">
+                <div id="tab-blog_manager" class="admin-content hidden grid grid-cols-1 lg:grid-cols-3 gap-12">
                      <div class="lg:col-span-1 space-y-8">
-                        <h2 class="text-2xl font-black uppercase tracking-tighter" id="highlight-form-title">Gallery Management</h2>
-                        <form id="highlight-form" onsubmit="admin.publishHighlight(event)" class="bg-white p-8 rounded-[2rem] shadow-sm space-y-6 text-indigo-950 font-black">
+                        <h2 class="text-2xl font-black uppercase tracking-tighter" id="highlight-form-title">Gallery</h2>
+                        <form id="highlight-form" onsubmit="admin.publishHighlight(event)" class="bg-white p-8 rounded-[2rem] shadow-sm space-y-6">
                             <input type="hidden" name="hId">
                             <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Caption</label><input type="text" name="title" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-black" required></div>
                             <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Type</label><select name="type" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-black"><option value="image">Image URL</option><option value="youtube">YouTube ID</option></select></div>
@@ -461,7 +464,7 @@
                             <p>Class: <span id="modal-class" class="text-indigo-600"></span></p>
                             <p>Parent: <span id="modal-father"></span></p>
                             <p>Mobile: <span id="modal-contact"></span></p>
-                            <p class="text-2xl text-red-600 tracking-tighter uppercase mt-4 font-black">Due Balance: <span id="modal-balance"></span></p>
+                            <p class="text-2xl text-red-600 tracking-tighter uppercase mt-4">Due Balance: <span id="modal-balance"></span></p>
                         </div>
                         <div class="space-y-2">
                              <button onclick="admin.promoteToNextYear()" class="w-full bg-emerald-600 text-white py-4 rounded-2xl uppercase text-[10px] font-black shadow-lg shadow-emerald-100 hover:bg-emerald-700 transition-all flex items-center justify-center gap-2">
@@ -481,7 +484,7 @@
                             <button type="submit" class="col-span-2 bg-green-600 text-white py-5 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-green-700 transition-all shadow-lg">Confirm Payment</button>
                         </form>
                         
-                        <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100 font-black">
+                        <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100">
                             <div class="p-4 bg-slate-50 flex justify-between items-center text-indigo-950 font-black">
                                 <span class="text-[9px] font-black uppercase tracking-widest text-slate-400 font-black">Transaction History</span>
                                 <div class="flex gap-2 items-center">
@@ -502,10 +505,10 @@
         <div id="delete-pin-modal" class="fixed inset-0 z-[60] flex items-center justify-center bg-black bg-opacity-80 hidden-modal modal no-print p-4">
             <div class="bg-white w-full max-w-xs p-10 rounded-[3rem] shadow-2xl text-center text-indigo-950 font-black">
                 <span class="material-symbols-outlined text-red-600 text-7xl mb-4 font-black">lock_reset</span>
-                <h3 class="text-xl font-black mb-1 uppercase tracking-tight">Security Access</h3>
+                <h3 class="text-xl font-black mb-1 uppercase tracking-tight">Security Code</h3>
                 <p class="text-[10px] text-slate-400 uppercase tracking-widest mb-8">Access Verification Required</p>
                 <input type="password" id="delete-pin-input" class="w-full border-2 border-slate-100 p-5 rounded-3xl text-center font-black text-4xl mb-8 focus:border-red-600 outline-none" placeholder="••••">
-                <div class="flex gap-4">
+                <div class="flex gap-4 font-black">
                     <button onclick="admin.closeDeleteModal()" class="flex-1 py-4 bg-slate-100 rounded-2xl font-black text-[10px] uppercase">Cancel</button>
                     <button id="pin-verify-btn" onclick="admin.executeSecureDelete()" class="flex-1 py-4 bg-red-600 text-white rounded-2xl font-black text-[10px] uppercase shadow-lg">Verify</button>
                 </div>
@@ -553,7 +556,7 @@
 
         window.toggleMobileMenu = () => document.getElementById('mobile-menu').classList.toggle('hidden');
 
-        // Notification Helper
+        // Toast Helper
         const showToast = (message, type = 'info') => {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -745,7 +748,7 @@
                 const container = document.getElementById('home-notices-preview');
                 if (!container) return;
                 if (state.selectedClass === 'All') {
-                    container.innerHTML = `<div class="col-span-full text-center py-16"><div class="max-w-md mx-auto bg-white p-10 rounded-[3rem] shadow-sm border-2 border-dashed border-indigo-100 text-indigo-950 font-black"><span class="material-symbols-outlined text-indigo-200 text-6xl mb-4">school</span><p class="text-slate-400 font-black">Please select a class above to see the latest updates.</p></div></div>`;
+                    container.innerHTML = `<div class="col-span-full text-center py-16"><div class="max-w-md mx-auto bg-white p-10 rounded-[3rem] shadow-sm border-2 border-dashed border-indigo-100 text-indigo-950 font-black"><span class="material-symbols-outlined text-indigo-200 text-6xl mb-4">school</span><p class="text-slate-400">Select your class above to see updates.</p></div></div>`;
                     return;
                 }
                 const filtered = state.notices.filter(n => n.class === state.selectedClass || n.class === 'All').slice(0, 6);
@@ -755,16 +758,16 @@
                     if (n.category === 'Class Test') colorClass = 'border-amber-500';
                     if (n.category === 'Upcoming Events') colorClass = 'border-orange-600';
                     const isNew = n.timestamp > state.sessionLastSeen;
-                    return `<div class="bg-white p-8 rounded-[2.5rem] shadow-sm border-l-8 ${colorClass} hover:shadow-lg transition-all group relative overflow-hidden text-indigo-950">
+                    return `<div class="bg-white p-8 rounded-[2.5rem] shadow-sm border-l-8 ${colorClass} hover:shadow-lg transition-all group relative overflow-hidden text-indigo-950 font-black">
                             ${isNew ? `<div class="absolute top-2 right-2 bg-red-600 text-white text-[8px] font-black px-2 py-1 rounded-bl-xl uppercase animate-pulse z-20">NEW</div>` : ''}
                             <div class="flex justify-between items-center mb-4">
                                 <span class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full font-black uppercase text-[9px] tracking-tighter flex items-center">${n.class} ${isNew ? '<span class="notify-dot animate-ping ml-2 bg-red-600"></span>' : ''}</span>
                                 <span class="text-[9px] font-black uppercase text-slate-300 tracking-widest">${new Date(n.timestamp).toLocaleDateString()}</span>
                             </div>
                             <h4 class="text-indigo-600 font-black uppercase text-[10px] tracking-widest mb-1">${n.category}</h4>
-                            <p class="text-slate-700 font-bold line-clamp-3 text-sm leading-relaxed font-black">${n.content}</p>
+                            <p class="text-slate-700 font-bold line-clamp-3 text-sm leading-relaxed">${n.content}</p>
                         </div>`;
-                }).join('') || '<div class="col-span-full text-center py-10 opacity-30 italic font-black">No recent announcements for this class.</div>';
+                }).join('') || '<div class="col-span-full text-center py-10 opacity-30 italic font-black text-indigo-950 font-black">No recent announcements for this class.</div>';
             },
             renderHighlights: () => {
                 const track = document.getElementById('blog-posts-feed');
@@ -788,7 +791,7 @@
                     if (n.category === 'Holiday') colorClass = 'border-red-500';
                     const isNew = n.timestamp > state.sessionLastSeen;
                     return `<div class="bg-white p-10 rounded-[2.5rem] shadow-sm border-l-[12px] ${colorClass} hover:shadow-xl transition-all h-full flex flex-col group relative overflow-hidden text-indigo-950 font-black">${isNew ? `<div class="absolute top-2 right-2 bg-red-600 text-white text-[9px] font-black px-3 py-1 rounded-bl-2xl shadow-sm animate-pulse z-10">NEW UPDATE</div>` : ''}<div class="flex justify-between items-start mb-6"><div class="flex flex-col"><span class="text-[9px] uppercase text-slate-400 font-black">${new Date(n.timestamp).toLocaleDateString()}</span><span class="inline-block mt-1 px-3 py-1 bg-slate-100 text-slate-600 text-[10px] font-black uppercase rounded-full tracking-tighter">${n.category}</span></div><span class="bg-indigo-50 text-indigo-700 px-4 py-1.5 rounded-full font-black uppercase tracking-tighter text-xs">${n.class}</span></div><h4 class="text-indigo-600 font-black uppercase text-xs tracking-widest mb-2">${n.subject && n.subject !== 'General News' ? n.subject : 'Notice'}</h4><p class="text-slate-800 text-xl leading-relaxed font-black flex-1 font-black">${n.content}</p></div>`;
-                }).join('') || '<div class="col-span-full text-center py-32 font-black text-indigo-950"><div class="bg-indigo-50 inline-block p-10 rounded-[3rem] border border-indigo-100 font-black"><span class="material-symbols-outlined text-indigo-300 text-6xl mb-4">notifications_off</span><p class="text-slate-400 font-black italic">No records found for this year.</p></div></div>';
+                }).join('') || '<div class="col-span-full text-center py-32 font-black text-indigo-950"><div class="bg-indigo-50 inline-block p-10 rounded-[3rem] border border-indigo-100 font-black text-indigo-950 font-black"><span class="material-symbols-outlined text-indigo-300 text-6xl mb-4">notifications_off</span><p class="text-slate-400 font-black italic text-indigo-950">No records found for this year.</p></div></div>';
             }
         };
 
@@ -808,7 +811,7 @@
                 startSync();
                 admin.renderStudentList();
                 admin.updateDashboard();
-                showToast(`Switched session to ${val}`, "success");
+                showToast(`Session switched to ${val}`, "success");
             },
             switchTab: (tabId) => {
                 document.querySelectorAll('.admin-tab').forEach(btn => btn.classList.toggle('bg-indigo-900', btn.onclick.toString().includes(tabId)));
@@ -856,18 +859,18 @@
 
                 try {
                     const yearKey = state.selectedYear.replace('-', '_');
-                    const colRef = collection(db, 'artifacts', appId, 'public', 'data', `students_${yearKey}`);
+                    const studentsRef = collection(db, 'artifacts', appId, 'public', 'data', `students_${yearKey}`);
                     if (editId) { 
                         await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', `students_${yearKey}`, editId), data); 
                         admin.cancelAdmitEdit(); 
-                        showToast("Record updated successfully");
+                        showToast("Profile Updated");
                     } else { 
                         const newData = { ...data, paid: data.initialPay, history: data.initialPay > 0 ? [{ amount: data.initialPay, timestamp: Date.now(), remark: 'Initial Enrollment' }] : [], timestamp: Date.now() }; 
-                        await addDoc(colRef, newData); 
-                        showToast("Student registered successfully", "success");
+                        await addDoc(studentsRef, newData); 
+                        showToast("Student Registered", "success");
                     }
                     admin.switchTab('students'); e.target.reset();
-                } catch(err) { showToast("Save error: Check connection", "error"); } finally { btn.disabled = false; btn.innerText = "Submit Student"; }
+                } catch(err) { showToast("Save failed.", "error"); } finally { btn.disabled = false; btn.innerText = "Submit Student"; }
             },
             bulkTransferStudents: async () => {
                 if (!state.user || state.students.length === 0) return showToast("No students to transfer", "error");
@@ -876,9 +879,9 @@
                 const nextYear = `${parseInt(parts[0])+1}-${parseInt(parts[1])+1}`;
                 const nextYearKey = nextYear.replace('-', '_');
                 
-                if (!confirm(`Confirm migration of ${state.students.length} students from ${fromYear} to session ${nextYear}? All students will be promoted to the next grade.`)) return;
+                if (!confirm(`Promote ${state.students.length} students to ${nextYear}?`)) return;
                 
-                showToast("Starting bulk migration...");
+                showToast("Starting bulk transfer...");
                 try {
                     const targetRef = collection(db, 'artifacts', appId, 'public', 'data', `students_${nextYearKey}`);
                     for (const s of state.students) {
@@ -902,7 +905,7 @@
                     }
                     showToast(`Migration to ${nextYear} complete`, "success");
                 } catch (e) {
-                    showToast("Migration failed", "error");
+                    showToast("Transfer failed", "error");
                 }
             },
             initiateAdmitEdit: () => {
@@ -929,13 +932,13 @@
                 const currentIdx = state.classes.indexOf(s.class || s.Grade);
                 const nextYear = state.selectedYear.split('-').map(y => parseInt(y) + 1).join('-');
                 const nextClass = state.classes[currentIdx + 1] || "Passed Out";
-                if (!confirm(`Transfer ${s.name || s.Student} to Grade ${nextClass} in ${nextYear}?`)) return;
+                if (nextClass === "Passed Out") { showToast("Student has completed 10th Class", "info"); return; }
                 try {
                     const nextYearKey = nextYear.replace('-', '_');
                     const nextYearRef = collection(db, 'artifacts', appId, 'public', 'data', `students_${nextYearKey}`);
                     const newData = { admnNo: s.admnNo || s.ID, name: s.name || s.Student, class: nextClass, father: s.father || s.Parent, contact: s.contact || '', fee: s.fee || s.Target_Fee || 0, oldDue: 0, paid: 0, history: [], timestamp: Date.now() };
                     await addDoc(nextYearRef, newData);
-                    showToast("Transfer Successful", "success");
+                    showToast(`${s.name} promoted to ${nextClass}`, "success");
                     admin.closeModal();
                 } catch (e) { showToast("Transfer failed.", "error"); }
             },
@@ -975,7 +978,6 @@
                     if (valA > valB) return state.sort.dir === 'asc' ? 1 : -1;
                     return 0;
                 });
-
                 body.innerHTML = filtered.map(s => {
                     const sId = s.admnNo || s.ID || s.Admission_No || '???';
                     const sName = s.name || s.Student || 'Unknown';
@@ -991,7 +993,7 @@
                             <button onclick="admin.requestDirectDelete('${s.id}')" class="text-slate-300 hover:text-red-600 transition-colors p-2"><span class="material-symbols-outlined text-base">delete</span></button>
                         </td>
                     </tr>
-                `; }).join('') || '<tr><td colspan="5" class="p-10 text-center text-slate-400 italic font-black text-indigo-950">No records found for this year.</td></tr>';
+                `; }).join('') || '<tr><td colspan="5" class="p-10 text-center text-slate-400 italic font-black text-indigo-950 font-black">No matching records found.</td></tr>';
             },
             requestDirectDelete: (id) => {
                 state.activeStudentId = id;
@@ -1063,7 +1065,7 @@
                     const noticesRef = collection(db, 'artifacts', appId, 'public', 'data', `notices_${yearKey}`);
                     if (nid) await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', `notices_${yearKey}`, nid), data);
                     else await addDoc(noticesRef, data);
-                    showToast("Notice Saved", "success");
+                    showToast("Notice published", "success");
                     const currentClass = fd.get('class'); const currentCat = fd.get('category');
                     admin.cancelNoticeEdit();
                     const form = document.getElementById('notice-form');
@@ -1089,7 +1091,7 @@
             renderNotices: () => {
                 const list = document.getElementById('admin-notices-list');
                 if(!list) return;
-                list.innerHTML = state.notices.map(n => `<div class="bg-white p-5 rounded-2xl flex justify-between items-center shadow-sm border border-slate-50 group hover:shadow-md transition-shadow text-indigo-950 font-black"><div class="flex-1"><div class="text-[9px] uppercase font-black text-indigo-400 tracking-tighter">${n.class} • ${n.category} ${n.subject !== 'General News' ? '• ' + n.subject : ''}</div><div class="text-indigo-950 font-bold">${n.content.substring(0,100)}...</div></div><div class="flex gap-4 ml-6"><button onclick="admin.initiateNoticeEdit('${n.id}')" class="text-indigo-400 hover:text-indigo-600 transition-colors"><span class="material-symbols-outlined text-xl">edit_note</span></button><button onclick="admin.deleteNotice('${n.id}')" class="text-slate-300 hover:text-red-600 transition-colors"><span class="material-symbols-outlined text-xl">delete_sweep</span></button></div></div>`).join('') || '<div class="text-slate-300 py-10 text-center italic font-black">No active notices.</div>';
+                list.innerHTML = state.notices.map(n => `<div class="bg-white p-5 rounded-2xl flex justify-between items-center shadow-sm border border-slate-50 group hover:shadow-md transition-shadow text-indigo-950 font-black font-black"><div class="flex-1"><div class="text-[9px] uppercase font-black text-indigo-400 tracking-tighter">${n.class} • ${n.category} ${n.subject !== 'General News' ? '• ' + n.subject : ''}</div><div class="text-indigo-950 font-bold">${n.content.substring(0,100)}...</div></div><div class="flex gap-4 ml-6"><button onclick="admin.initiateNoticeEdit('${n.id}')" class="text-indigo-400 hover:text-indigo-600 transition-colors"><span class="material-symbols-outlined text-xl">edit_note</span></button><button onclick="admin.deleteNotice('${n.id}')" class="text-slate-300 hover:text-red-600 transition-colors"><span class="material-symbols-outlined text-xl">delete_sweep</span></button></div></div>`).join('') || '<div class="text-slate-300 py-10 text-center italic font-black">No active notices.</div>';
             },
             deleteNotice: async (id) => { 
                 if (!state.user) return; 
@@ -1130,8 +1132,33 @@
             viewConcessionSlip: () => { const s = state.students.find(x => x.id === state.activeStudentId); if(s?.concessionSlip) window.open(s.concessionSlip, '_blank'); },
             exportExcel: () => { const rows = state.students.map(s => ({ ID: s.admnNo || s.ID, Name: s.name || s.Student, Grade: s.class || s.Grade, Parent: s.father || s.Parent, Fee: s.fee || s.Target_Fee, Paid: s.paid || s.Total_Paid })); const ws = XLSX.utils.json_to_sheet(rows); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "Records"); XLSX.writeFile(wb, `SSV_Registry_Export.xlsx`); },
             importBulkData: (event) => { if (!state.user) return; const f = event.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = (e) => { const b = e.target.result; const w = XLSX.read(b, {type:'binary'}); const j = XLSX.utils.sheet_to_json(w.Sheets[w.SheetNames[0]]); const yearKey = state.selectedYear.replace('-', '_'); const colRef = collection(db, 'artifacts', appId, 'public', 'data', `students_${yearKey}`); j.forEach(async row => { const d = { admnNo:String(row.ID || row.admnNo || ''), name:String(row.Name || row.name || ''), class:String(row.Grade || row.class || 'Nursery'), father:String(row.Parent || row.father || ''), contact:String(row.Contact || row.contact || ''), fee:parseFloat(row.Fee || row.fee || 0), paid:parseFloat(row.Paid || row.paid || 0), history:[], timestamp:Date.now() }; if(d.name) await addDoc(colRef, d); }); showToast("Bulk migration sync started...", "success"); }; r.readAsBinaryString(f); },
-            exportJSON: () => { const b = new Blob([JSON.stringify(state.students, null, 2)], { type: "application/json" }); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = `SSV_Backup_${state.selectedYear}.json`; a.click(); },
-            importJSON: async (e) => { if (!state.user) return; const f = e.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = async (evt) => { const yearKey = state.selectedYear.replace('-', '_'); const j = JSON.parse(evt.target.result); for (const s of j) { const id = s.id || Date.now().toString() + Math.random(); delete s.id; await setDoc(doc(db, 'artifacts', appId, 'public', 'data', `students_${yearKey}`, id), s); } showToast("Restored"); }; r.readAsText(f); }
+            exportJSON: () => { 
+                const b = new Blob([JSON.stringify(state.students, null, 2)], { type: "application/json" }); 
+                const u = URL.createObjectURL(b); 
+                const a = document.createElement('a'); 
+                a.href = u; a.download = `SSV_Backup_${state.selectedYear}_${Date.now()}.json`; 
+                a.click(); 
+                showToast("JSON Backup Exported", "success");
+            },
+            importJSON: async (e) => { 
+                if (!state.user) return; 
+                const f = e.target.files[0]; if(!f) return; 
+                const r = new FileReader(); 
+                r.onload = async (evt) => { 
+                    try {
+                        const yearKey = state.selectedYear.replace('-', '_');
+                        const j = JSON.parse(evt.target.result); 
+                        if (!Array.isArray(j)) throw new Error("Invalid Format");
+                        for (const s of j) { 
+                            const id = s.id || Date.now().toString() + Math.random().toString(36).substr(2, 5); 
+                            delete s.id; 
+                            await setDoc(doc(db, 'artifacts', appId, 'public', 'data', `students_${yearKey}`, id), s); 
+                        } 
+                        showToast("JSON Import Successful", "success");
+                    } catch(err) { showToast("Import Failed: Invalid JSON", "error"); }
+                }; 
+                r.readAsText(f); 
+            }
         };
 
         window.printer = {
