@@ -279,13 +279,13 @@
         </div>
 
         <!-- VIEW: LOGIN -->
-        <div id="view-login" class="hidden view-section min-h-screen bg-indigo-50 flex items-center justify-center p-6 font-black">
+        <div id="view-login" class="hidden view-section min-h-screen bg-indigo-50 flex items-center justify-center p-6 font-black text-indigo-950">
             <div id="login-card" class="bg-white w-full max-w-md p-10 rounded-[2.5rem] shadow-2xl">
                 <div class="text-center mb-8">
                     <div class="bg-indigo-950 text-white w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 text-3xl font-black border-4 border-amber-400 shadow-xl">SSV</div>
-                    <h2 class="text-2xl font-black uppercase tracking-tight text-indigo-950">Admin Login</h2>
+                    <h2 class="text-2xl font-black uppercase tracking-tight">Admin Login</h2>
                 </div>
-                <form onsubmit="auth_manager.login(event)" class="space-y-6 text-indigo-950">
+                <form onsubmit="auth_manager.login(event)" class="space-y-6">
                     <div><label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest">Username</label><input type="text" id="userid" class="w-full border-2 border-slate-100 p-4 rounded-2xl outline-none focus:border-indigo-600 transition-all font-black" required></div>
                     <div><label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest">Passkey</label><input type="password" id="password" class="w-full border-2 border-slate-100 p-4 rounded-2xl outline-none focus:border-indigo-600 transition-all font-black" required></div>
                     <button type="submit" class="w-full bg-indigo-950 text-white py-5 rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl active:scale-95 transition-transform">Sign In</button>
@@ -298,6 +298,7 @@
             <aside class="bg-indigo-950 text-white w-full md:w-72 flex-shrink-0 md:h-screen md:sticky top-0 flex flex-col shadow-2xl text-indigo-100">
                 <div class="p-8 border-b border-indigo-900 font-black text-xl flex items-center gap-3 tracking-tight uppercase"><span class="material-symbols-outlined font-black text-amber-400">dashboard</span> Portal Hub</div>
                 
+                <!-- Session Selector ONLY in Admin Sidebar -->
                 <div class="p-6 border-b border-indigo-900 bg-indigo-900/30">
                     <label class="text-[9px] text-indigo-300 uppercase block mb-3 font-black tracking-widest">Academic Session</label>
                     <select id="admin-year-selector" onchange="admin.handleYearChange(this.value)" class="w-full bg-indigo-950 text-amber-400 border border-indigo-700 rounded-xl p-3 text-[10px] font-black uppercase outline-none cursor-pointer">
@@ -312,6 +313,7 @@
                     <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all" onclick="admin.switchTab('dashboard')"><span class="material-symbols-outlined">analytics</span> Dashboard</button>
                     <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all" onclick="admin.switchTab('admissions')"><span class="material-symbols-outlined">person_add</span> Admissions</button>
                     <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all" onclick="admin.switchTab('students')"><span class="material-symbols-outlined">groups</span> Database</button>
+                    <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all" onclick="admin.switchTab('data_management')"><span class="material-symbols-outlined">database</span> Data Tools</button>
                     <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all" onclick="admin.switchTab('updates_manager')"><span class="material-symbols-outlined">campaign</span> Notice Board</button>
                     <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all" onclick="admin.switchTab('blog_manager')"><span class="material-symbols-outlined">photo_library</span> Highlights</button>
                 </nav>
@@ -326,16 +328,16 @@
                     <h2 class="text-3xl font-black uppercase tracking-tighter">Performance Overview</h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-indigo-600 font-black"><p class="text-[10px] text-slate-400 uppercase tracking-widest">Target Revenue</p><div class="text-2xl mt-2" id="stat-total">₹0</div></div>
-                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-green-500"><p class="text-[10px] text-slate-400 uppercase tracking-widest">Collected</p><div class="text-2xl mt-2 text-green-600" id="stat-collected">₹0</div></div>
-                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-red-500"><p class="text-[10px] text-slate-400 uppercase tracking-widest">Pending</p><div class="text-2xl mt-2 text-red-600" id="stat-pending">₹0</div></div>
-                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-amber-400"><p class="text-[10px] text-slate-400 uppercase tracking-widest">Student Count</p><div class="text-2xl mt-2 text-amber-600" id="stat-count">0</div></div>
+                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-green-500 font-black"><p class="text-[10px] text-slate-400 uppercase tracking-widest">Collected</p><div class="text-2xl mt-2 text-green-600" id="stat-collected">₹0</div></div>
+                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-red-500 font-black"><p class="text-[10px] text-slate-400 uppercase tracking-widest">Pending</p><div class="text-2xl mt-2 text-red-600" id="stat-pending">₹0</div></div>
+                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-amber-400 font-black"><p class="text-[10px] text-slate-400 uppercase tracking-widest">Student Count</p><div class="text-2xl mt-2 text-amber-600" id="stat-count">0</div></div>
                     </div>
                     <div class="bg-white p-8 rounded-3xl shadow-sm h-96"><canvas id="feeChart"></canvas></div>
                 </div>
 
                 <div id="tab-admissions" class="admin-content hidden">
                     <h2 class="text-3xl font-black mb-10 uppercase tracking-tighter" id="admission-title">New Entry</h2>
-                    <form id="admissions-form" onsubmit="admin.registerStudent(event)" class="bg-white p-10 rounded-[3rem] shadow-sm grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
+                    <form id="admissions-form" onsubmit="admin.registerStudent(event)" class="bg-white p-10 rounded-[3rem] shadow-sm grid grid-cols-1 md:grid-cols-2 gap-8 text-sm text-indigo-950">
                         <input type="hidden" name="editId">
                         <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Admission ID *</label><input type="text" name="admnNo" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-black" required></div>
                         <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Student Name *</label><input type="text" name="name" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-black" required></div>
@@ -349,21 +351,21 @@
                         <div class="space-y-1" id="admit-initial-group"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Initial Pay *</label><input type="number" name="initialPay" value="0" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none text-green-600 font-black" required></div>
                         <div class="col-span-full flex gap-4">
                             <button type="button" id="admit-cancel-btn" class="hidden flex-1 bg-slate-200 text-indigo-950 py-5 rounded-3xl font-black uppercase text-xs" onclick="admin.cancelAdmitEdit()">Cancel</button>
-                            <button type="submit" id="admit-submit-btn" class="flex-[2] bg-indigo-600 text-white py-5 rounded-3xl font-black uppercase text-xs shadow-xl transition-all">Submit Student</button>
+                            <button type="submit" id="admit-submit-btn" class="flex-[2] bg-indigo-600 text-white py-5 rounded-3xl font-black uppercase text-xs shadow-xl transition-all">Submit Entry</button>
                         </div>
                     </form>
                 </div>
 
-                <div id="tab-students" class="admin-content hidden space-y-8 font-black">
+                <div id="tab-students" class="admin-content hidden space-y-8 font-black text-indigo-950">
                     <div class="flex flex-col md:flex-row justify-between items-center gap-6">
                         <h2 class="text-3xl font-black uppercase tracking-tighter">Student Registry</h2>
-                        <button onclick="printer.printMasterLedger()" class="bg-indigo-950 text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-md flex items-center gap-2"><span class="material-symbols-outlined text-lg font-black">print</span> Master ledger</button>
+                        <button onclick="printer.printMasterLedger()" class="bg-indigo-950 text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-md flex items-center gap-2 text-indigo-100"><span class="material-symbols-outlined text-lg">print</span> Master Ledger</button>
                     </div>
                     <div class="flex gap-4">
-                        <input type="text" id="record-search" placeholder="Search by name or ID..." class="flex-1 p-5 rounded-3xl border-2 border-white shadow-sm font-black outline-none focus:border-indigo-200" oninput="admin.renderStudentList()">
+                        <input type="text" id="record-search" placeholder="Search name or ID..." class="flex-1 p-5 rounded-3xl border-2 border-white shadow-sm font-black outline-none focus:border-indigo-200" oninput="admin.renderStudentList()">
                         <select id="record-class-filter" class="w-48 p-5 rounded-3xl border-2 border-white shadow-sm font-black outline-none cursor-pointer" onchange="admin.renderStudentList()"></select>
                     </div>
-                    <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100 overflow-x-auto">
+                    <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100 overflow-x-auto text-indigo-950 font-black">
                         <table class="w-full text-left text-sm font-black">
                             <thead class="bg-indigo-50 border-b">
                                 <tr class="font-black uppercase text-[10px] text-indigo-950 tracking-widest">
@@ -371,7 +373,7 @@
                                     <th class="p-6 sort-header" onclick="admin.sortStudents('name')">Student</th>
                                     <th class="p-6 sort-header" onclick="admin.sortStudents('class')">Class</th>
                                     <th class="p-6 text-right sort-header" onclick="admin.sortStudents('due')">Due</th>
-                                    <th class="p-6 text-right">Control</th>
+                                    <th class="p-6 text-right">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="student-list-body" class="divide-y text-slate-700"></tbody>
@@ -379,13 +381,34 @@
                     </div>
                 </div>
 
-                <div id="tab-updates_manager" class="admin-content hidden grid grid-cols-1 lg:grid-cols-3 gap-12 font-black">
-                    <div class="lg:col-span-1 space-y-8 font-black">
+                <div id="tab-data_management" class="admin-content hidden space-y-10 font-black text-indigo-950">
+                    <h2 class="text-3xl font-black uppercase tracking-tighter">Data Management</h2>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                        <div class="bg-white p-10 rounded-[3rem] shadow-sm border border-slate-100 space-y-8 text-center">
+                            <div class="flex items-center justify-center gap-3 text-emerald-600 font-black"><span class="material-symbols-outlined text-4xl font-black">table_chart</span><h3 class="text-2xl font-black uppercase tracking-tight">Bulk Transfer Tool</h3></div>
+                            <div class="grid grid-cols-1 gap-4 text-indigo-950">
+                                <p class="text-slate-400 text-xs px-6">Migrate current year data to the next academic session. All grades will be promoted automatically.</p>
+                                <button onclick="admin.bulkTransferStudents()" class="bg-emerald-600 text-white p-5 rounded-3xl uppercase text-[10px] font-black tracking-widest shadow-lg shadow-emerald-50">Transfer to Next Year</button>
+                            </div>
+                        </div>
+                        <div class="bg-white p-10 rounded-[3rem] shadow-sm border border-slate-100 space-y-8 text-center font-black">
+                            <div class="flex items-center justify-center gap-3 text-indigo-600"><span class="material-symbols-outlined text-4xl font-black">data_object</span><h3 class="text-2xl font-black uppercase tracking-tight">Excel Ops</h3></div>
+                            <div class="grid grid-cols-1 gap-4 text-indigo-950">
+                                <button onclick="admin.exportExcel()" class="bg-slate-100 p-5 rounded-3xl uppercase text-[10px] font-black tracking-widest">Download current session</button>
+                                <button onclick="document.getElementById('import-file-input').click()" class="bg-indigo-950 text-white p-5 rounded-3xl uppercase text-[10px] font-black tracking-widest shadow-lg">Upload records</button>
+                                <input type="file" id="import-file-input" class="hidden" accept=".xlsx,.csv" onchange="admin.importBulkData(event)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-updates_manager" class="admin-content hidden grid grid-cols-1 lg:grid-cols-3 gap-12 font-black text-indigo-950">
+                    <div class="lg:col-span-1 space-y-8">
                         <h2 class="text-2xl font-black uppercase tracking-tighter" id="notice-form-title">New Notice</h2>
                         <form id="notice-form" onsubmit="admin.publishNotice(event)" class="bg-white p-8 rounded-[2rem] shadow-sm space-y-6">
                             <input type="hidden" name="noticeId">
                             <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Class</label><select id="notice-class-select" name="class" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 outline-none font-black"></select></div>
-                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest font-black">Type / Category</label>
+                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest font-black">Category</label>
                                 <select name="category" id="notice-category-select" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-black">
                                     <option>Announcement</option><option>Home Work</option><option>Class Test</option><option>Upcoming Events</option><option>Holiday</option>
                                 </select>
@@ -395,31 +418,31 @@
                                     <option value="General News">General News</option><option value="Telugu">Telugu</option><option value="Hindi">Hindi</option><option value="English">English</option><option value="Mathematics">Mathematics</option><option value="Science">Science</option><option value="Social">Social</option><option value="E.V.S">E.V.S</option><option value="Computers">Computers</option>
                                 </select>
                             </div>
-                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Message Content</label><textarea name="content" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 h-32 focus:bg-white transition-all outline-none font-black text-slate-800" required></textarea></div>
+                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Content</label><textarea name="content" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 h-32 focus:bg-white transition-all outline-none font-black text-slate-800" required></textarea></div>
                             <div class="flex gap-3">
-                                <button type="button" id="notice-cancel-btn" class="hidden flex-1 bg-slate-100 py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest" onclick="admin.cancelNoticeEdit()">Cancel</button>
-                                <button type="submit" id="notice-submit-btn" class="flex-[2] bg-indigo-600 text-white py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest">Publish Notice</button>
+                                <button type="button" id="notice-cancel-btn" class="hidden flex-1 bg-slate-100 py-4 rounded-2xl font-black uppercase text-[10px]" onclick="admin.cancelNoticeEdit()">Cancel</button>
+                                <button type="submit" id="notice-submit-btn" class="flex-[2] bg-indigo-600 text-white py-4 rounded-2xl font-black uppercase text-[10px]">Publish</button>
                             </div>
                         </form>
                     </div>
-                    <div class="lg:col-span-2 space-y-8"><h2 class="text-2xl font-black uppercase tracking-tighter font-black">Current Board</h2><div id="admin-notices-list" class="space-y-4 text-indigo-950 font-black"></div></div>
+                    <div class="lg:col-span-2 space-y-8"><h2 class="text-2xl font-black uppercase tracking-tighter">Live Board View</h2><div id="admin-notices-list" class="space-y-4"></div></div>
                 </div>
 
-                <div id="tab-blog_manager" class="admin-content hidden grid grid-cols-1 lg:grid-cols-3 gap-12 font-black">
+                <div id="tab-blog_manager" class="admin-content hidden grid grid-cols-1 lg:grid-cols-3 gap-12 font-black text-indigo-950">
                      <div class="lg:col-span-1 space-y-8">
-                        <h2 class="text-2xl font-black uppercase tracking-tighter" id="highlight-form-title">Gallery Feed</h2>
-                        <form id="highlight-form" onsubmit="admin.publishHighlight(event)" class="bg-white p-8 rounded-[2rem] shadow-sm space-y-6">
+                        <h2 class="text-2xl font-black uppercase tracking-tighter" id="highlight-form-title">Gallery Management</h2>
+                        <form id="highlight-form" onsubmit="admin.publishHighlight(event)" class="bg-white p-8 rounded-[2rem] shadow-sm space-y-6 text-indigo-950 font-black">
                             <input type="hidden" name="hId">
                             <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Caption</label><input type="text" name="title" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-black" required></div>
                             <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Type</label><select name="type" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-black"><option value="image">Image URL</option><option value="youtube">YouTube ID</option></select></div>
                             <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">URL Address</label><input type="text" name="url" placeholder="https://..." class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-black" required></div>
                             <div class="flex gap-3">
-                                <button type="button" id="highlight-cancel-btn" class="hidden flex-1 bg-slate-100 py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest" onclick="admin.cancelHighlightEdit()">Cancel</button>
-                                <button type="submit" id="highlight-submit-btn" class="flex-[2] bg-orange-600 text-white py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest">Post Image</button>
+                                <button type="button" id="highlight-cancel-btn" class="hidden flex-1 bg-slate-100 py-4 rounded-2xl font-black uppercase text-[10px]" onclick="admin.cancelHighlightEdit()">Cancel</button>
+                                <button type="submit" id="highlight-submit-btn" class="flex-[2] bg-orange-600 text-white py-4 rounded-2xl font-black uppercase text-[10px]">Post Highlight</button>
                             </div>
                         </form>
                     </div>
-                    <div class="lg:col-span-2 space-y-8"><h2 class="text-2xl font-black uppercase tracking-tighter">Gallery View</h2><div id="admin-highlights-list" class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-indigo-950 font-black"></div></div>
+                    <div class="lg:col-span-2 space-y-8"><h2 class="text-2xl font-black uppercase tracking-tighter">Live Gallery</h2><div id="admin-highlights-list" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div></div>
                 </div>
             </main>
         </div>
@@ -427,41 +450,40 @@
         <!-- MODAL: PROFILE -->
         <div id="student-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 hidden-modal modal no-print p-4">
             <div class="bg-white w-full max-w-5xl h-[90vh] rounded-[2.5rem] overflow-hidden flex flex-col shadow-2xl text-indigo-950 font-black">
-                <div class="p-8 bg-indigo-950 text-white flex justify-between items-center">
+                <div class="p-8 bg-indigo-950 text-white flex justify-between items-center text-indigo-100 font-black">
                     <h2 id="modal-name" class="text-2xl font-black uppercase tracking-tighter"></h2>
                     <button onclick="admin.closeModal()" class="text-4xl hover:text-amber-400 transition-colors font-black">&times;</button>
                 </div>
-                <div class="flex-1 overflow-y-auto p-8 bg-slate-50 grid grid-cols-1 lg:grid-cols-3 gap-8 text-sm font-black">
+                <div class="flex-1 overflow-y-auto p-8 bg-slate-50 grid grid-cols-1 lg:grid-cols-3 gap-8 text-sm text-indigo-950 font-black">
                     <div class="space-y-6">
                         <div class="bg-white p-8 rounded-3xl shadow-sm space-y-4 font-black border border-indigo-50">
-                            <p class="text-[10px] text-slate-400 uppercase tracking-widest">Profile Snapshot</p>
+                            <p class="text-[10px] text-slate-400 uppercase tracking-widest font-black">Profile Snapshot</p>
                             <p>Class: <span id="modal-class" class="text-indigo-600"></span></p>
                             <p>Parent: <span id="modal-father"></span></p>
                             <p>Mobile: <span id="modal-contact"></span></p>
-                            <p class="text-2xl text-red-600 tracking-tighter uppercase mt-4">Due Balance: <span id="modal-balance"></span></p>
-                            <div id="modal-slip-area" class="hidden pt-4"><button onclick="admin.viewConcessionSlip()" class="flex items-center gap-2 text-indigo-600 text-[10px] hover:underline uppercase font-black border border-indigo-100 p-3 rounded-xl w-full justify-center"><span class="material-symbols-outlined text-base font-black">attachment</span> View Attachment</button></div>
+                            <p class="text-2xl text-red-600 tracking-tighter uppercase mt-4 font-black">Due Balance: <span id="modal-balance"></span></p>
                         </div>
                         <div class="space-y-2">
                              <button onclick="admin.promoteToNextYear()" class="w-full bg-emerald-600 text-white py-4 rounded-2xl uppercase text-[10px] font-black shadow-lg shadow-emerald-100 hover:bg-emerald-700 transition-all flex items-center justify-center gap-2">
                                 <span class="material-symbols-outlined text-base">forward_5</span> Transfer to Next Year
                             </button>
                             <button onclick="admin.initiateAdmitEdit()" class="w-full bg-indigo-600 text-white py-4 rounded-2xl uppercase text-[10px] font-black shadow-lg shadow-indigo-100">Edit Details</button>
-                            <button onclick="printer.printLedger()" class="w-full bg-white border-2 border-slate-200 py-4 rounded-2xl hover:bg-slate-100 transition-all uppercase text-[10px] font-black text-indigo-950">Print Record</button>
+                            <button onclick="printer.printLedger()" class="w-full bg-white border-2 border-slate-200 py-4 rounded-2xl hover:bg-slate-100 transition-all uppercase text-[10px] font-black">Print Record</button>
                             <button onclick="admin.initiateSecureDelete()" class="w-full text-red-600 text-[10px] uppercase py-2 hover:underline font-black opacity-60">Permanently Delete</button>
                         </div>
                     </div>
                     <div class="lg:col-span-2 space-y-8">
                         <form onsubmit="admin.recordPayment(event)" class="bg-white p-10 rounded-[2rem] shadow-sm grid grid-cols-2 gap-6 border-2 border-emerald-50 font-black">
-                            <div class="col-span-2 text-[10px] uppercase text-slate-400 tracking-widest text-indigo-950">Register Payment</div>
+                            <div class="col-span-2 text-[10px] uppercase text-slate-400 tracking-widest">Register Payment</div>
                             <input type="number" id="pay-amt" placeholder="Amount (₹)" class="border-2 border-slate-50 p-4 rounded-xl bg-slate-50 font-black text-2xl focus:bg-white outline-none" required>
                             <input type="date" id="pay-date" class="border-2 border-slate-50 p-4 rounded-xl bg-slate-50 focus:bg-white outline-none" required>
                             <input type="text" id="pay-remark" placeholder="Note (Receipt #)" class="col-span-2 border-2 border-slate-50 p-4 rounded-xl bg-slate-50 focus:bg-white outline-none">
                             <button type="submit" class="col-span-2 bg-green-600 text-white py-5 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-green-700 transition-all shadow-lg">Confirm Payment</button>
                         </form>
                         
-                        <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100">
+                        <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100 font-black">
                             <div class="p-4 bg-slate-50 flex justify-between items-center text-indigo-950 font-black">
-                                <span class="text-[9px] font-black uppercase tracking-widest text-slate-400">Transaction History</span>
+                                <span class="text-[9px] font-black uppercase tracking-widest text-slate-400 font-black">Transaction History</span>
                                 <div class="flex gap-2 items-center">
                                     <input type="date" id="history-start" class="text-[10px] border rounded px-1 outline-none font-black" onchange="admin.renderHistory()">
                                     <span class="text-[10px] text-slate-300">to</span>
@@ -476,12 +498,12 @@
             </div>
         </div>
 
-        <!-- AUTH PIN -->
+        <!-- SECURE PIN MODAL -->
         <div id="delete-pin-modal" class="fixed inset-0 z-[60] flex items-center justify-center bg-black bg-opacity-80 hidden-modal modal no-print p-4">
             <div class="bg-white w-full max-w-xs p-10 rounded-[3rem] shadow-2xl text-center text-indigo-950 font-black">
                 <span class="material-symbols-outlined text-red-600 text-7xl mb-4 font-black">lock_reset</span>
-                <h3 class="text-xl font-black mb-1 uppercase tracking-tight">Security Code</h3>
-                <p class="text-[10px] text-slate-400 uppercase tracking-widest mb-8">Authorised Personnel Only</p>
+                <h3 class="text-xl font-black mb-1 uppercase tracking-tight">Security Access</h3>
+                <p class="text-[10px] text-slate-400 uppercase tracking-widest mb-8">Access Verification Required</p>
                 <input type="password" id="delete-pin-input" class="w-full border-2 border-slate-100 p-5 rounded-3xl text-center font-black text-4xl mb-8 focus:border-red-600 outline-none" placeholder="••••">
                 <div class="flex gap-4">
                     <button onclick="admin.closeDeleteModal()" class="flex-1 py-4 bg-slate-100 rounded-2xl font-black text-[10px] uppercase">Cancel</button>
@@ -544,7 +566,6 @@
             }, 3000);
         };
 
-        // Rule 3: Auth first
         const initAuth = async (retryCount = 0) => {
             try { 
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
@@ -575,7 +596,6 @@
             unsubscribes.forEach(unsub => unsub());
             unsubscribes = [];
 
-            // Rule 1: Artifact Paths (Standardized collection names for yearly silo)
             const yearKey = state.selectedYear.replace('-', '_');
             const studentsRef = collection(db, 'artifacts', appId, 'public', 'data', `students_${yearKey}`);
             const noticesRef = collection(db, 'artifacts', appId, 'public', 'data', `notices_${yearKey}`);
@@ -637,13 +657,13 @@
                         card.classList.add('shake-element');
                         setTimeout(() => card.classList.remove('shake-element'), 500);
                     }
-                    showToast("Invalid Admin PIN", "error");
+                    showToast("Invalid Credentials", "error");
                 }
             },
             logout: () => { 
                 state.isLoggedIn = false; 
                 router.navigate('home'); 
-                showToast("Logged out from admin session");
+                showToast("Admin session ended");
             }
         };
 
@@ -725,7 +745,7 @@
                 const container = document.getElementById('home-notices-preview');
                 if (!container) return;
                 if (state.selectedClass === 'All') {
-                    container.innerHTML = `<div class="col-span-full text-center py-16"><div class="max-w-md mx-auto bg-white p-10 rounded-[3rem] shadow-sm border-2 border-dashed border-indigo-100 text-indigo-950 font-black"><span class="material-symbols-outlined text-indigo-200 text-6xl mb-4">school</span><p class="text-slate-400">Select your class above to see updates.</p></div></div>`;
+                    container.innerHTML = `<div class="col-span-full text-center py-16"><div class="max-w-md mx-auto bg-white p-10 rounded-[3rem] shadow-sm border-2 border-dashed border-indigo-100 text-indigo-950 font-black"><span class="material-symbols-outlined text-indigo-200 text-6xl mb-4">school</span><p class="text-slate-400 font-black">Please select a class above to see the latest updates.</p></div></div>`;
                     return;
                 }
                 const filtered = state.notices.filter(n => n.class === state.selectedClass || n.class === 'All').slice(0, 6);
@@ -742,14 +762,14 @@
                                 <span class="text-[9px] font-black uppercase text-slate-300 tracking-widest">${new Date(n.timestamp).toLocaleDateString()}</span>
                             </div>
                             <h4 class="text-indigo-600 font-black uppercase text-[10px] tracking-widest mb-1">${n.category}</h4>
-                            <p class="text-slate-700 font-bold line-clamp-3 text-sm leading-relaxed">${n.content}</p>
+                            <p class="text-slate-700 font-bold line-clamp-3 text-sm leading-relaxed font-black">${n.content}</p>
                         </div>`;
-                }).join('') || '<div class="col-span-full text-center py-10 opacity-30 italic font-black text-indigo-950">No recent announcements for this class.</div>';
+                }).join('') || '<div class="col-span-full text-center py-10 opacity-30 italic font-black">No recent announcements for this class.</div>';
             },
             renderHighlights: () => {
                 const track = document.getElementById('blog-posts-feed');
                 if(!track) return;
-                track.innerHTML = state.highlights.map(h => `<div class="blog-slide text-indigo-950 font-black"><div class="bg-white p-8 rounded-[3rem] shadow-xl border border-indigo-50 text-indigo-950">${h.type === 'youtube' ? `<div class="video-container" onclick="home.playVideo('${h.id}', '${h.url}')" id="vid-${h.id}"><div class="absolute inset-0 flex items-center justify-center bg-black/30 text-white transition-all hover:bg-black/10"><span class="material-symbols-outlined text-7xl font-black">play_circle</span></div></div>` : `<img src="${h.url}" class="w-full h-64 md:h-96 object-cover rounded-[2rem] shadow-inner bg-slate-50">`}<div class="mt-8 text-left"><h3 class="text-2xl uppercase tracking-tight font-black">${h.title}</h3></div></div></div>`).join('') || '<div class="w-full py-10 opacity-30 font-black text-center italic font-black text-indigo-950">No highlights found.</div>';
+                track.innerHTML = state.highlights.map(h => `<div class="blog-slide text-indigo-950 font-black"><div class="bg-white p-8 rounded-[3rem] shadow-xl border border-indigo-50 text-indigo-950 font-black">${h.type === 'youtube' ? `<div class="video-container" onclick="home.playVideo('${h.id}', '${h.url}')" id="vid-${h.id}"><div class="absolute inset-0 flex items-center justify-center bg-black/30 text-white transition-all hover:bg-black/10"><span class="material-symbols-outlined text-7xl font-black">play_circle</span></div></div>` : `<img src="${h.url}" class="w-full h-64 md:h-96 object-cover rounded-[2rem] shadow-inner bg-slate-50">`}<div class="mt-8 text-left"><h3 class="text-2xl uppercase tracking-tight font-black">${h.title}</h3></div></div></div>`).join('') || '<div class="w-full py-10 opacity-30 font-black text-center italic font-black">No highlights found.</div>';
                 state.blogIndex = 0; home.updateSlider();
             },
             playVideo: (id, url) => { const yId = url.split('v=')[1]?.split('&')[0] || url.split('/').pop(); document.getElementById(`vid-${id}`).innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${yId}?autoplay=1" frameborder="0" allowfullscreen></iframe>`; },
@@ -767,8 +787,8 @@
                     if (n.category === 'Upcoming Events') colorClass = 'border-orange-600';
                     if (n.category === 'Holiday') colorClass = 'border-red-500';
                     const isNew = n.timestamp > state.sessionLastSeen;
-                    return `<div class="bg-white p-10 rounded-[2.5rem] shadow-sm border-l-[12px] ${colorClass} hover:shadow-xl transition-all h-full flex flex-col group relative overflow-hidden text-indigo-950 font-black">${isNew ? `<div class="absolute top-2 right-2 bg-red-600 text-white text-[9px] font-black px-3 py-1 rounded-bl-2xl shadow-sm animate-pulse z-10">NEW UPDATE</div>` : ''}<div class="flex justify-between items-start mb-6"><div class="flex flex-col"><span class="text-[9px] uppercase text-slate-400 font-black">${new Date(n.timestamp).toLocaleDateString()}</span><span class="inline-block mt-1 px-3 py-1 bg-slate-100 text-slate-600 text-[10px] font-black uppercase rounded-full tracking-tighter">${n.category}</span></div><span class="bg-indigo-50 text-indigo-700 px-4 py-1.5 rounded-full font-black uppercase tracking-tighter text-xs">${n.class}</span></div><h4 class="text-indigo-600 font-black uppercase text-xs tracking-widest mb-2">${n.subject && n.subject !== 'General News' ? n.subject : 'Notice'}</h4><p class="text-slate-800 text-xl leading-relaxed font-black flex-1">${n.content}</p></div>`;
-                }).join('') || '<div class="col-span-full text-center py-32 font-black text-indigo-950"><div class="bg-indigo-50 inline-block p-10 rounded-[3rem] border border-indigo-100 font-black text-indigo-950"><span class="material-symbols-outlined text-indigo-300 text-6xl mb-4">notifications_off</span><p class="text-slate-400 font-black italic">No updates for this year.</p></div></div>';
+                    return `<div class="bg-white p-10 rounded-[2.5rem] shadow-sm border-l-[12px] ${colorClass} hover:shadow-xl transition-all h-full flex flex-col group relative overflow-hidden text-indigo-950 font-black">${isNew ? `<div class="absolute top-2 right-2 bg-red-600 text-white text-[9px] font-black px-3 py-1 rounded-bl-2xl shadow-sm animate-pulse z-10">NEW UPDATE</div>` : ''}<div class="flex justify-between items-start mb-6"><div class="flex flex-col"><span class="text-[9px] uppercase text-slate-400 font-black">${new Date(n.timestamp).toLocaleDateString()}</span><span class="inline-block mt-1 px-3 py-1 bg-slate-100 text-slate-600 text-[10px] font-black uppercase rounded-full tracking-tighter">${n.category}</span></div><span class="bg-indigo-50 text-indigo-700 px-4 py-1.5 rounded-full font-black uppercase tracking-tighter text-xs">${n.class}</span></div><h4 class="text-indigo-600 font-black uppercase text-xs tracking-widest mb-2">${n.subject && n.subject !== 'General News' ? n.subject : 'Notice'}</h4><p class="text-slate-800 text-xl leading-relaxed font-black flex-1 font-black">${n.content}</p></div>`;
+                }).join('') || '<div class="col-span-full text-center py-32 font-black text-indigo-950"><div class="bg-indigo-50 inline-block p-10 rounded-[3rem] border border-indigo-100 font-black"><span class="material-symbols-outlined text-indigo-300 text-6xl mb-4">notifications_off</span><p class="text-slate-400 font-black italic">No records found for this year.</p></div></div>';
             }
         };
 
@@ -786,7 +806,9 @@
                 const adminSel = document.getElementById('admin-year-selector');
                 if (adminSel) adminSel.value = val;
                 startSync();
-                showToast(`Session switched to ${val}`, "success");
+                admin.renderStudentList();
+                admin.updateDashboard();
+                showToast(`Switched session to ${val}`, "success");
             },
             switchTab: (tabId) => {
                 document.querySelectorAll('.admin-tab').forEach(btn => btn.classList.toggle('bg-indigo-900', btn.onclick.toString().includes(tabId)));
@@ -819,29 +841,69 @@
                 const fd = new FormData(e.target);
                 const editId = fd.get('editId');
                 const btn = document.getElementById('admit-submit-btn');
-                btn.disabled = true; btn.innerText = "Syncing...";
+                btn.disabled = true; btn.innerText = "Processing...";
                 
                 const data = { 
-                    admnNo: fd.get('admnNo'), name: fd.get('name'), class: fd.get('class'), 
-                    father: fd.get('father') || '', contact: fd.get('contact') || '', 
-                    fee: parseFloat(fd.get('fee') || 0), oldDue: parseFloat(fd.get('oldDue') || 0),
+                    admnNo: fd.get('admnNo'), 
+                    name: fd.get('name'), 
+                    class: fd.get('class'), 
+                    father: fd.get('father') || '', 
+                    contact: fd.get('contact') || '', 
+                    fee: parseFloat(fd.get('fee') || 0), 
+                    oldDue: parseFloat(fd.get('oldDue') || 0),
                     initialPay: parseFloat(fd.get('initialPay') || 0)
                 };
 
                 try {
                     const yearKey = state.selectedYear.replace('-', '_');
-                    const studentsRef = collection(db, 'artifacts', appId, 'public', 'data', `students_${yearKey}`);
+                    const colRef = collection(db, 'artifacts', appId, 'public', 'data', `students_${yearKey}`);
                     if (editId) { 
                         await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', `students_${yearKey}`, editId), data); 
                         admin.cancelAdmitEdit(); 
-                        showToast("Profile Updated");
+                        showToast("Record updated successfully");
                     } else { 
                         const newData = { ...data, paid: data.initialPay, history: data.initialPay > 0 ? [{ amount: data.initialPay, timestamp: Date.now(), remark: 'Initial Enrollment' }] : [], timestamp: Date.now() }; 
-                        await addDoc(studentsRef, newData); 
-                        showToast("Student Registered", "success");
+                        await addDoc(colRef, newData); 
+                        showToast("Student registered successfully", "success");
                     }
                     admin.switchTab('students'); e.target.reset();
-                } catch(err) { showToast("Save failed. Try again.", "error"); } finally { btn.disabled = false; btn.innerText = "Submit Student"; }
+                } catch(err) { showToast("Save error: Check connection", "error"); } finally { btn.disabled = false; btn.innerText = "Submit Student"; }
+            },
+            bulkTransferStudents: async () => {
+                if (!state.user || state.students.length === 0) return showToast("No students to transfer", "error");
+                const fromYear = state.selectedYear;
+                const parts = fromYear.split('-');
+                const nextYear = `${parseInt(parts[0])+1}-${parseInt(parts[1])+1}`;
+                const nextYearKey = nextYear.replace('-', '_');
+                
+                if (!confirm(`Confirm migration of ${state.students.length} students from ${fromYear} to session ${nextYear}? All students will be promoted to the next grade.`)) return;
+                
+                showToast("Starting bulk migration...");
+                try {
+                    const targetRef = collection(db, 'artifacts', appId, 'public', 'data', `students_${nextYearKey}`);
+                    for (const s of state.students) {
+                        const currentClass = s.class || s.Grade || 'Nursery';
+                        const currentIdx = state.classes.indexOf(currentClass);
+                        const nextClass = state.classes[currentIdx + 1] || "Passed Out";
+                        
+                        const newData = {
+                            admnNo: s.admnNo || s.ID || s.Admission_No,
+                            name: s.name || s.Student,
+                            class: nextClass,
+                            father: s.father || s.Parent || '',
+                            contact: s.contact || '',
+                            fee: s.fee || s.Target_Fee || 0,
+                            oldDue: 0,
+                            paid: 0,
+                            history: [],
+                            timestamp: Date.now()
+                        };
+                        await addDoc(targetRef, newData);
+                    }
+                    showToast(`Migration to ${nextYear} complete`, "success");
+                } catch (e) {
+                    showToast("Migration failed", "error");
+                }
             },
             initiateAdmitEdit: () => {
                 const s = state.students.find(x => x.id === state.activeStudentId);
@@ -867,7 +929,7 @@
                 const currentIdx = state.classes.indexOf(s.class || s.Grade);
                 const nextYear = state.selectedYear.split('-').map(y => parseInt(y) + 1).join('-');
                 const nextClass = state.classes[currentIdx + 1] || "Passed Out";
-                if (!confirm(`Transfer ${s.name || s.Student} to ${nextClass} in ${nextYear}?`)) return;
+                if (!confirm(`Transfer ${s.name || s.Student} to Grade ${nextClass} in ${nextYear}?`)) return;
                 try {
                     const nextYearKey = nextYear.replace('-', '_');
                     const nextYearRef = collection(db, 'artifacts', appId, 'public', 'data', `students_${nextYearKey}`);
@@ -913,6 +975,7 @@
                     if (valA > valB) return state.sort.dir === 'asc' ? 1 : -1;
                     return 0;
                 });
+
                 body.innerHTML = filtered.map(s => {
                     const sId = s.admnNo || s.ID || s.Admission_No || '???';
                     const sName = s.name || s.Student || 'Unknown';
@@ -928,7 +991,7 @@
                             <button onclick="admin.requestDirectDelete('${s.id}')" class="text-slate-300 hover:text-red-600 transition-colors p-2"><span class="material-symbols-outlined text-base">delete</span></button>
                         </td>
                     </tr>
-                `; }).join('') || '<tr><td colspan="5" class="p-10 text-center text-slate-400 italic font-black">No matching records found.</td></tr>';
+                `; }).join('') || '<tr><td colspan="5" class="p-10 text-center text-slate-400 italic font-black text-indigo-950">No records found for this year.</td></tr>';
             },
             requestDirectDelete: (id) => {
                 state.activeStudentId = id;
@@ -967,7 +1030,7 @@
                 if(start && end) hist = hist.filter(h => h.timestamp >= start && h.timestamp <= (end + 86400000));
                 const tableBody = document.getElementById('modal-history');
                 if (tableBody) {
-                    tableBody.innerHTML = hist.map(h => `<tr class="border-b"><td class="p-4 text-slate-400 text-xs">${new Date(h.timestamp).toLocaleDateString()}</td><td class="p-4 font-black text-indigo-950">${h.remark || 'Fee Collection'}</td><td class="p-4 text-right text-green-600 font-black">₹${parseFloat(h.amount).toLocaleString()}</td><td class="p-4 text-right"><button onclick="printer.printReceipt('${h.timestamp}')"><span class="material-symbols-outlined text-indigo-900">print</span></button></td></tr>`).reverse().join('') || '<tr><td colspan="4" class="p-6 text-center text-slate-300 italic">No historical records found.</td></tr>';
+                    tableBody.innerHTML = hist.map(h => `<tr class="border-b"><td class="p-4 text-slate-400 text-xs">${new Date(h.timestamp).toLocaleDateString()}</td><td class="p-4 font-black text-indigo-950">${h.remark || 'Fee Payment'}</td><td class="p-4 text-right text-green-600 font-black">₹${parseFloat(h.amount).toLocaleString()}</td><td class="p-4 text-right"><button onclick="printer.printReceipt('${h.timestamp}')"><span class="material-symbols-outlined text-indigo-900">print</span></button></td></tr>`).reverse().join('') || '<tr><td colspan="4" class="p-6 text-center text-slate-300 italic">No historical records found.</td></tr>';
                 }
             },
             closeModal: () => { document.getElementById('student-modal').classList.add('hidden-modal'); state.activeStudentId = null; },
@@ -1011,7 +1074,7 @@
                 const n = state.notices.find(x => x.id === id); if(!n) return;
                 const form = document.getElementById('notice-form');
                 form.noticeId.value = n.id; form.class.value = n.class; form.category.value = n.category; form.subject.value = n.subject; form.content.value = n.content;
-                document.getElementById('notice-form-title').innerText = "Update Board Update";
+                document.getElementById('notice-form-title').innerText = "Edit Board Update";
                 document.getElementById('notice-submit-btn').innerText = "Update";
                 document.getElementById('notice-cancel-btn').classList.remove('hidden');
             },
@@ -1058,7 +1121,7 @@
             },
             renderHighlights: () => {
                 const list = document.getElementById('admin-highlights-list'); if(!list) return;
-                list.innerHTML = state.highlights.map(h => `<div class="bg-white p-4 rounded-3xl flex flex-col gap-3 shadow-sm border border-slate-50 text-indigo-950 font-black"><img src="${h.type === 'image' ? h.url : 'https://img.youtube.com/vi/'+(h.url.split('v=')[1]?.split('&')[0] || h.url.split('/').pop())+'/mqdefault.jpg'}" class="h-32 w-full object-cover rounded-xl bg-slate-50" onerror="this.src='https://via.placeholder.com/300x200?text=No+Preview'"><div class="flex justify-between items-center px-1 font-black text-sm text-indigo-950"><span class="truncate flex-1">${h.title}</span><div class="flex gap-1 ml-2"><button onclick="admin.viewHighlight('${h.id}')" class="text-indigo-400 hover:text-indigo-600"><span class="material-symbols-outlined text-sm">visibility</span></button><button onclick="admin.initiateHighlightEdit('${h.id}')" class="text-indigo-400 hover:text-indigo-600"><span class="material-symbols-outlined text-sm">edit</span></button><button onclick="admin.deleteHighlight('${h.id}')" class="text-red-300 hover:text-red-600"><span class="material-symbols-outlined text-sm">delete</span></button></div></div></div>`).join('') || '<div class="text-slate-300 py-10 text-center col-span-full italic">No highlights found.</div>';
+                list.innerHTML = state.highlights.map(h => `<div class="bg-white p-4 rounded-3xl flex flex-col gap-3 shadow-sm border border-slate-50 text-indigo-950 font-black"><img src="${h.type === 'image' ? h.url : 'https://img.youtube.com/vi/'+(h.url.split('v=')[1]?.split('&')[0] || h.url.split('/').pop())+'/mqdefault.jpg'}" class="h-32 w-full object-cover rounded-xl bg-slate-50" onerror="this.src='https://via.placeholder.com/300x200?text=No+Preview'"><div class="flex justify-between items-center px-1 font-black text-sm text-indigo-950"><span class="truncate flex-1">${h.title}</span><div class="flex gap-1 ml-2"><button onclick="admin.viewHighlight('${h.id}')" class="text-indigo-400 hover:text-indigo-600"><span class="material-symbols-outlined text-sm">visibility</span></button><button onclick="admin.initiateHighlightEdit('${h.id}')" class="text-indigo-400 hover:text-indigo-600"><span class="material-symbols-outlined text-sm">edit</span></button><button onclick="admin.deleteHighlight('${h.id}')" class="text-red-300 hover:text-red-600"><span class="material-symbols-outlined text-sm">delete</span></button></div></div></div>`).join('') || '<div class="text-slate-300 py-10 text-center col-span-full italic">No highlights.</div>';
             },
             deleteHighlight: async (id) => { if (!state.user) return; await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'highlights', id)); showToast("Highlight deleted"); },
             initiateSecureDelete: () => { const pinInput = document.getElementById('delete-pin-input'); if (pinInput) pinInput.value = ''; document.getElementById('delete-pin-modal').classList.remove('hidden-modal'); },
@@ -1078,7 +1141,9 @@
             },
             printLedger: () => {
                 const s = state.students.find(x => x.id === state.activeStudentId);
-                document.getElementById('printable-area').innerHTML = `<div style="padding:40px;font-family:sans-serif;background:white;"><h1>Summary: ${s.name}</h1><p>Class: ${s.class} | Year: ${state.selectedYear}</p><table style="width:100%;border-collapse:collapse;margin-top:20px;"><thead><tr style="background:#1e1b4b;color:#fff;"><th style="padding:10px;text-align:left;">Date</th><th style="padding:10px;text-align:left;">Remark</th><th style="padding:10px;text-align:right;">Amount</th></tr></thead><tbody>${s.history.map(h => `<tr><td style="border:1px solid #ddd;padding:10px;">${new Date(h.timestamp).toLocaleDateString()}</td><td style="border:1px solid #ddd;padding:10px;">${h.remark||'Fee'}</td><td style="border:1px solid #ddd;padding:10px;text-align:right;">₹${parseFloat(h.amount).toLocaleString()}</td></tr>`).join('')}</tbody></table></div>`; window.print();
+                const sName = s.name || s.Student || 'Unnamed';
+                const sClass = s.class || s.Grade || 'Nursery';
+                document.getElementById('printable-area').innerHTML = `<div style="padding:40px;font-family:sans-serif;background:white;"><h1>Summary: ${sName}</h1><p>Class: ${sClass} | Session: ${state.selectedYear}</p><table style="width:100%;border-collapse:collapse;margin-top:20px;"><thead><tr style="background:#1e1b4b;color:#fff;"><th style="padding:10px;text-align:left;">Date</th><th style="padding:10px;text-align:left;">Remark</th><th style="padding:10px;text-align:right;">Amount</th></tr></thead><tbody>${s.history.map(h => `<tr><td style="border:1px solid #ddd;padding:10px;">${new Date(h.timestamp).toLocaleDateString()}</td><td style="border:1px solid #ddd;padding:10px;">${h.remark||'Fee'}</td><td style="border:1px solid #ddd;padding:10px;text-align:right;">₹${parseFloat(h.amount).toLocaleString()}</td></tr>`).join('')}</tbody></table></div>`; window.print();
             },
             printMasterLedger: () => {
                 document.getElementById('printable-area').innerHTML = `<div style="padding:40px;font-family:sans-serif;background:white;"><h1 style="text-align:center;">Sri Sai Vidyalayam - Student Ledger (${state.selectedYear})</h1><table style="width:100%;border-collapse:collapse;margin-top:30px;"><thead style="background:#1e1b4b;color:#fff;"><tr><th style="padding:10px;border:1px solid #ddd;">ID</th><th style="padding:10px;border:1px solid #ddd;">Name</th><th style="padding:10px;border:1px solid #ddd;">Class</th><th style="padding:10px;border:1px solid #ddd;text-align:right;">Due</th></tr></thead><tbody>${state.students.map(s => {
@@ -1088,7 +1153,14 @@
             }
         };
 
-        (async () => { await initAuth(); router.navigate('home'); })();
+        // Standard init on load
+        (async () => { 
+            await initAuth(); 
+            // Default load Home
+            if (!document.querySelector('.view-section:not(.hidden)')) {
+                router.navigate('home');
+            }
+        })();
     </script>
 </body>
 </html>
