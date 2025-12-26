@@ -198,7 +198,7 @@
                         </div>
                         <div class="flex flex-wrap gap-4">
                             <button onclick="router.navigate('updates')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-10 py-5 rounded-2xl font-black shadow-xl transition-all hover-lift active:scale-95 uppercase tracking-widest text-xs">Check School Board</button>
-                            <a href="tel:8121218825" class="bg-amber-500 hover:bg-amber-400 text-indigo-950 px-10 py-5 rounded-2xl font-black shadow-xl transition-all hover-lift active:scale-95 uppercase tracking-widest text-xs flex items-center gap-2">
+                            <a href="tel:8121218825" class="bg-amber-500 hover:bg-amber-400 text-indigo-950 px-10 py-5 rounded-2xl font-bold shadow-xl transition-all hover-lift active:scale-95 uppercase tracking-widest text-xs flex items-center gap-2">
                                 <span class="material-symbols-outlined text-sm font-black">call</span> Call Office
                             </a>
                         </div>
@@ -244,6 +244,23 @@
                     </div>
                     <div id="home-notices-preview" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         <!-- Loaded via JS -->
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-20 bg-white">
+                <div class="max-w-6xl mx-auto px-4 text-center">
+                    <h2 class="text-3xl font-black text-indigo-950 uppercase mb-12 inline-block border-b-4 border-amber-400 tracking-tight">Recent Highlights</h2>
+                    <div class="flex items-center gap-4">
+                        <button onclick="home.prevBlog()" class="p-4 bg-white rounded-full shadow-lg text-indigo-950 hover:bg-indigo-950 hover:text-white transition-all hover-lift">
+                            <span class="material-symbols-outlined font-black">arrow_back</span>
+                        </button>
+                        <div class="blog-slider-container">
+                            <div id="blog-posts-feed" class="blog-slider-track"></div>
+                        </div>
+                        <button onclick="home.nextBlog()" class="p-4 bg-white rounded-full shadow-lg text-indigo-950 hover:bg-indigo-950 hover:text-white transition-all hover-lift">
+                            <span class="material-symbols-outlined font-black">arrow_forward</span>
+                        </button>
                     </div>
                 </div>
             </section>
@@ -298,7 +315,7 @@
         </div>
 
         <!-- VIEW: DAILY UPDATES -->
-        <div id="view-updates" class="hidden min-h-screen py-16 bg-slate-50 view-section font-black text-indigo-950">
+        <div id="view-updates" class="hidden view-section py-16 bg-slate-50 font-black text-indigo-950 min-h-screen">
             <div class="w-full px-6">
                 <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 mb-12 font-bold text-indigo-950">
                     <div>
@@ -318,7 +335,7 @@
         </div>
 
         <!-- VIEW: LOGIN -->
-        <div id="view-login" class="hidden min-h-screen bg-indigo-50 flex items-center justify-center p-6 view-section font-black">
+        <div id="view-login" class="hidden view-section min-h-screen bg-indigo-50 flex items-center justify-center p-6 font-black">
             <div id="login-card" class="bg-white w-full max-w-md p-10 rounded-[2.5rem] shadow-2xl">
                 <div class="text-center mb-8">
                     <div class="bg-indigo-950 text-white w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 text-3xl font-black border-4 border-amber-400 shadow-xl">SSV</div>
@@ -333,7 +350,7 @@
         </div>
 
         <!-- VIEW: ADMIN PANEL -->
-        <div id="view-admin" class="hidden min-h-screen bg-slate-100 flex flex-col md:flex-row view-section font-black">
+        <div id="view-admin" class="hidden view-section min-h-screen bg-slate-100 flex flex-col md:flex-row font-black">
             <aside class="bg-indigo-950 text-white w-full md:w-72 flex-shrink-0 md:h-screen md:sticky top-0 flex flex-col shadow-2xl text-indigo-100">
                 <div class="p-8 border-b border-indigo-900 font-black text-xl flex items-center gap-3 tracking-tight uppercase"><span class="material-symbols-outlined font-black text-amber-400">dashboard</span> Portal Hub</div>
                 
@@ -362,10 +379,10 @@
                 </div>
             </aside>
 
-            <main class="flex-1 p-6 md:p-12 overflow-x-hidden text-indigo-950">
+            <main class="flex-1 p-6 md:p-12 overflow-x-hidden text-indigo-950 font-black">
                 <div id="tab-dashboard" class="admin-content hidden space-y-10">
                     <h2 class="text-3xl font-black uppercase tracking-tighter">Performance Overview</h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 font-black text-indigo-950">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-indigo-600"><p class="text-[10px] text-slate-400 uppercase tracking-widest">Target Revenue</p><div class="text-2xl mt-2" id="stat-total">₹0</div></div>
                         <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-green-500"><p class="text-[10px] text-slate-400 uppercase tracking-widest">Collected</p><div class="text-2xl mt-2 text-green-600" id="stat-collected">₹0</div></div>
                         <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-red-500"><p class="text-[10px] text-slate-400 uppercase tracking-widest">Pending</p><div class="text-2xl mt-2 text-red-600" id="stat-pending">₹0</div></div>
@@ -374,9 +391,9 @@
                     <div class="bg-white p-8 rounded-3xl shadow-sm h-96"><canvas id="feeChart"></canvas></div>
                 </div>
 
-                <div id="tab-admissions" class="admin-content hidden font-black text-indigo-950">
+                <div id="tab-admissions" class="admin-content hidden">
                     <h2 class="text-3xl font-black mb-10 uppercase tracking-tighter" id="admission-title">New Entry</h2>
-                    <form id="admissions-form" onsubmit="admin.registerStudent(event)" class="bg-white p-10 rounded-[3rem] shadow-sm grid grid-cols-1 md:grid-cols-2 gap-8 text-sm text-indigo-950">
+                    <form id="admissions-form" onsubmit="admin.registerStudent(event)" class="bg-white p-10 rounded-[3rem] shadow-sm grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
                         <input type="hidden" name="editId">
                         <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Admission ID</label><input type="text" name="admnNo" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-black" required></div>
                         <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Student Name</label><input type="text" name="name" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-black" required></div>
@@ -396,9 +413,9 @@
                     </form>
                 </div>
 
-                <div id="tab-students" class="admin-content hidden space-y-8 font-black text-indigo-950">
-                    <div class="flex flex-col md:flex-row justify-between items-center gap-6 text-indigo-950 font-black">
-                        <h2 class="text-3xl font-black uppercase tracking-tighter">Student Registry</h2>
+                <div id="tab-students" class="admin-content hidden space-y-8">
+                    <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                        <h2 class="text-3xl font-black uppercase tracking-tighter">Student Database</h2>
                         <button onclick="printer.printMasterLedger()" class="bg-indigo-950 text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-md flex items-center gap-2"><span class="material-symbols-outlined text-lg">print</span> Master Ledger</button>
                     </div>
                     <div class="flex gap-4">
@@ -421,7 +438,7 @@
                     </div>
                 </div>
 
-                <div id="tab-updates_manager" class="admin-content hidden grid grid-cols-1 lg:grid-cols-3 gap-12 font-black text-indigo-950">
+                <div id="tab-updates_manager" class="admin-content hidden grid grid-cols-1 lg:grid-cols-3 gap-12">
                     <div class="lg:col-span-1 space-y-8">
                         <h2 class="text-2xl font-black uppercase tracking-tighter" id="notice-form-title">Board Entry</h2>
                         <form id="notice-form" onsubmit="admin.publishNotice(event)" class="bg-white p-8 rounded-[2rem] shadow-sm space-y-6">
@@ -444,24 +461,24 @@
                             </div>
                         </form>
                     </div>
-                    <div class="lg:col-span-2 space-y-8 font-black text-indigo-950"><h2 class="text-2xl font-black uppercase tracking-tighter">Live Updates</h2><div id="admin-notices-list" class="space-y-4"></div></div>
+                    <div class="lg:col-span-2 space-y-8 font-black"><h2 class="text-2xl font-black uppercase tracking-tighter">Live Updates</h2><div id="admin-notices-list" class="space-y-4"></div></div>
                 </div>
 
-                <div id="tab-blog_manager" class="admin-content hidden grid grid-cols-1 lg:grid-cols-3 gap-12 font-black text-indigo-950">
-                     <div class="lg:col-span-1 space-y-8 font-black text-indigo-950">
+                <div id="tab-blog_manager" class="admin-content hidden grid grid-cols-1 lg:grid-cols-3 gap-12 text-indigo-950 font-black">
+                     <div class="lg:col-span-1 space-y-8">
                         <h2 class="text-2xl font-black uppercase tracking-tighter" id="highlight-form-title">Gallery Feed</h2>
                         <form id="highlight-form" onsubmit="admin.publishHighlight(event)" class="bg-white p-8 rounded-[2rem] shadow-sm space-y-6">
                             <input type="hidden" name="hId">
                             <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Caption</label><input type="text" name="title" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-black" required></div>
                             <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Type</label><select name="type" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-black"><option value="image">Image URL</option><option value="youtube">YouTube ID</option></select></div>
-                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">URL</label><input type="text" name="url" placeholder="https://..." class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-black" required></div>
+                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">URL Address</label><input type="text" name="url" placeholder="https://..." class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-black" required></div>
                             <div class="flex gap-3">
                                 <button type="button" id="highlight-cancel-btn" class="hidden flex-1 bg-slate-100 py-4 rounded-2xl font-black uppercase text-[10px]" onclick="admin.cancelHighlightEdit()">Cancel</button>
                                 <button type="submit" id="highlight-submit-btn" class="flex-[2] bg-orange-600 text-white py-4 rounded-2xl font-black uppercase text-[10px]">Post Now</button>
                             </div>
                         </form>
                     </div>
-                    <div class="lg:col-span-2 space-y-8 font-black text-indigo-950"><h2 class="text-2xl font-black uppercase tracking-tighter">Gallery View</h2><div id="admin-highlights-list" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div></div>
+                    <div class="lg:col-span-2 space-y-8 font-black"><h2 class="text-2xl font-black uppercase tracking-tighter">Gallery View</h2><div id="admin-highlights-list" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div></div>
                 </div>
             </main>
         </div>
@@ -523,7 +540,7 @@
             <div class="bg-white w-full max-w-xs p-10 rounded-[3rem] shadow-2xl text-center text-indigo-950 font-black">
                 <span class="material-symbols-outlined text-red-600 text-7xl mb-4 font-black">lock_reset</span>
                 <h3 class="text-xl font-black mb-1 uppercase tracking-tight">Security Code</h3>
-                <p class="text-[10px] text-slate-400 uppercase tracking-widest mb-8">Authorized Personnel Only</p>
+                <p class="text-[10px] text-slate-400 uppercase tracking-widest mb-8">Authorized Personnel Entry Required</p>
                 <input type="password" id="delete-pin-input" class="w-full border-2 border-slate-100 p-5 rounded-3xl text-center font-black text-4xl mb-8 focus:border-red-600 outline-none" placeholder="••••">
                 <div class="flex gap-4">
                     <button onclick="admin.closeDeleteModal()" class="flex-1 py-4 bg-slate-100 rounded-2xl font-black text-[10px] uppercase">Cancel</button>
@@ -594,8 +611,9 @@
             if (u) {
                 startSync();
             } else {
-                initAuth(); // Auto-reconnect for board view
+                initAuth(); // Fallback to keep data flowing for landing page
             }
+            // Navigate to home by default if nothing is active
             if (!document.querySelector('.view-section:not(.hidden)')) router.navigate('home');
         });
 
@@ -604,14 +622,13 @@
             unsubscribes.forEach(unsub => unsub());
             unsubscribes = [];
 
-            // Rule 1: Artifact Paths
+            // Siloed paths by Academic Year
             const studentsRef = collection(db, 'artifacts', appId, 'public', 'data', state.selectedYear, 'students');
             const noticesRef = collection(db, 'artifacts', appId, 'public', 'data', state.selectedYear, 'notices');
             const highlightsRef = collection(db, 'artifacts', appId, 'public', 'data', 'highlights');
 
             unsubscribes.push(onSnapshot(studentsRef, (snap) => {
                 state.students = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-                // Force sync database display
                 admin.renderStudentList();
                 admin.updateDashboard(); 
                 if (state.activeStudentId) admin.refreshModalContent();
@@ -640,9 +657,8 @@
                     const popup = document.getElementById('admissions-popup');
                     if (popup) popup.classList.add('hidden-modal');
                 }
-                if(view === 'admin' && !state.isLoggedIn) return router.navigate('login');
-                document.querySelectorAll('[id^="view-"]').forEach(el => { el.classList.add('hidden'); el.style.display = 'none'; });
-                const target = document.getElementById(`view-${view}`);
+                document.querySelectorAll('.view-section').forEach(el => { el.classList.add('hidden'); el.style.display = 'none'; });
+                const target = document.querySelector(`#view-${view}`);
                 if (target) {
                     target.classList.remove('hidden');
                     target.style.display = (view === 'login' || view === 'admin') ? 'flex' : 'block';
@@ -701,7 +717,7 @@
                 if (!filter) return;
                 let anyUnread = false;
                 filter.innerHTML = '<option value="All">Select Class...</option>' + state.classes.map(c => {
-                    const classHasNew = state.notices.some(n => n.class === c && n.timestamp > state.sessionLastSeen);
+                    const classHasNew = state.notices.some(n => (n.class === c || n.class === 'All') && n.timestamp > state.sessionLastSeen);
                     if (classHasNew) anyUnread = true;
                     return `<option value="${c}" style="color: ${classHasNew ? '#dc2626' : 'inherit'}; font-weight: 900; text-transform: uppercase;">${c}${classHasNew ? ' • [NEW]' : ''}</option>`;
                 }).join('');
@@ -752,7 +768,7 @@
                 const container = document.getElementById('home-notices-preview');
                 if (!container) return;
                 if (state.selectedClass === 'All') {
-                    container.innerHTML = `<div class="col-span-full text-center py-16"><div class="max-w-md mx-auto bg-white p-10 rounded-[3rem] shadow-sm border-2 border-dashed border-indigo-100 text-indigo-950 font-black"><span class="material-symbols-outlined text-indigo-200 text-6xl mb-4">school</span><p class="text-slate-400 font-black text-indigo-950">Select your class above to see updates.</p></div></div>`;
+                    container.innerHTML = `<div class="col-span-full text-center py-16"><div class="max-w-md mx-auto bg-white p-10 rounded-[3rem] shadow-sm border-2 border-dashed border-indigo-100 text-indigo-950 font-black"><span class="material-symbols-outlined text-indigo-200 text-6xl mb-4">school</span><p class="text-slate-400">Select your class above to see updates.</p></div></div>`;
                     return;
                 }
                 const filtered = state.notices.filter(n => n.class === state.selectedClass || n.class === 'All').slice(0, 6);
@@ -762,7 +778,7 @@
                     if (n.category === 'Class Test') colorClass = 'border-amber-500';
                     if (n.category === 'Upcoming Events') colorClass = 'border-orange-600';
                     const isNew = n.timestamp > state.sessionLastSeen;
-                    return `<div class="bg-white p-8 rounded-[2.5rem] shadow-sm border-l-8 ${colorClass} hover:shadow-lg transition-all group relative overflow-hidden text-indigo-950 font-black">
+                    return `<div class="bg-white p-8 rounded-[2.5rem] shadow-sm border-l-8 ${colorClass} hover:shadow-lg transition-all group relative overflow-hidden text-indigo-950">
                             ${isNew ? `<div class="absolute top-2 right-2 bg-red-600 text-white text-[8px] font-black px-2 py-1 rounded-bl-xl uppercase animate-pulse z-20">NEW</div>` : ''}
                             <div class="flex justify-between items-center mb-4">
                                 <span class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full font-black uppercase text-[9px] tracking-tighter flex items-center">${n.class} ${isNew ? '<span class="notify-dot animate-ping ml-2 bg-red-600"></span>' : ''}</span>
@@ -771,12 +787,12 @@
                             <h4 class="text-indigo-600 font-black uppercase text-[10px] tracking-widest mb-1">${n.category}</h4>
                             <p class="text-slate-700 font-bold line-clamp-3 text-sm leading-relaxed">${n.content}</p>
                         </div>`;
-                }).join('') || '<div class="col-span-full text-center py-10 opacity-30 italic font-black text-indigo-950">No recent announcements for this class.</div>';
+                }).join('') || '<div class="col-span-full text-center py-10 opacity-30 italic font-black">No recent announcements for this class.</div>';
             },
             renderHighlights: () => {
                 const track = document.getElementById('blog-posts-feed');
                 if(!track) return;
-                track.innerHTML = state.highlights.map(h => `<div class="blog-slide text-indigo-950 font-black"><div class="bg-white p-8 rounded-[3rem] shadow-xl border border-indigo-50 text-indigo-950">${h.type === 'youtube' ? `<div class="video-container" onclick="home.playVideo('${h.id}', '${h.url}')" id="vid-${h.id}"><div class="absolute inset-0 flex items-center justify-center bg-black/30 text-white transition-all hover:bg-black/10"><span class="material-symbols-outlined text-7xl font-black">play_circle</span></div></div>` : `<img src="${h.url}" class="w-full h-64 md:h-96 object-cover rounded-[2rem] shadow-inner bg-slate-50">`}<div class="mt-8 text-left"><h3 class="text-2xl uppercase tracking-tight font-black">${h.title}</h3></div></div></div>`).join('') || '<div class="w-full py-10 opacity-30 font-black text-center italic font-black text-indigo-950">No highlights found.</div>';
+                track.innerHTML = state.highlights.map(h => `<div class="blog-slide text-indigo-950 font-black"><div class="bg-white p-8 rounded-[3rem] shadow-xl border border-indigo-50 text-indigo-950">${h.type === 'youtube' ? `<div class="video-container" onclick="home.playVideo('${h.id}', '${h.url}')" id="vid-${h.id}"><div class="absolute inset-0 flex items-center justify-center bg-black/30 text-white transition-all hover:bg-black/10"><span class="material-symbols-outlined text-7xl font-black">play_circle</span></div></div>` : `<img src="${h.url}" class="w-full h-64 md:h-96 object-cover rounded-[2rem] shadow-inner bg-slate-50">`}<div class="mt-8 text-left"><h3 class="text-2xl uppercase tracking-tight font-black">${h.title}</h3></div></div></div>`).join('') || '<div class="w-full py-10 opacity-30 font-black text-center italic font-black">No highlights found.</div>';
                 state.blogIndex = 0; home.updateSlider();
             },
             playVideo: (id, url) => { const yId = url.split('v=')[1]?.split('&')[0] || url.split('/').pop(); document.getElementById(`vid-${id}`).innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${yId}?autoplay=1" frameborder="0" allowfullscreen></iframe>`; },
@@ -795,7 +811,7 @@
                     if (n.category === 'Holiday') colorClass = 'border-red-500';
                     const isNew = n.timestamp > state.sessionLastSeen;
                     return `<div class="bg-white p-10 rounded-[2.5rem] shadow-sm border-l-[12px] ${colorClass} hover:shadow-xl transition-all h-full flex flex-col group relative overflow-hidden text-indigo-950 font-black">${isNew ? `<div class="absolute top-2 right-2 bg-red-600 text-white text-[9px] font-black px-3 py-1 rounded-bl-2xl shadow-sm animate-pulse z-10">NEW UPDATE</div>` : ''}<div class="flex justify-between items-start mb-6"><div class="flex flex-col"><span class="text-[9px] uppercase text-slate-400 font-black">${new Date(n.timestamp).toLocaleDateString()}</span><span class="inline-block mt-1 px-3 py-1 bg-slate-100 text-slate-600 text-[10px] font-black uppercase rounded-full tracking-tighter">${n.category}</span></div><span class="bg-indigo-50 text-indigo-700 px-4 py-1.5 rounded-full font-black uppercase tracking-tighter text-xs">${n.class}</span></div><h4 class="text-indigo-600 font-black uppercase text-xs tracking-widest mb-2">${n.subject && n.subject !== 'General News' ? n.subject : 'Notice'}</h4><p class="text-slate-800 text-xl leading-relaxed font-black flex-1">${n.content}</p></div>`;
-                }).join('') || '<div class="col-span-full text-center py-32 font-black text-indigo-950"><div class="bg-indigo-50 inline-block p-10 rounded-[3rem] border border-indigo-100 font-black text-indigo-950"><span class="material-symbols-outlined text-indigo-300 text-6xl mb-4">notifications_off</span><p class="text-slate-400 font-black italic">No records found for this year.</p></div></div>';
+                }).join('') || '<div class="col-span-full text-center py-32 font-black"><div class="bg-indigo-50 inline-block p-10 rounded-[3rem] border border-indigo-100 font-black text-indigo-950"><span class="material-symbols-outlined text-indigo-300 text-6xl mb-4">notifications_off</span><p class="text-slate-400 font-black italic">No records found for this year.</p></div></div>';
             }
         };
 
@@ -817,10 +833,10 @@
                 admin.updateDashboard();
             },
             switchTab: (tabId) => {
+                document.querySelectorAll('.admin-tab').forEach(btn => btn.classList.toggle('bg-indigo-900', btn.onclick.toString().includes(tabId)));
                 document.querySelectorAll('.admin-content').forEach(el => el.classList.add('hidden'));
                 const target = document.getElementById(`tab-${tabId}`);
                 if(target) target.classList.remove('hidden');
-                document.querySelectorAll('.admin-tab').forEach(btn => btn.classList.toggle('bg-indigo-900', btn.onclick.toString().includes(tabId)));
                 
                 if (tabId === 'students') admin.renderStudentList();
                 if (tabId === 'updates_manager') admin.renderNotices();
@@ -872,7 +888,7 @@
                         await addDoc(studentsRef, newData); 
                     }
                     admin.switchTab('students'); e.target.reset();
-                } catch(err) { console.error(err); } finally { btn.disabled = false; btn.innerText = "Submit Entry"; }
+                } catch(err) { console.error(err); } finally { btn.disabled = false; btn.innerText = "Submit Student"; }
             },
             initiateAdmitEdit: () => {
                 const s = state.students.find(x => x.id === state.activeStudentId);
@@ -910,8 +926,8 @@
             cancelAdmitEdit: () => {
                 const form = document.getElementById('admissions-form');
                 if (form) { form.reset(); form.editId.value = ""; }
-                document.getElementById('admission-title').innerText = "New Entry";
-                document.getElementById('admit-submit-btn').innerText = "Submit Entry";
+                document.getElementById('admission-title').innerText = "Admission Entry";
+                document.getElementById('admit-submit-btn').innerText = "Submit Student";
                 document.getElementById('admit-initial-group').style.display = 'block';
                 document.getElementById('admit-cancel-btn').classList.add('hidden');
             },
@@ -936,8 +952,8 @@
                 filtered.sort((a, b) => {
                     let valA = a[state.sort.key]; let valB = b[state.sort.key];
                     if (state.sort.key === 'due') {
-                        valA = (parseFloat(a.fee || a.Target_Fee || 0) + (parseFloat(a.oldDue || a.Previous_Dues || 0))) - (parseFloat(a.paid || a.Total_Paid || 0));
-                        valB = (parseFloat(b.fee || b.Target_Fee || 0) + (parseFloat(b.oldDue || b.Previous_Dues || 0))) - (parseFloat(b.paid || b.Total_Paid || 0));
+                        valA = (parseFloat(a.fee || 0) + (parseFloat(a.oldDue || 0))) - (parseFloat(a.paid || 0));
+                        valB = (parseFloat(b.fee || 0) + (parseFloat(b.oldDue || 0))) - (parseFloat(b.paid || 0));
                     }
                     if (valA < valB) return state.sort.dir === 'asc' ? -1 : 1;
                     if (valA > valB) return state.sort.dir === 'asc' ? 1 : -1;
@@ -947,7 +963,7 @@
                     const sId = s.admnNo || s.ID || '???';
                     const sName = s.name || s.Student || 'Unknown';
                     const sClass = s.class || s.Grade || 'Nursery';
-                    const sDue = (parseFloat(s.fee || s.Target_Fee || 0) + (parseFloat(s.oldDue || s.Previous_Dues || 0))) - (parseFloat(s.paid || s.Total_Paid || 0));
+                    const sDue = (parseFloat(s.fee || 0) + (parseFloat(s.oldDue || 0))) - (parseFloat(s.paid || 0));
                     return `
                     <tr class="hover:bg-indigo-50/50 cursor-pointer transition-colors border-b text-indigo-950 font-black">
                         <td class="p-6 font-mono text-[10px] text-slate-400" onclick="admin.openModal('${s.id}')">${sId}</td>
@@ -958,7 +974,7 @@
                             <button onclick="admin.requestDirectDelete('${s.id}')" class="text-slate-300 hover:text-red-600 transition-colors p-2"><span class="material-symbols-outlined text-base">delete</span></button>
                         </td>
                     </tr>
-                `; }).join('') || '<tr><td colspan="5" class="p-10 text-center text-slate-400 italic font-black">No matching records in registry.</td></tr>';
+                `; }).join('') || '<tr><td colspan="5" class="p-10 text-center text-slate-400 italic font-black">No matching records found.</td></tr>';
             },
             requestDirectDelete: (id) => {
                 state.activeStudentId = id;
@@ -974,7 +990,7 @@
                 if (!state.activeStudentId) return;
                 const s = state.students.find(x => x.id === state.activeStudentId); 
                 if(!s) { admin.closeModal(); return; }
-                const sDue = (parseFloat(s.fee || s.Target_Fee || 0) + (parseFloat(s.oldDue || s.Previous_Dues || 0))) - (parseFloat(s.paid || s.Total_Paid || 0));
+                const sDue = (parseFloat(s.fee || 0) + (parseFloat(s.oldDue || 0))) - (parseFloat(s.paid || 0));
                 document.getElementById('modal-name').innerText = s.name || s.Student || 'Unnamed'; 
                 document.getElementById('modal-class').innerText = s.class || s.Grade || 'Nursery';
                 document.getElementById('modal-father').innerText = s.father || s.Parent || '---'; 
@@ -997,7 +1013,7 @@
                 if(start && end) hist = hist.filter(h => h.timestamp >= start && h.timestamp <= (end + 86400000));
                 const tableBody = document.getElementById('modal-history');
                 if (tableBody) {
-                    tableBody.innerHTML = hist.map(h => `<tr class="border-b"><td class="p-4 text-slate-400 text-xs">${new Date(h.timestamp).toLocaleDateString()}</td><td class="p-4 font-black text-indigo-950">${h.remark || 'Fee Collection'}</td><td class="p-4 text-right text-green-600 font-black">₹${parseFloat(h.amount).toLocaleString()}</td><td class="p-4 text-right"><button onclick="printer.printReceipt('${h.timestamp}')"><span class="material-symbols-outlined text-indigo-900">print</span></button></td></tr>`).reverse().join('') || '<tr><td colspan="4" class="p-6 text-center text-slate-300 italic">No historical records found.</td></tr>';
+                    tableBody.innerHTML = hist.map(h => `<tr class="border-b"><td class="p-4 text-slate-400 text-xs">${new Date(h.timestamp).toLocaleDateString()}</td><td class="p-4 font-black text-indigo-950">${h.remark || 'Fee Payment'}</td><td class="p-4 text-right text-green-600 font-black">₹${parseFloat(h.amount).toLocaleString()}</td><td class="p-4 text-right"><button onclick="printer.printReceipt('${h.timestamp}')"><span class="material-symbols-outlined text-indigo-900">print</span></button></td></tr>`).reverse().join('') || '<tr><td colspan="4" class="p-6 text-center text-slate-300 italic">No historical records found.</td></tr>';
                 }
             },
             closeModal: () => { document.getElementById('student-modal').classList.add('hidden-modal'); state.activeStudentId = null; },
@@ -1013,7 +1029,10 @@
                 const currentPaid = parseFloat(s.paid || s.Total_Paid || 0);
                 const newPaid = currentPaid + amt;
                 const newHistory = [...(s.history || []), { amount: amt, timestamp: ts, remark: remarkEl.value }];
-                try { await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', state.selectedYear, 'students', s.id), { paid: newPaid, history: newHistory }); amtEl.value = ''; remarkEl.value = ''; } catch (err) { console.error(err); }
+                try { 
+                    await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', state.selectedYear, 'students', s.id), { paid: newPaid, history: newHistory }); 
+                    amtEl.value = ''; remarkEl.value = ''; 
+                } catch (err) { console.error(err); }
             },
             publishNotice: async (e) => {
                 e.preventDefault(); if (!state.user) return;
@@ -1081,12 +1100,12 @@
             deleteHighlight: async (id) => { if (!state.user) return; await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'highlights', id)); },
             initiateSecureDelete: () => { const pinInput = document.getElementById('delete-pin-input'); if (pinInput) pinInput.value = ''; document.getElementById('delete-pin-modal').classList.remove('hidden-modal'); },
             closeDeleteModal: () => document.getElementById('delete-pin-modal').classList.add('hidden-modal'),
-            executeSecureDelete: async () => { if (!state.user) return; if (document.getElementById('delete-pin-input').value === '123') { const sId = state.activeStudentId; admin.closeDeleteModal(); admin.closeModal(); await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', state.selectedYear, 'students', sId)); } else alert('Incorrect PIN'); },
+            executeSecureDelete: async () => { if (!state.user) return; if (document.getElementById('delete-pin-input').value === '123') { const sId = state.activeStudentId; admin.closeDeleteModal(); admin.closeModal(); await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', state.selectedYear, 'students', sId)); } else alert('Incorrect Code'); },
             viewConcessionSlip: () => { const s = state.students.find(x => x.id === state.activeStudentId); if(s?.concessionSlip) window.open(s.concessionSlip, '_blank'); },
             exportExcel: () => { const rows = state.students.map(s => ({ ID: s.admnNo || s.ID, Name: s.name || s.Student, Grade: s.class || s.Grade, Parent: s.father || s.Parent, Fee: s.fee || s.Target_Fee, Paid: s.paid || s.Total_Paid })); const ws = XLSX.utils.json_to_sheet(rows); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "Records"); XLSX.writeFile(wb, `SSV_Registry_Export.xlsx`); },
             importBulkData: (event) => { if (!state.user) return; const f = event.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = (e) => { const b = e.target.result; const w = XLSX.read(b, {type:'binary'}); const j = XLSX.utils.sheet_to_json(w.Sheets[w.SheetNames[0]]); const colRef = collection(db, 'artifacts', appId, 'public', 'data', state.selectedYear, 'students'); j.forEach(async row => { const d = { admnNo:String(row.ID||''), name:String(row.Name||''), class:String(row.Grade||'Nursery'), father:String(row.Parent||''), contact:String(row.Contact||''), fee:parseFloat(row.Fee||0), paid:parseFloat(row.Paid||0), history:[], timestamp:Date.now() }; if(d.name) await addDoc(colRef, d); }); alert('Sync complete.'); }; r.readAsBinaryString(f); },
             exportJSON: () => { const b = new Blob([JSON.stringify(state.students, null, 2)], { type: "application/json" }); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = `SSV_Backup_${state.selectedYear}.json`; a.click(); },
-            importJSON: async (e) => { if (!state.user) return; const f = e.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = async (evt) => { const j = JSON.parse(evt.target.result); for (const s of j) { const id = s.id || Date.now().toString(); delete s.id; await setDoc(doc(db, 'artifacts', appId, 'public', 'data', state.selectedYear, 'students', id), s); } alert('Database Restored.'); }; r.readAsText(f); }
+            importJSON: async (e) => { if (!state.user) return; const f = e.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = async (evt) => { const j = JSON.parse(evt.target.result); for (const s of j) { const id = s.id || Date.now().toString(); delete s.id; await setDoc(doc(db, 'artifacts', appId, 'public', 'data', state.selectedYear, 'students', id), s); } alert('Database Restore Complete.'); }; r.readAsText(f); }
         };
 
         window.printer = {
@@ -1112,7 +1131,13 @@
         };
 
         // Standard init on load
-        (async () => { await initAuth(); })();
+        (async () => { 
+            await initAuth(); 
+            // Default load Home
+            if (!document.querySelector('.view-section:not(.hidden)')) {
+                router.navigate('home');
+            }
+        })();
     </script>
 </body>
 </html>
