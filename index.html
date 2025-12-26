@@ -72,7 +72,6 @@
         .sort-header { cursor: pointer; user-select: none; }
         .sort-header:hover { background-color: #f1f5f9; }
 
-        /* Floating Admissions Popup Styling */
         #admissions-popup {
             position: fixed;
             bottom: 1.5rem;
@@ -92,7 +91,6 @@
             box-shadow: 0 0 8px #ef4444;
         }
 
-        /* Shake animation for wrong login */
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             25% { transform: translateX(-8px); }
@@ -113,7 +111,7 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 w-full min-h-screen">
+<body class="bg-slate-50 text-slate-900 w-full min-h-screen font-bold">
 
     <!-- FLOATING ADMISSIONS POPUP -->
     <div id="admissions-popup" class="hidden-modal modal no-print">
@@ -122,7 +120,7 @@
                 <span class="material-symbols-outlined text-2xl font-bold">cancel</span>
             </button>
             <div class="bg-amber-400 p-6 flex items-center gap-4">
-                <div class="bg-indigo-950 text-white w-12 h-12 flex-shrink-0 rounded-2xl flex items-center justify-center text-sm font-bold border-2 border-white shadow-lg">SSV</div>
+                <div class="bg-indigo-950 text-white w-12 h-12 flex-shrink-0 rounded-2xl flex items-center justify-center text-sm font-black border-2 border-white shadow-lg">SSV</div>
                 <div>
                     <h2 class="text-xl font-black uppercase tracking-tight text-indigo-950 leading-none">Admissions Open</h2>
                     <p class="text-indigo-900 font-bold uppercase tracking-widest text-[9px] mt-1">Academic Year 2026-27</p>
@@ -142,21 +140,21 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
                 <div class="flex items-center space-x-3 cursor-pointer group" onclick="router.navigate('home')">
-                    <div class="bg-white text-indigo-950 h-10 w-10 rounded-xl flex items-center justify-center font-bold text-lg border-2 border-amber-400 group-hover:rotate-6 transition duration-300">SSV</div>
+                    <div class="bg-white text-indigo-950 h-10 w-10 rounded-xl flex items-center justify-center font-black text-lg border-2 border-amber-400 group-hover:rotate-6 transition duration-300">SSV</div>
                     <div>
-                        <h1 class="text-lg md:text-xl font-bold uppercase tracking-tight text-white font-bold">Sri Sai Vidyalayam</h1>
-                        <p class="text-[9px] text-amber-400 uppercase font-black tracking-widest font-bold">Excellence in Education</p>
+                        <h1 class="text-lg md:text-xl font-black uppercase tracking-tight text-white">Sri Sai Vidyalayam</h1>
+                        <p class="text-[9px] text-amber-400 uppercase font-black tracking-widest">Excellence in Education</p>
                     </div>
                 </div>
                 
-                <div class="hidden md:flex space-x-8 items-center font-bold">
-                    <button class="hover:text-amber-400 font-bold uppercase text-xs transition-colors" onclick="router.navigate('home')">Home</button>
-                    <button class="relative hover:text-amber-400 font-bold uppercase text-xs transition-colors" onclick="router.navigate('updates')">
+                <div class="hidden md:flex space-x-8 items-center font-black">
+                    <button class="hover:text-amber-400 font-black uppercase text-xs transition-colors" onclick="router.navigate('home')">Home</button>
+                    <button class="relative hover:text-amber-400 font-black uppercase text-xs transition-colors" onclick="router.navigate('updates')">
                         Daily Board
                         <span id="nav-updates-badge" class="nav-badge hidden">0</span>
                     </button>
                     <button class="bg-amber-500 hover:bg-amber-400 text-indigo-950 px-5 py-2.5 rounded-xl transition-all duration-300 hover-lift flex items-center gap-2 text-xs font-black uppercase shadow-lg shadow-amber-500/20" onclick="router.navigate('login')">
-                        <span class="material-symbols-outlined text-lg font-bold">admin_panel_settings</span> Admin
+                        <span class="material-symbols-outlined text-lg font-black">admin_panel_settings</span> Admin
                     </button>
                 </div>
                 
@@ -165,48 +163,48 @@
                 </button>
             </div>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-indigo-900 border-t border-indigo-800 p-4 space-y-3 font-bold">
-            <button class="block w-full text-left py-2 font-bold hover:text-amber-400 transition" onclick="router.navigate('home'); toggleMobileMenu()">Home</button>
-            <button class="block w-full text-left py-2 font-bold hover:text-amber-400 transition relative" onclick="router.navigate('updates'); toggleMobileMenu()">
+        <div id="mobile-menu" class="hidden md:hidden bg-indigo-900 border-t border-indigo-800 p-4 space-y-3 font-black">
+            <button class="block w-full text-left py-2 font-black hover:text-amber-400 transition" onclick="router.navigate('home'); toggleMobileMenu()">Home</button>
+            <button class="block w-full text-left py-2 font-black hover:text-amber-400 transition relative" onclick="router.navigate('updates'); toggleMobileMenu()">
                 Daily Board
                 <span id="mobile-updates-badge" class="nav-badge hidden" style="top:5px; right: 20px;">0</span>
             </button>
-            <button class="block w-full bg-amber-500 text-indigo-950 p-3 rounded-xl font-black uppercase text-xs text-center font-bold" onclick="router.navigate('login'); toggleMobileMenu()">Admin Login</button>
+            <button class="block w-full bg-amber-500 text-indigo-950 p-3 rounded-xl font-black uppercase text-xs text-center" onclick="router.navigate('login'); toggleMobileMenu()">Admin Login</button>
         </div>
     </nav>
 
     <div id="app" class="w-full">
         <!-- VIEW: HOME -->
         <div id="view-home" class="hidden view-section">
-            <section class="py-12 md:py-24 bg-white overflow-hidden relative font-bold">
+            <section class="py-12 md:py-24 bg-white overflow-hidden relative font-black text-indigo-950">
                 <div class="absolute top-10 right-10 lg:right-20 text-amber-400 opacity-60 pointer-events-none sun-rotate">
-                    <span class="material-symbols-outlined text-9xl lg:text-[10rem] font-bold">wb_sunny</span>
+                    <span class="material-symbols-outlined text-9xl lg:text-[10rem] font-black">wb_sunny</span>
                 </div>
-                <div class="absolute top-10 left-1/4 text-sky-300 opacity-30 cloud-drift font-bold"><span class="material-symbols-outlined text-7xl font-bold">cloud</span></div>
-                <div class="absolute top-32 right-1/3 text-sky-400 opacity-20 cloud-drift font-bold" style="animation-delay: -5s"><span class="material-symbols-outlined text-9xl font-bold">cloud</span></div>
+                <div class="absolute top-10 left-1/4 text-sky-300 opacity-30 cloud-drift font-black"><span class="material-symbols-outlined text-7xl font-black">cloud</span></div>
+                <div class="absolute top-32 right-1/3 text-sky-400 opacity-20 cloud-drift font-black" style="animation-delay: -5s"><span class="material-symbols-outlined text-9xl font-black">cloud</span></div>
 
-                <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10 font-bold text-indigo-950">
-                    <div class="space-y-8 font-bold">
+                <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10 text-indigo-950">
+                    <div class="space-y-8">
                         <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-[10px] font-black uppercase tracking-widest animate-pulse">Recognised by Govt of AP</span>
-                        <div id="hero-text-slider" class="min-h-[160px] font-bold">
+                        <div id="hero-text-slider" class="min-h-[160px]">
                             <div class="slide active">
-                                <h2 class="text-4xl md:text-6xl font-extrabold text-indigo-950 leading-tight tracking-tighter uppercase font-black">Pollution Free <br><span class="text-green-600 underline decoration-amber-400 underline-offset-8">Green Campus</span></h2>
-                                <p class="text-slate-600 mt-4 text-lg font-bold">A serene environment located away from city noise, ensuring healthy learning for your child.</p>
+                                <h2 class="text-4xl md:text-6xl font-black text-indigo-950 leading-tight tracking-tighter uppercase">Pollution Free <br><span class="text-green-600 underline decoration-amber-400 underline-offset-8">Green Campus</span></h2>
+                                <p class="text-slate-600 mt-4 text-lg font-black">A serene environment located away from city noise, ensuring healthy learning for your child.</p>
                             </div>
                             <div class="slide">
-                                <h2 class="text-4xl md:text-6xl font-extrabold text-indigo-950 leading-tight tracking-tighter uppercase font-black">Expert & <br><span class="text-orange-500 underline decoration-amber-400 underline-offset-8">Dedicated Faculty</span></h2>
-                                <p class="text-slate-600 mt-4 text-lg font-bold">Qualified subject experts committed to personalized attention and academic excellence.</p>
+                                <h2 class="text-4xl md:text-6xl font-black text-indigo-950 leading-tight tracking-tighter uppercase">Expert & <br><span class="text-orange-500 underline decoration-amber-400 underline-offset-8">Dedicated Faculty</span></h2>
+                                <p class="text-slate-600 mt-4 text-lg font-black">Qualified subject experts committed to personalized attention and academic excellence.</p>
                             </div>
                         </div>
                         <div class="flex flex-wrap gap-4">
-                            <button onclick="router.navigate('updates')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-10 py-5 rounded-2xl font-bold shadow-xl transition-all hover-lift active:scale-95 uppercase tracking-widest text-xs">Check School Board</button>
+                            <button onclick="router.navigate('updates')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-10 py-5 rounded-2xl font-black shadow-xl transition-all hover-lift active:scale-95 uppercase tracking-widest text-xs">Check School Board</button>
                             <a href="tel:8121218825" class="bg-amber-500 hover:bg-amber-400 text-indigo-950 px-10 py-5 rounded-2xl font-bold shadow-xl transition-all hover-lift active:scale-95 uppercase tracking-widest text-xs flex items-center gap-2">
-                                <span class="material-symbols-outlined text-sm font-bold">call</span> Call Office
+                                <span class="material-symbols-outlined text-sm font-black">call</span> Call Office
                             </a>
                         </div>
                     </div>
                     <div class="relative h-[300px] md:h-[400px]">
-                        <svg viewBox="0 0 800 500" class="w-full h-full drop-shadow-2xl font-bold">
+                        <svg viewBox="0 0 800 500" class="w-full h-full drop-shadow-2xl">
                             <rect x="0" y="400" width="800" height="100" fill="#334155" />
                             <rect x="0" y="445" width="800" height="10" fill="#475569" />
                             <g class="bus-drive">
@@ -224,7 +222,7 @@
             </section>
 
             <!-- LATEST FROM NOTICE BOARD PREVIEW -->
-            <section class="py-20 bg-indigo-50 font-bold">
+            <section class="py-20 bg-indigo-50">
                 <div class="max-w-7xl mx-auto px-6">
                     <div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
                         <div>
@@ -245,30 +243,13 @@
                         </div>
                     </div>
                     <div id="home-notices-preview" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <!-- Content loaded via JS -->
-                    </div>
-                </div>
-            </section>
-
-            <section class="py-20 bg-white font-bold">
-                <div class="max-w-6xl mx-auto px-4 text-center">
-                    <h2 class="text-3xl font-black text-indigo-950 uppercase mb-12 inline-block border-b-4 border-amber-400 font-bold tracking-tight">Recent Highlights</h2>
-                    <div class="flex items-center gap-4">
-                        <button onclick="home.prevBlog()" class="p-4 bg-white rounded-full shadow-lg text-indigo-950 hover:bg-indigo-950 hover:text-white transition-all hover-lift">
-                            <span class="material-symbols-outlined font-bold">arrow_back</span>
-                        </button>
-                        <div class="blog-slider-container">
-                            <div id="blog-posts-feed" class="blog-slider-track font-bold"></div>
-                        </div>
-                        <button onclick="home.nextBlog()" class="p-4 bg-white rounded-full shadow-lg text-indigo-950 hover:bg-indigo-950 hover:text-white transition-all hover-lift">
-                            <span class="material-symbols-outlined font-bold">arrow_forward</span>
-                        </button>
+                        <!-- Loaded via JS -->
                     </div>
                 </div>
             </section>
 
             <!-- SCHOOL DETAILS SECTION -->
-            <section class="py-24 bg-indigo-950 text-white font-bold overflow-hidden relative">
+            <section class="py-24 bg-indigo-950 text-white font-black overflow-hidden relative">
                 <div class="absolute inset-0 opacity-5 pointer-events-none">
                     <div class="absolute top-0 left-0 w-full h-full" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 40px 40px;"></div>
                 </div>
@@ -279,63 +260,24 @@
                             <div>
                                 <span class="bg-amber-400 text-indigo-950 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest">About Sri Sai Vidyalayam</span>
                                 <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tighter mt-6 leading-tight">Nurturing Excellence Since Inception</h2>
-                                <p class="text-indigo-200 mt-6 text-lg leading-relaxed">Sri Sai Vidyalayam is dedicated to providing quality education in a serene, pollution-free environment. Located in Pulagalipalem, our campus is designed to foster both academic and personal growth through expert faculty and modern infrastructure.</p>
-                            </div>
-                            
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                                <div class="flex gap-4">
-                                    <div class="bg-indigo-800 p-3 rounded-2xl h-fit"><span class="material-symbols-outlined text-amber-400">verified</span></div>
-                                    <div>
-                                        <h4 class="font-black uppercase text-sm tracking-tight">Govt Recognised</h4>
-                                        <p class="text-indigo-300 text-xs mt-1">Recognised by the Government of Andhra Pradesh for academic standards.</p>
-                                    </div>
-                                </div>
-                                <div class="flex gap-4">
-                                    <div class="bg-indigo-800 p-3 rounded-2xl h-fit"><span class="material-symbols-outlined text-amber-400">psychology</span></div>
-                                    <div>
-                                        <h4 class="font-black uppercase text-sm tracking-tight">Expert Faculty</h4>
-                                        <p class="text-indigo-300 text-xs mt-1">Qualified subject experts providing personalized attention to every student.</p>
-                                    </div>
-                                </div>
-                                <div class="flex gap-4">
-                                    <div class="bg-indigo-800 p-3 rounded-2xl h-fit"><span class="material-symbols-outlined text-amber-400">eco</span></div>
-                                    <div>
-                                        <h4 class="font-black uppercase text-sm tracking-tight">Green Campus</h4>
-                                        <p class="text-indigo-300 text-xs mt-1">A noise-free, lush green environment conducive to healthy learning.</p>
-                                    </div>
-                                </div>
-                                <div class="flex gap-4">
-                                    <div class="bg-indigo-800 p-3 rounded-2xl h-fit"><span class="material-symbols-outlined text-amber-400">school</span></div>
-                                    <div>
-                                        <h4 class="font-black uppercase text-sm tracking-tight">Modern Labs</h4>
-                                        <p class="text-indigo-300 text-xs mt-1">Equipped with science and computer labs for practical knowledge.</p>
-                                    </div>
-                                </div>
+                                <p class="text-indigo-200 mt-6 text-lg leading-relaxed">Sri Sai Vidyalayam provides top-tier education in Visakhapatnam, focusing on character and academic brilliance.</p>
                             </div>
                         </div>
-
-                        <div class="bg-indigo-900/50 p-8 md:p-12 rounded-[3rem] border border-indigo-800 shadow-2xl space-y-8">
+                        <div class="bg-indigo-900/50 p-8 md:p-12 rounded-[3rem] border border-indigo-800 shadow-2xl space-y-8 text-indigo-100">
                             <h3 class="text-2xl font-black uppercase tracking-tight text-amber-400">Quick School Registry</h3>
                             <div class="space-y-6">
-                                <div class="flex items-center gap-6 p-6 bg-indigo-950/50 rounded-3xl border border-indigo-800 hover:border-amber-400/50 transition-colors">
+                                <div class="flex items-center gap-6 p-6 bg-indigo-950/50 rounded-3xl border border-indigo-800">
                                     <span class="material-symbols-outlined text-4xl text-amber-400">location_on</span>
                                     <div>
                                         <p class="text-[10px] text-indigo-400 uppercase font-black tracking-widest">Campus Location</p>
-                                        <p class="text-sm font-bold mt-1">Pulagalipalem, Pendurthi, Visakhapatnam, AP</p>
+                                        <p class="text-sm mt-1">Pulagalipalem, Visakhapatnam</p>
                                     </div>
                                 </div>
-                                <div class="flex items-center gap-6 p-6 bg-indigo-950/50 rounded-3xl border border-indigo-800 hover:border-amber-400/50 transition-colors">
+                                <div class="flex items-center gap-6 p-6 bg-indigo-950/50 rounded-3xl border border-indigo-800">
                                     <span class="material-symbols-outlined text-4xl text-amber-400">call</span>
                                     <div>
                                         <p class="text-[10px] text-indigo-400 uppercase font-black tracking-widest">Office Hotline</p>
-                                        <p class="text-sm font-bold mt-1">+91 8121218825</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-6 p-6 bg-indigo-950/50 rounded-3xl border border-indigo-800 hover:border-amber-400/50 transition-colors">
-                                    <span class="material-symbols-outlined text-4xl text-amber-400">history_edu</span>
-                                    <div>
-                                        <p class="text-[10px] text-indigo-400 uppercase font-black tracking-widest">Classes Offered</p>
-                                        <p class="text-sm font-bold mt-1">Nursery up to 10th Class</p>
+                                        <p class="text-sm mt-1">+91 8121218825</p>
                                     </div>
                                 </div>
                             </div>
@@ -344,7 +286,7 @@
                 </div>
             </section>
             
-            <footer class="bg-slate-50 border-t border-slate-200 py-12 font-bold no-print">
+            <footer class="bg-slate-50 border-t border-slate-200 py-12 font-black no-print">
                 <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
                     <div class="flex items-center gap-3">
                         <div class="bg-indigo-950 text-white h-8 w-8 rounded-lg flex items-center justify-center font-bold text-xs border border-amber-400">SSV</div>
@@ -356,239 +298,201 @@
         </div>
 
         <!-- VIEW: DAILY UPDATES -->
-        <div id="view-updates" class="hidden min-h-screen py-16 bg-slate-50 view-section font-bold text-indigo-950">
-            <div class="w-full px-6 font-bold">
+        <div id="view-updates" class="hidden min-h-screen py-16 bg-slate-50 view-section font-black text-indigo-950">
+            <div class="w-full px-6">
                 <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 mb-12 font-bold">
                     <div>
                         <h2 class="text-3xl font-black uppercase tracking-tighter text-indigo-950">Daily Notice Board</h2>
-                        <p class="text-xs text-slate-400 mt-2 font-bold uppercase tracking-widest" id="board-selected-label">Showing all Grades</p>
+                        <p class="text-xs text-slate-400 mt-2 uppercase tracking-widest font-black" id="board-selected-label">Showing all Grades</p>
                     </div>
                     <div class="flex flex-col items-center md:items-end gap-2">
                         <label class="text-[10px] text-slate-400 font-black uppercase tracking-widest">Filter by Class</label>
                         <select id="board-class-filter" class="bg-white border-2 border-indigo-100 rounded-2xl px-8 py-4 font-black text-indigo-950 outline-none shadow-xl focus:border-indigo-600 transition-all cursor-pointer appearance-none min-w-[240px] text-center" onchange="home.handleClassChange(this.value)"></select>
                     </div>
                 </div>
-                <div id="board-updates-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 font-bold"></div>
-                <div class="mt-16 text-center font-bold">
-                    <button onclick="router.navigate('home')" class="text-indigo-600 font-bold hover:underline flex items-center justify-center gap-2 mx-auto font-bold uppercase tracking-widest text-xs font-black transition-all"><span class="material-symbols-outlined text-sm font-bold">arrow_back</span> Back to Home</button>
-                </div>
+                <div id="board-updates-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
             </div>
         </div>
 
         <!-- VIEW: LOGIN -->
-        <div id="view-login" class="hidden min-h-screen bg-indigo-50 flex items-center justify-center p-6 view-section font-bold">
-            <div id="login-card" class="bg-white w-full max-w-md p-10 rounded-[2.5rem] shadow-2xl font-bold">
-                <div class="text-center mb-8 font-bold text-indigo-950">
-                    <div class="bg-indigo-950 text-white w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 text-3xl font-bold border-4 border-amber-400 font-bold shadow-xl">SSV</div>
-                    <h2 class="text-2xl font-bold uppercase tracking-tight font-black">Admin Login</h2>
+        <div id="view-login" class="hidden min-h-screen bg-indigo-50 flex items-center justify-center p-6 view-section font-black">
+            <div id="login-card" class="bg-white w-full max-w-md p-10 rounded-[2.5rem] shadow-2xl">
+                <div class="text-center mb-8">
+                    <div class="bg-indigo-950 text-white w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 text-3xl font-black border-4 border-amber-400 shadow-xl">SSV</div>
+                    <h2 class="text-2xl font-black uppercase tracking-tight">Admin Login</h2>
                 </div>
-                <form onsubmit="auth_manager.login(event)" class="space-y-6 font-bold text-indigo-950">
-                    <div><label class="block text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-widest">Username</label><input type="text" id="userid" class="w-full border-2 border-slate-100 p-4 rounded-2xl outline-none focus:border-indigo-600 transition-all font-bold" required></div>
-                    <div><label class="block text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-widest">Passkey</label><input type="password" id="password" class="w-full border-2 border-slate-100 p-4 rounded-2xl outline-none focus:border-indigo-600 transition-all font-bold" required></div>
-                    <button type="submit" class="w-full bg-indigo-950 text-white py-5 rounded-2xl font-black uppercase text-xs font-bold tracking-widest shadow-xl active:scale-95 transition-transform">Sign In</button>
+                <form onsubmit="auth_manager.login(event)" class="space-y-6 text-indigo-950">
+                    <div><label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest">Username</label><input type="text" id="userid" class="w-full border-2 border-slate-100 p-4 rounded-2xl outline-none focus:border-indigo-600 transition-all font-black" required></div>
+                    <div><label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest">Passkey</label><input type="password" id="password" class="w-full border-2 border-slate-100 p-4 rounded-2xl outline-none focus:border-indigo-600 transition-all font-black" required></div>
+                    <button type="submit" class="w-full bg-indigo-950 text-white py-5 rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl active:scale-95 transition-transform">Sign In</button>
                 </form>
             </div>
         </div>
 
         <!-- VIEW: ADMIN PANEL -->
-        <div id="view-admin" class="hidden min-h-screen bg-slate-100 flex flex-col md:flex-row view-section font-bold">
-            <aside class="bg-indigo-950 text-white w-full md:w-72 flex-shrink-0 md:h-screen md:sticky top-0 flex flex-col shadow-2xl font-bold">
-                <div class="p-8 border-b border-indigo-900 font-black text-xl flex items-center gap-3 font-bold tracking-tight uppercase"><span class="material-symbols-outlined font-bold text-amber-400 font-bold">dashboard</span> Portal Hub</div>
-                <nav class="flex-1 p-6 space-y-2 overflow-y-auto font-bold text-sm font-bold">
-                    <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all font-bold" onclick="admin.switchTab('dashboard')"><span class="material-symbols-outlined font-bold">analytics</span> Dashboard</button>
-                    <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all font-bold" onclick="admin.switchTab('admissions')"><span class="material-symbols-outlined font-bold">person_add</span> Admissions</button>
-                    <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all font-bold" onclick="admin.switchTab('students')"><span class="material-symbols-outlined font-bold">groups</span> Database</button>
-                    <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all font-bold" onclick="admin.switchTab('data_management')"><span class="material-symbols-outlined font-bold">database</span> Data Tools</button>
-                    <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all font-bold" onclick="admin.switchTab('updates_manager')"><span class="material-symbols-outlined font-bold">campaign</span> Notice Board</button>
-                    <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all font-bold" onclick="admin.switchTab('blog_manager')"><span class="material-symbols-outlined font-bold">photo_library</span> Highlights</button>
+        <div id="view-admin" class="hidden min-h-screen bg-slate-100 flex flex-col md:flex-row view-section font-black">
+            <aside class="bg-indigo-950 text-white w-full md:w-72 flex-shrink-0 md:h-screen md:sticky top-0 flex flex-col shadow-2xl">
+                <div class="p-8 border-b border-indigo-900 font-black text-xl flex items-center gap-3 tracking-tight uppercase"><span class="material-symbols-outlined font-black text-amber-400">dashboard</span> Portal Hub</div>
+                <nav class="flex-1 p-6 space-y-2 overflow-y-auto text-sm font-black">
+                    <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all" onclick="admin.switchTab('dashboard')"><span class="material-symbols-outlined">analytics</span> Dashboard</button>
+                    <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all" onclick="admin.switchTab('admissions')"><span class="material-symbols-outlined">person_add</span> Admissions</button>
+                    <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all" onclick="admin.switchTab('students')"><span class="material-symbols-outlined">groups</span> Database</button>
+                    <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all" onclick="admin.switchTab('data_management')"><span class="material-symbols-outlined">database</span> Data Tools</button>
+                    <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all" onclick="admin.switchTab('updates_manager')"><span class="material-symbols-outlined">campaign</span> Notice Board</button>
+                    <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all" onclick="admin.switchTab('blog_manager')"><span class="material-symbols-outlined">photo_library</span> Highlights</button>
                 </nav>
-                <div class="p-6 border-t border-indigo-900 font-bold"><button onclick="auth_manager.logout()" class="w-full bg-red-600 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-red-700 transition-all font-bold font-black uppercase text-xs tracking-widest"><span class="material-symbols-outlined font-bold">logout</span> Exit</button></div>
+                <div class="p-6 border-t border-indigo-900">
+                    <button onclick="auth_manager.logout()" class="w-full bg-red-600 text-white py-4 rounded-2xl font-black flex items-center justify-center gap-2 hover:bg-red-700 transition-all uppercase text-xs tracking-widest"><span class="material-symbols-outlined">logout</span> Exit</button>
+                </div>
             </aside>
 
-            <main class="flex-1 p-6 md:p-12 overflow-x-hidden font-bold">
-                <div id="tab-dashboard" class="admin-content hidden space-y-10 font-bold">
-                    <h2 class="text-3xl font-black text-indigo-950 uppercase tracking-tighter font-bold">Performance</h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 font-bold font-bold">
-                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-indigo-600 font-bold"><p class="text-[10px] font-black text-slate-400 uppercase tracking-widest font-bold">Target</p><div class="text-2xl font-black mt-2 font-bold" id="stat-total">₹0</div></div>
-                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-green-500 font-bold"><p class="text-[10px] font-black text-slate-400 uppercase tracking-widest font-bold">Collected</p><div class="text-2xl font-black mt-2 font-bold text-green-600 font-bold" id="stat-collected">₹0</div></div>
-                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-red-500 font-bold"><p class="text-[10px] font-black text-slate-400 uppercase tracking-widest font-bold">Pending</p><div class="text-2xl font-black mt-2 font-bold text-red-600 font-bold" id="stat-pending">₹0</div></div>
-                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-amber-400 font-bold"><p class="text-[10px] font-black text-slate-400 uppercase tracking-widest font-bold">Enrolled</p><div class="text-2xl font-black mt-2 font-bold text-amber-600 font-bold" id="stat-count">0</div></div>
+            <main class="flex-1 p-6 md:p-12 overflow-x-hidden">
+                <!-- Tab contents -->
+                <div id="tab-dashboard" class="admin-content hidden space-y-10">
+                    <h2 class="text-3xl font-black text-indigo-950 uppercase tracking-tighter">Performance</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 font-black">
+                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-indigo-600"><p class="text-[10px] text-slate-400 uppercase tracking-widest">Target</p><div class="text-2xl mt-2" id="stat-total">₹0</div></div>
+                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-green-500"><p class="text-[10px] text-slate-400 uppercase tracking-widest">Collected</p><div class="text-2xl mt-2 text-green-600" id="stat-collected">₹0</div></div>
+                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-red-500"><p class="text-[10px] text-slate-400 uppercase tracking-widest">Pending</p><div class="text-2xl mt-2 text-red-600" id="stat-pending">₹0</div></div>
+                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-amber-400"><p class="text-[10px] text-slate-400 uppercase tracking-widest">Enrolled</p><div class="text-2xl mt-2 text-amber-600" id="stat-count">0</div></div>
                     </div>
-                    <div class="bg-white p-8 rounded-3xl shadow-sm h-96 font-bold"><canvas id="feeChart"></canvas></div>
+                    <div class="bg-white p-8 rounded-3xl shadow-sm h-96"><canvas id="feeChart"></canvas></div>
                 </div>
 
-                <div id="tab-admissions" class="admin-content hidden font-bold">
-                    <h2 class="text-3xl font-black text-indigo-950 mb-10 uppercase tracking-tighter font-bold font-bold" id="admission-title">Admission Entry</h2>
-                    <form id="admissions-form" onsubmit="admin.registerStudent(event)" class="bg-white p-10 rounded-[3rem] shadow-sm grid grid-cols-1 md:grid-cols-2 gap-8 font-bold text-sm font-bold">
+                <div id="tab-admissions" class="admin-content hidden">
+                    <h2 class="text-3xl font-black text-indigo-950 mb-10 uppercase tracking-tighter" id="admission-title">Admission Entry</h2>
+                    <form id="admissions-form" onsubmit="admin.registerStudent(event)" class="bg-white p-10 rounded-[3rem] shadow-sm grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
                         <input type="hidden" name="editId">
-                        <div class="space-y-1 font-bold"><label class="text-slate-400 uppercase text-[10px] font-bold tracking-widest font-black">Admission ID</label><input type="text" name="admnNo" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-bold font-bold" required></div>
-                        <div class="space-y-1 font-bold"><label class="text-slate-400 uppercase text-[10px] font-bold tracking-widest font-black">Student Name</label><input type="text" name="name" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-bold font-bold" required></div>
-                        <div class="space-y-1 font-bold"><label class="text-slate-400 uppercase text-[10px] font-bold tracking-widest font-black">Class</label><select id="admit-class-select" name="class" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none font-bold font-bold"></select></div>
-                        <div class="space-y-1 font-bold"><label class="text-slate-400 uppercase text-[10px] font-bold tracking-widest font-black">Parent Name</label><input type="text" name="father" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-bold font-bold" required></div>
-                        <div class="space-y-1 font-bold"><label class="text-slate-400 uppercase text-[10px] font-bold tracking-widest font-black">Contact No</label><input type="tel" name="contact" maxlength="10" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-bold font-bold" required></div>
-                        <div class="grid grid-cols-2 gap-4 font-bold font-bold">
-                            <div class="space-y-1 font-bold"><label class="text-slate-400 uppercase text-[10px] font-bold tracking-widest font-black">Fee Target</label><input type="number" name="fee" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none font-bold font-bold" required></div>
-                            <div class="space-y-1 font-bold"><label class="text-slate-400 uppercase text-[10px] font-bold tracking-widest font-black">Old Dues</label><input type="number" name="oldDue" value="0" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none font-bold font-bold"></div>
+                        <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Admission ID</label><input type="text" name="admnNo" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-black" required></div>
+                        <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Student Name</label><input type="text" name="name" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-black" required></div>
+                        <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Class</label><select id="admit-class-select" name="class" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none font-black"></select></div>
+                        <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Father Name</label><input type="text" name="father" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-black" required></div>
+                        <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Contact No</label><input type="tel" name="contact" maxlength="10" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-black" required></div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Fee Target</label><input type="number" name="fee" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none font-black" required></div>
+                            <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Old Dues</label><input type="number" name="oldDue" value="0" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none font-black"></div>
                         </div>
-                        <div class="space-y-1 font-bold" id="admit-initial-group"><label class="text-slate-400 uppercase text-[10px] font-bold tracking-widest font-black">Initial Payment</label><input type="number" name="initialPay" value="0" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none text-green-600 font-black font-bold font-bold"></div>
-                        <div class="space-y-1 font-bold"><label class="text-slate-400 uppercase text-[10px] font-bold tracking-widest font-black">Document</label><input type="file" id="admit-slip-input" accept="image/*,application/pdf" class="w-full border-2 border-slate-50 p-3 rounded-2xl bg-slate-50 text-xs font-bold font-bold"></div>
+                        <div class="space-y-1" id="admit-initial-group"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Initial Payment</label><input type="number" name="initialPay" value="0" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none text-green-600 font-black"></div>
+                        <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Document</label><input type="file" id="admit-slip-input" accept="image/*,application/pdf" class="w-full border-2 border-slate-50 p-3 rounded-2xl bg-slate-50 text-xs font-black"></div>
                         <div class="col-span-full flex gap-4">
-                            <button type="button" id="admit-cancel-btn" class="hidden flex-1 bg-slate-200 text-indigo-950 py-5 rounded-3xl font-black uppercase text-xs tracking-widest transition-all font-bold" onclick="admin.cancelAdmitEdit()">Cancel Edit</button>
-                            <button type="submit" id="admit-submit-btn" class="flex-[2] bg-indigo-600 text-white py-5 rounded-3xl font-black uppercase text-xs tracking-widest shadow-xl transition-all active:scale-95 font-bold">Complete Admission</button>
+                            <button type="button" id="admit-cancel-btn" class="hidden flex-1 bg-slate-200 text-indigo-950 py-5 rounded-3xl font-black uppercase text-xs" onclick="admin.cancelAdmitEdit()">Cancel</button>
+                            <button type="submit" id="admit-submit-btn" class="flex-[2] bg-indigo-600 text-white py-5 rounded-3xl font-black uppercase text-xs shadow-xl transition-all">Submit Student</button>
                         </div>
                     </form>
                 </div>
 
-                <div id="tab-students" class="admin-content hidden space-y-8 font-bold">
-                    <div class="flex flex-col md:flex-row justify-between items-center gap-6 font-bold font-bold">
-                        <h2 class="text-3xl font-black text-indigo-950 uppercase tracking-tighter font-bold">Students</h2>
-                        <button onclick="printer.printMasterLedger()" class="bg-indigo-950 text-white px-6 py-3 rounded-2xl font-bold text-[10px] uppercase tracking-widest shadow-md font-black flex items-center gap-2"><span class="material-symbols-outlined text-lg font-bold">print</span> Master ledger</button>
+                <div id="tab-students" class="admin-content hidden space-y-8">
+                    <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                        <h2 class="text-3xl font-black text-indigo-950 uppercase tracking-tighter">Student Database</h2>
+                        <button onclick="printer.printMasterLedger()" class="bg-indigo-950 text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-md flex items-center gap-2"><span class="material-symbols-outlined text-lg">print</span> Master ledger</button>
                     </div>
-                    <div class="flex gap-4 font-bold font-bold text-indigo-950">
-                        <input type="text" id="record-search" placeholder="Search students..." class="flex-1 p-5 rounded-3xl border-2 border-white shadow-sm font-bold outline-none focus:border-indigo-200" oninput="admin.renderStudentList()">
-                        <select id="record-class-filter" class="w-48 p-5 rounded-3xl border-2 border-white shadow-sm font-bold outline-none" onchange="admin.renderStudentList()"></select>
+                    <div class="flex gap-4">
+                        <input type="text" id="record-search" placeholder="Search students..." class="flex-1 p-5 rounded-3xl border-2 border-white shadow-sm font-black outline-none focus:border-indigo-200" oninput="admin.renderStudentList()">
+                        <select id="record-class-filter" class="w-48 p-5 rounded-3xl border-2 border-white shadow-sm font-black outline-none cursor-pointer" onchange="admin.renderStudentList()"></select>
                     </div>
-                    <div class="bg-white rounded-[2rem] shadow-sm overflow-hidden overflow-x-auto border border-slate-100 font-bold">
-                        <table class="w-full text-left text-sm font-bold">
-                            <thead class="bg-indigo-50 border-b font-bold">
-                                <tr class="font-black uppercase text-[10px] text-indigo-950 tracking-widest font-bold">
+                    <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100 overflow-x-auto">
+                        <table class="w-full text-left text-sm font-black">
+                            <thead class="bg-indigo-50 border-b">
+                                <tr class="font-black uppercase text-[10px] text-indigo-950 tracking-widest">
                                     <th class="p-6 sort-header" onclick="admin.sortStudents('admnNo')">ID</th>
                                     <th class="p-6 sort-header" onclick="admin.sortStudents('name')">Student</th>
                                     <th class="p-6 sort-header" onclick="admin.sortStudents('class')">Class</th>
                                     <th class="p-6 text-right sort-header" onclick="admin.sortStudents('due')">Due</th>
-                                    <th class="p-6 text-right">Control</th>
+                                    <th class="p-6 text-right">Action</th>
                                 </tr>
                             </thead>
-                            <tbody id="student-list-body" class="divide-y text-slate-700 font-bold"></tbody>
+                            <tbody id="student-list-body" class="divide-y text-slate-700"></tbody>
                         </table>
                     </div>
                 </div>
 
-                <div id="tab-data_management" class="admin-content hidden space-y-10 font-bold">
-                    <h2 class="text-3xl font-black text-indigo-950 uppercase tracking-tighter font-bold">Data Management</h2>
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 font-bold">
-                        <div class="bg-white p-10 rounded-[3rem] shadow-sm border border-slate-100 space-y-8 font-bold text-center">
-                            <div class="flex items-center justify-center gap-3 text-emerald-600 font-bold"><span class="material-symbols-outlined text-4xl font-bold">table_chart</span><h3 class="text-2xl font-black uppercase tracking-tight">Excel Bulk</h3></div>
-                            <div class="grid grid-cols-1 gap-4 font-bold font-bold text-indigo-950">
-                                <button onclick="admin.exportExcel()" class="bg-slate-100 p-5 rounded-3xl uppercase text-[10px] font-black tracking-widest">Download Data</button>
-                                <button onclick="document.getElementById('import-file-input').click()" class="bg-emerald-600 text-white p-5 rounded-3xl uppercase text-[10px] font-black tracking-widest shadow-lg shadow-emerald-50">Upload Records</button>
-                                <input type="file" id="import-file-input" class="hidden" accept=".xlsx,.csv" onchange="admin.importBulkData(event)">
-                            </div>
-                        </div>
-                        <div class="bg-white p-10 rounded-[3rem] shadow-sm border border-slate-100 space-y-8 font-bold text-center">
-                            <div class="flex items-center justify-center gap-3 text-indigo-600 font-bold font-bold"><span class="material-symbols-outlined text-4xl font-bold font-bold">data_object</span><h3 class="text-2xl font-black uppercase tracking-tight">JSON Backup</h3></div>
-                            <div class="grid grid-cols-1 gap-4 font-bold font-bold text-indigo-950">
-                                <button onclick="admin.exportJSON()" class="bg-indigo-50 text-indigo-900 p-5 rounded-3xl uppercase text-[10px] font-black tracking-widest">Full DB Backup</button>
-                                <button onclick="document.getElementById('import-json-input').click()" class="w-full bg-indigo-950 text-white p-5 rounded-3xl uppercase text-[10px] font-black tracking-widest shadow-lg shadow-indigo-100">Restore System</button>
-                                <input type="file" id="import-json-input" class="hidden" accept=".json" onchange="admin.importJSON(event)">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="tab-updates_manager" class="admin-content hidden grid grid-cols-1 lg:grid-cols-3 gap-12 font-bold font-bold">
-                    <div class="lg:col-span-1 space-y-8 font-bold">
+                <div id="tab-updates_manager" class="admin-content hidden grid grid-cols-1 lg:grid-cols-3 gap-12">
+                    <div class="lg:col-span-1 space-y-8">
                         <h2 class="text-2xl font-black text-indigo-950 uppercase tracking-tighter" id="notice-form-title">New Notice</h2>
-                        <form id="notice-form" onsubmit="admin.publishNotice(event)" class="bg-white p-8 rounded-[2rem] shadow-sm space-y-6 font-bold">
+                        <form id="notice-form" onsubmit="admin.publishNotice(event)" class="bg-white p-8 rounded-[2rem] shadow-sm space-y-6">
                             <input type="hidden" name="noticeId">
-                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Class</label><select id="notice-class-select" name="class" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 outline-none font-bold"></select></div>
-                            
-                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest font-black font-bold">Type / Category</label>
-                                <select name="category" id="notice-category-select" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-bold font-bold">
-                                    <option>Announcement</option>
-                                    <option>Home Work</option>
-                                    <option>Class Test</option>
-                                    <option>Upcoming Events</option>
-                                    <option>Holiday</option>
+                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Class</label><select id="notice-class-select" name="class" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 outline-none font-black"></select></div>
+                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Category</label>
+                                <select name="category" id="notice-category-select" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-black">
+                                    <option>Announcement</option><option>Home Work</option><option>Class Test</option><option>Upcoming Events</option><option>Holiday</option>
                                 </select>
                             </div>
-
                             <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Subject</label>
-                                <select name="subject" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-bold">
-                                    <option value="General News">General News</option>
-                                    <option value="Telugu">Telugu</option>
-                                    <option value="Hindi">Hindi</option>
-                                    <option value="English">English</option>
-                                    <option value="Mathematics">Mathematics</option>
-                                    <option value="Science">Science</option>
-                                    <option value="Social">Social</option>
-                                    <option value="E.V.S">E.V.S</option>
-                                    <option value="Computers">Computers</option>
+                                <select name="subject" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-black">
+                                    <option value="General News">General News</option><option value="Telugu">Telugu</option><option value="Hindi">Hindi</option><option value="English">English</option><option value="Mathematics">Mathematics</option><option value="Science">Science</option><option value="Social">Social</option><option value="E.V.S">E.V.S</option><option value="Computers">Computers</option>
                                 </select>
                             </div>
-
-                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Message Content</label><textarea name="content" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 h-32 focus:bg-white transition-all outline-none font-bold text-slate-800 font-bold" required></textarea></div>
+                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Content</label><textarea name="content" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 h-32 focus:bg-white transition-all outline-none font-black" required></textarea></div>
                             <div class="flex gap-3">
-                                <button type="button" id="notice-cancel-btn" class="hidden flex-1 bg-slate-100 py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest" onclick="admin.cancelNoticeEdit()">Cancel</button>
-                                <button type="submit" id="notice-submit-btn" class="flex-[2] bg-indigo-600 text-white py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest font-bold">Publish Notice</button>
+                                <button type="button" id="notice-cancel-btn" class="hidden flex-1 bg-slate-100 py-4 rounded-2xl font-black uppercase text-[10px]" onclick="admin.cancelNoticeEdit()">Cancel</button>
+                                <button type="submit" id="notice-submit-btn" class="flex-[2] bg-indigo-600 text-white py-4 rounded-2xl font-black uppercase text-[10px]">Publish</button>
                             </div>
                         </form>
                     </div>
-                    <div class="lg:col-span-2 space-y-8 font-bold"><h2 class="text-2xl font-black text-indigo-950 uppercase tracking-tighter font-bold">Board Management</h2><div id="admin-notices-list" class="space-y-4 font-bold"></div></div>
+                    <div class="lg:col-span-2 space-y-8"><h2 class="text-2xl font-black text-indigo-950 uppercase tracking-tighter">Current Board</h2><div id="admin-notices-list" class="space-y-4 text-indigo-950 font-black"></div></div>
                 </div>
 
-                <div id="tab-blog_manager" class="admin-content hidden grid grid-cols-1 lg:grid-cols-3 gap-12 font-bold font-bold">
-                     <div class="lg:col-span-1 space-y-8 font-bold">
-                        <h2 class="text-2xl font-black text-indigo-950 uppercase tracking-tighter" id="highlight-form-title">Gallery</h2>
-                        <form id="highlight-form" onsubmit="admin.publishHighlight(event)" class="bg-white p-8 rounded-[2rem] shadow-sm space-y-6 font-bold">
+                <div id="tab-blog_manager" class="admin-content hidden grid grid-cols-1 lg:grid-cols-3 gap-12">
+                     <div class="lg:col-span-1 space-y-8">
+                        <h2 class="text-2xl font-black text-indigo-950 uppercase tracking-tighter" id="highlight-form-title">Gallery Feed</h2>
+                        <form id="highlight-form" onsubmit="admin.publishHighlight(event)" class="bg-white p-8 rounded-[2rem] shadow-sm space-y-6">
                             <input type="hidden" name="hId">
-                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Caption</label><input type="text" name="title" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-bold" required></div>
-                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Type</label><select name="type" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-bold"><option value="image">Image URL</option><option value="youtube">YouTube ID</option></select></div>
-                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">URL Address</label><input type="text" name="url" placeholder="https://..." class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-bold font-bold" required></div>
+                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Caption</label><input type="text" name="title" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-black" required></div>
+                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Type</label><select name="type" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-black"><option value="image">Image URL</option><option value="youtube">YouTube ID</option></select></div>
+                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">URL</label><input type="text" name="url" placeholder="https://..." class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-black" required></div>
                             <div class="flex gap-3">
-                                <button type="button" id="highlight-cancel-btn" class="hidden flex-1 bg-slate-100 py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest" onclick="admin.cancelHighlightEdit()">Cancel</button>
-                                <button type="submit" id="highlight-submit-btn" class="flex-[2] bg-orange-600 text-white py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest font-bold">Post Image</button>
+                                <button type="button" id="highlight-cancel-btn" class="hidden flex-1 bg-slate-100 py-4 rounded-2xl font-black uppercase text-[10px]" onclick="admin.cancelHighlightEdit()">Cancel</button>
+                                <button type="submit" id="highlight-submit-btn" class="flex-[2] bg-orange-600 text-white py-4 rounded-2xl font-black uppercase text-[10px]">Post Highlight</button>
                             </div>
                         </form>
                     </div>
-                    <div class="lg:col-span-2 space-y-8 font-bold font-bold font-bold"><h2 class="text-2xl font-black text-indigo-950 uppercase tracking-tighter font-bold">Live Feed</h2><div id="admin-highlights-list" class="grid grid-cols-1 sm:grid-cols-2 gap-4 font-bold"></div></div>
+                    <div class="lg:col-span-2 space-y-8"><h2 class="text-2xl font-black text-indigo-950 uppercase tracking-tighter">Gallery View</h2><div id="admin-highlights-list" class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-indigo-950 font-black"></div></div>
                 </div>
             </main>
         </div>
 
         <!-- MODAL: PROFILE -->
-        <div id="student-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 hidden-modal modal no-print p-4 font-bold font-bold text-indigo-950">
-            <div class="bg-white w-full max-w-5xl h-[90vh] rounded-[2.5rem] overflow-hidden flex flex-col font-bold shadow-2xl font-bold font-bold">
-                <div class="p-8 bg-indigo-950 text-white flex justify-between items-center font-bold font-bold">
-                    <h2 id="modal-name" class="text-2xl font-black uppercase tracking-tighter text-white font-bold"></h2>
-                    <button onclick="admin.closeModal()" class="text-4xl hover:text-amber-400 transition-colors font-bold">&times;</button>
+        <div id="student-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 hidden-modal modal no-print p-4">
+            <div class="bg-white w-full max-w-5xl h-[90vh] rounded-[2.5rem] overflow-hidden flex flex-col shadow-2xl text-indigo-950">
+                <div class="p-8 bg-indigo-950 text-white flex justify-between items-center">
+                    <h2 id="modal-name" class="text-2xl font-black uppercase tracking-tighter"></h2>
+                    <button onclick="admin.closeModal()" class="text-4xl hover:text-amber-400 transition-colors">&times;</button>
                 </div>
-                <div class="flex-1 overflow-y-auto p-8 bg-slate-50 grid grid-cols-1 lg:grid-cols-3 gap-8 text-sm font-bold">
+                <div class="flex-1 overflow-y-auto p-8 bg-slate-50 grid grid-cols-1 lg:grid-cols-3 gap-8 text-sm">
                     <div class="space-y-6">
-                        <div class="bg-white p-8 rounded-3xl shadow-sm space-y-4">
-                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Snapshot</p>
-                            <p class="font-bold">Class: <span id="modal-class" class="text-indigo-600"></span></p>
-                            <p class="font-bold">Parent: <span id="modal-father"></span></p>
-                            <p class="font-bold">Mobile: <span id="modal-contact"></span></p>
-                            <p class="text-2xl text-red-600 font-black mt-6 tracking-tighter uppercase">Due: <span id="modal-balance"></span></p>
-                            <div id="modal-slip-area" class="hidden pt-4"><button onclick="admin.viewConcessionSlip()" class="flex items-center gap-2 text-indigo-600 text-[10px] hover:underline uppercase font-black tracking-widest border border-indigo-100 p-3 rounded-xl w-full justify-center"><span class="material-symbols-outlined text-base font-bold">attachment</span> Attachment</button></div>
+                        <div class="bg-white p-8 rounded-3xl shadow-sm space-y-4 font-black">
+                            <p class="text-[10px] text-slate-400 uppercase tracking-widest">Snapshot</p>
+                            <p>Class: <span id="modal-class" class="text-indigo-600"></span></p>
+                            <p>Parent: <span id="modal-father"></span></p>
+                            <p>Mobile: <span id="modal-contact"></span></p>
+                            <p class="text-2xl text-red-600 tracking-tighter uppercase mt-4">Due: <span id="modal-balance"></span></p>
+                            <div id="modal-slip-area" class="hidden pt-4"><button onclick="admin.viewConcessionSlip()" class="flex items-center gap-2 text-indigo-600 text-[10px] hover:underline uppercase font-black border border-indigo-100 p-3 rounded-xl w-full justify-center"><span class="material-symbols-outlined text-base">attachment</span> View Attachment</button></div>
                         </div>
                         <div class="space-y-2">
-                            <button onclick="admin.initiateAdmitEdit()" class="w-full bg-indigo-600 text-white py-4 rounded-2xl transition-all uppercase text-[10px] font-black tracking-widest">Edit Profile</button>
-                            <button onclick="printer.printLedger()" class="w-full bg-white border-2 border-slate-200 py-4 rounded-2xl hover:bg-slate-100 transition-all uppercase text-[10px] font-black tracking-widest">Print Record</button>
-                            <button onclick="admin.initiateSecureDelete()" class="w-full text-red-600 text-[10px] uppercase py-2 hover:underline font-black tracking-widest opacity-60">Permanent Removal</button>
+                            <button onclick="admin.initiateAdmitEdit()" class="w-full bg-indigo-600 text-white py-4 rounded-2xl uppercase text-[10px] font-black">Edit Student Profile</button>
+                            <button onclick="printer.printLedger()" class="w-full bg-white border-2 border-slate-200 py-4 rounded-2xl hover:bg-slate-100 transition-all uppercase text-[10px] font-black">Print Summary</button>
+                            <button onclick="admin.initiateSecureDelete()" class="w-full text-red-600 text-[10px] uppercase py-2 hover:underline font-black opacity-60">Delete Student</button>
                         </div>
                     </div>
                     <div class="lg:col-span-2 space-y-8">
-                        <form onsubmit="admin.recordPayment(event)" class="bg-white p-10 rounded-[2rem] shadow-sm grid grid-cols-2 gap-6 border-2 border-emerald-50">
-                            <div class="col-span-2 text-[10px] uppercase font-black text-slate-400 tracking-widest">Transaction Entry</div>
+                        <form onsubmit="admin.recordPayment(event)" class="bg-white p-10 rounded-[2rem] shadow-sm grid grid-cols-2 gap-6 border-2 border-emerald-50 font-black">
+                            <div class="col-span-2 text-[10px] uppercase text-slate-400 tracking-widest">Fee Collection</div>
                             <input type="number" id="pay-amt" placeholder="Amount (₹)" class="border-2 border-slate-50 p-4 rounded-xl bg-slate-50 font-black text-2xl focus:bg-white outline-none" required>
                             <input type="date" id="pay-date" class="border-2 border-slate-50 p-4 rounded-xl bg-slate-50 focus:bg-white outline-none" required>
                             <input type="text" id="pay-remark" placeholder="Remark / Reference" class="col-span-2 border-2 border-slate-50 p-4 rounded-xl bg-slate-50 focus:bg-white outline-none">
-                            <button type="submit" class="col-span-2 bg-green-600 text-white py-5 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-green-700 transition-all shadow-lg">Confirm Transaction</button>
+                            <button type="submit" class="col-span-2 bg-green-600 text-white py-5 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-green-700 transition-all shadow-lg">Process Payment</button>
                         </form>
-                        
-                        <div class="bg-white rounded-[2rem] shadow-sm overflow-hidden border border-slate-100">
+                        <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100">
                             <div class="p-4 bg-slate-50 flex justify-between items-center">
-                                <span class="text-[9px] font-black uppercase tracking-widest text-slate-400">History</span>
+                                <span class="text-[9px] font-black uppercase tracking-widest text-slate-400">Transaction History</span>
                                 <div class="flex gap-2 items-center">
-                                    <input type="date" id="history-start" class="text-[10px] border rounded px-1 outline-none" onchange="admin.renderHistory()">
+                                    <input type="date" id="history-start" class="text-[10px] border rounded px-1 outline-none font-black" onchange="admin.renderHistory()">
                                     <span class="text-[10px] text-slate-300">to</span>
-                                    <input type="date" id="history-end" class="text-[10px] border rounded px-1 outline-none" onchange="admin.renderHistory()">
+                                    <input type="date" id="history-end" class="text-[10px] border rounded px-1 outline-none font-black" onchange="admin.renderHistory()">
                                     <button class="material-symbols-outlined text-indigo-400 text-sm" onclick="admin.resetHistoryFilter()">close</button>
                                 </div>
                             </div>
-                            <table class="w-full text-left text-sm"><tbody id="modal-history" class="divide-y text-slate-700"></tbody></table>
+                            <table class="w-full text-left text-sm font-black"><tbody id="modal-history" class="divide-y text-slate-700"></tbody></table>
                         </div>
                     </div>
                 </div>
@@ -597,14 +501,14 @@
 
         <!-- AUTH PIN -->
         <div id="delete-pin-modal" class="fixed inset-0 z-[60] flex items-center justify-center bg-black bg-opacity-80 hidden-modal modal no-print p-4">
-            <div class="bg-white w-full max-w-xs p-10 rounded-[3rem] shadow-2xl text-center">
-                <span class="material-symbols-outlined text-red-600 text-7xl mb-4 font-bold">lock_reset</span>
+            <div class="bg-white w-full max-w-xs p-10 rounded-[3rem] shadow-2xl text-center text-indigo-950">
+                <span class="material-symbols-outlined text-red-600 text-7xl mb-4 font-black">lock_reset</span>
                 <h3 class="text-xl font-black mb-1 uppercase tracking-tight">Security PIN</h3>
-                <p class="text-[10px] text-slate-400 uppercase tracking-widest mb-8 font-bold">Authorized Access Required</p>
+                <p class="text-[10px] text-slate-400 uppercase tracking-widest mb-8">Authorized Access Required</p>
                 <input type="password" id="delete-pin-input" class="w-full border-2 border-slate-100 p-5 rounded-3xl text-center font-black text-4xl mb-8 focus:border-red-600 outline-none transition-all" placeholder="••••">
-                <div class="flex gap-4 font-bold">
-                    <button onclick="admin.closeDeleteModal()" class="flex-1 py-4 bg-slate-100 rounded-2xl font-black text-[10px] uppercase tracking-widest">Cancel</button>
-                    <button onclick="admin.executeSecureDelete()" class="flex-1 py-4 bg-red-600 text-white rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-red-700 transition-all shadow-lg">Verify</button>
+                <div class="flex gap-4 font-black">
+                    <button onclick="admin.closeDeleteModal()" class="flex-1 py-4 bg-slate-100 rounded-2xl font-black text-[10px] uppercase">Cancel</button>
+                    <button onclick="admin.executeSecureDelete()" class="flex-1 py-4 bg-red-600 text-white rounded-2xl font-black text-[10px] uppercase shadow-lg">Verify</button>
                 </div>
             </div>
         </div>
@@ -618,26 +522,16 @@
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
         import { getFirestore, doc, setDoc, getDoc, collection, addDoc, updateDoc, deleteDoc, onSnapshot } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
 
-        let firebaseConfig = {};
-        try {
-            // Rule 3: Config provided by environment
-            if (typeof __firebase_config !== 'undefined') {
-                firebaseConfig = JSON.parse(__firebase_config);
-            } else {
-                // Fallback for local testing only
-                firebaseConfig = {
-                    apiKey: "AIzaSyCTBCeLms5kGsf966PB25I4H75i8BBxma0",
-                    authDomain: "sri-sai-vidyalayam-9a21e.firebaseapp.com",
-                    projectId: "sri-sai-vidyalayam-9a21e",
-                    storageBucket: "sri-sai-vidyalayam-9a21e.firebasestorage.app",
-                    messagingSenderId: "167964825322",
-                    appId: "1:167964825322:web:7d22c335f98dc468fda993",
-                    measurementId: "G-H28D1GK0HS"
-                };
-            }
-        } catch (e) {
-            console.error("Firebase config parsing failed");
-        }
+        // Reliable hardcoded config
+        const firebaseConfig = {
+            apiKey: "AIzaSyCTBCeLms5kGsf966PB25I4H75i8BBxma0",
+            authDomain: "sri-sai-vidyalayam-9a21e.firebaseapp.com",
+            projectId: "sri-sai-vidyalayam-9a21e",
+            storageBucket: "sri-sai-vidyalayam-9a21e.firebasestorage.app",
+            messagingSenderId: "167964825322",
+            appId: "1:167964825322:web:7d22c335f98dc468fda993",
+            measurementId: "G-H28D1GK0HS"
+        };
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
@@ -646,10 +540,10 @@
 
         window.state = {
             user: null, students: [], notices: [], highlights: [],
-            activeStudentId: null, blogIndex: 0, isLoggedIn: false,
+            activeStudentId: null, isLoggedIn: false,
             sort: { key: 'name', dir: 'asc' },
             selectedClass: 'All', 
-            sessionLastSeen: Date.now(), // Tracking unread updates in session (Rule: NEVER use localStorage)
+            sessionLastSeen: Date.now(),
             admissionsPopupDismissed: false,
             classes: ["Nursery", "LKG", "UKG", "1st Class", "2nd Class", "3rd Class", "4th Class", "5th Class", "6th Class", "7th Class", "8th Class", "9th Class", "10th Class"]
         };
@@ -658,7 +552,7 @@
 
         window.toggleMobileMenu = () => document.getElementById('mobile-menu').classList.toggle('hidden');
 
-        // Rule 3 Implementation: Auth FIRST and AWAIT it
+        // Rule 3: Auth first
         const initAuth = async (retryCount = 0) => {
             try { 
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
@@ -669,7 +563,7 @@
             } catch (err) { 
                 if (retryCount < 5) {
                     const delay = Math.pow(2, retryCount) * 1000;
-                    return new Promise(resolve => setTimeout(() => resolve(initAuth(retryCount + 1)), delay));
+                    setTimeout(() => initAuth(retryCount + 1), delay);
                 }
             }
         };
@@ -679,8 +573,7 @@
             if (u) {
                 startSync();
             } else {
-                // If the user signed out, ensure we have an anonymous session to keep data flowing for landing page
-                initAuth();
+                initAuth(); // Auto-reconnect for board view
             }
             if (!document.querySelector('.view-section:not(.hidden)')) router.navigate('home');
         });
@@ -690,15 +583,16 @@
             unsubscribes.forEach(unsub => unsub());
             unsubscribes = [];
 
-            // Rule 1: Strict artifacts paths
+            // Rule 1: Artifact Paths
             const studentsRef = collection(db, 'artifacts', appId, 'public', 'data', 'students');
             const noticesRef = collection(db, 'artifacts', appId, 'public', 'data', 'notices');
             const highlightsRef = collection(db, 'artifacts', appId, 'public', 'data', 'highlights');
 
+            // Snapshot listeners: Perform aggressive renders on every update
             unsubscribes.push(onSnapshot(studentsRef, (snap) => {
                 state.students = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-                admin.updateDashboard(); 
                 admin.renderStudentList();
+                admin.updateDashboard(); 
                 if (state.activeStudentId) admin.refreshModalContent();
             }));
 
@@ -739,7 +633,8 @@
                 e.preventDefault();
                 const card = document.getElementById('login-card');
                 if (document.getElementById('userid').value === 'admin' && document.getElementById('password').value === '123') {
-                    state.isLoggedIn = true; router.navigate('admin');
+                    state.isLoggedIn = true; 
+                    router.navigate('admin');
                 } else {
                     if (card) {
                         card.classList.add('shake-element');
@@ -750,7 +645,6 @@
             logout: () => { 
                 state.isLoggedIn = false; 
                 router.navigate('home'); 
-                // We keep state.user (Firebase Auth) active so public data doesn't disappear
             }
         };
 
@@ -776,15 +670,12 @@
             updateHomeFilterNotifications: () => {
                 const filter = document.getElementById('home-class-filter');
                 if (!filter) return;
-                
                 let anyUnread = false;
                 filter.innerHTML = '<option value="All">Select Class...</option>' + state.classes.map(c => {
                     const classHasNew = state.notices.some(n => n.class === c && n.timestamp > state.sessionLastSeen);
                     if (classHasNew) anyUnread = true;
-                    // Red bold text for dropdown options with new data
-                    return `<option value="${c}" style="color: ${classHasNew ? '#dc2626' : 'inherit'}; font-weight: ${classHasNew ? '900' : 'normal'}; text-transform: uppercase;">${c}${classHasNew ? ' • [NEW]' : ''}</option>`;
+                    return `<option value="${c}" style="color: ${classHasNew ? '#dc2626' : 'inherit'}; font-weight: 900; text-transform: uppercase;">${c}${classHasNew ? ' • [NEW]' : ''}</option>`;
                 }).join('');
-
                 const badge = document.getElementById('home-filter-badge');
                 if (badge) badge.classList.toggle('hidden', !anyUnread);
                 filter.value = state.selectedClass;
@@ -813,7 +704,6 @@
                 if (label) label.innerText = val === 'All' ? 'Showing all Grades' : `Showing notices for ${val}`;
                 home.renderUpdates();
                 home.renderHomeNotices();
-                // Ensure dropdown consistency
                 document.querySelectorAll('#home-class-filter, #board-class-filter').forEach(s => s.value = val);
             },
             closeAdmissionsPopup: () => {
@@ -832,29 +722,19 @@
             renderHomeNotices: () => {
                 const container = document.getElementById('home-notices-preview');
                 if (!container) return;
-                
                 if (state.selectedClass === 'All') {
-                    container.innerHTML = `
-                        <div class="col-span-full text-center py-16">
-                            <div class="max-w-md mx-auto bg-white p-10 rounded-[3rem] shadow-sm border-2 border-dashed border-indigo-100">
-                                <span class="material-symbols-outlined text-indigo-200 text-6xl mb-4">school</span>
-                                <p class="text-slate-400 font-bold">Please select a class above to see the latest updates.</p>
-                            </div>
-                        </div>
-                    `;
+                    container.innerHTML = `<div class="col-span-full text-center py-16"><div class="max-w-md mx-auto bg-white p-10 rounded-[3rem] shadow-sm border-2 border-dashed border-indigo-100 text-indigo-950"><span class="material-symbols-outlined text-indigo-200 text-6xl mb-4">school</span><p class="text-slate-400 font-black">Please select a class above to see the latest updates.</p></div></div>`;
                     return;
                 }
-
                 const filtered = state.notices.filter(n => n.class === state.selectedClass || n.class === 'All').slice(0, 6);
                 container.innerHTML = filtered.map(n => {
                     let colorClass = 'border-indigo-600';
                     if (n.category === 'Home Work') colorClass = 'border-emerald-500';
                     if (n.category === 'Class Test') colorClass = 'border-amber-500';
                     if (n.category === 'Upcoming Events') colorClass = 'border-orange-600';
-                    
                     const isNew = n.timestamp > state.sessionLastSeen;
                     return `
-                        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border-l-8 ${colorClass} hover:shadow-lg transition-all group relative overflow-hidden">
+                        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border-l-8 ${colorClass} hover:shadow-lg transition-all group relative overflow-hidden text-indigo-950 font-black">
                             ${isNew ? `<div class="absolute top-2 right-2 bg-red-600 text-white text-[8px] font-black px-2 py-1 rounded-bl-xl uppercase animate-pulse z-20">NEW</div>` : ''}
                             <div class="flex justify-between items-center mb-4">
                                 <span class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full font-black uppercase text-[9px] tracking-tighter flex items-center">
@@ -863,28 +743,18 @@
                                 <span class="text-[9px] font-black uppercase text-slate-300 tracking-widest">${new Date(n.timestamp).toLocaleDateString()}</span>
                             </div>
                             <h4 class="text-indigo-600 font-black uppercase text-[10px] tracking-widest mb-1">${n.category}</h4>
-                            <p class="text-slate-700 font-bold line-clamp-3 text-sm leading-relaxed">${n.content}</p>
+                            <p class="text-slate-700 font-black line-clamp-3 text-sm leading-relaxed">${n.content}</p>
                         </div>
                     `;
-                }).join('') || '<div class="col-span-full text-center py-10 opacity-30 italic">No recent announcements for this class.</div>';
+                }).join('') || '<div class="col-span-full text-center py-10 opacity-30 italic font-black">No recent announcements for this class.</div>';
             },
             renderHighlights: () => {
                 const track = document.getElementById('blog-posts-feed');
                 if(!track) return;
-                track.innerHTML = state.highlights.map((h, i) => `
-                    <div class="blog-slide">
-                        <div class="bg-white p-8 rounded-[3rem] shadow-xl border border-indigo-50">
-                            ${h.type === 'youtube' ? `<div class="video-container" onclick="home.playVideo('${h.id}', '${h.url}')" id="vid-${h.id}"><div class="absolute inset-0 flex items-center justify-center bg-black/30 text-white transition-all hover:bg-black/10"><span class="material-symbols-outlined text-7xl font-bold">play_circle</span></div></div>` : `<img src="${h.url}" class="w-full h-64 md:h-96 object-cover rounded-[2rem] shadow-inner bg-slate-50 transition-transform hover:scale-[1.01]">`}
-                            <div class="mt-8 text-left font-bold"><h3 class="text-2xl text-indigo-950 uppercase tracking-tight font-black">${h.title}</h3></div>
-                        </div>
-                    </div>
-                `).join('') || '<div class="w-full py-10 opacity-30 font-black text-center italic">No highlights.</div>';
+                track.innerHTML = state.highlights.map(h => `<div class="blog-slide text-indigo-950 font-black"><div class="bg-white p-8 rounded-[3rem] shadow-xl border border-indigo-50">${h.type === 'youtube' ? `<div class="video-container" onclick="home.playVideo('${h.id}', '${h.url}')" id="vid-${h.id}"><div class="absolute inset-0 flex items-center justify-center bg-black/30 text-white transition-all hover:bg-black/10"><span class="material-symbols-outlined text-7xl font-black">play_circle</span></div></div>` : `<img src="${h.url}" class="w-full h-64 md:h-96 object-cover rounded-[2rem] shadow-inner bg-slate-50">`}<div class="mt-8 text-left"><h3 class="text-2xl uppercase tracking-tight font-black">${h.title}</h3></div></div></div>`).join('') || '<div class="w-full py-10 opacity-30 font-black text-center italic">No highlights.</div>';
                 state.blogIndex = 0; home.updateSlider();
             },
-            playVideo: (id, url) => {
-                const yId = url.split('v=')[1]?.split('&')[0] || url.split('/').pop();
-                document.getElementById(`vid-${id}`).innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${yId}?autoplay=1" frameborder="0" allowfullscreen></iframe>`;
-            },
+            playVideo: (id, url) => { const yId = url.split('v=')[1]?.split('&')[0] || url.split('/').pop(); document.getElementById(`vid-${id}`).innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${yId}?autoplay=1" frameborder="0" allowfullscreen></iframe>`; },
             nextBlog: () => { if(state.highlights.length > 1) { state.blogIndex = (state.blogIndex + 1) % state.highlights.length; home.updateSlider(); } },
             prevBlog: () => { if(state.highlights.length > 1) { state.blogIndex = (state.blogIndex - 1 + state.highlights.length) % state.highlights.length; home.updateSlider(); } },
             updateSlider: () => { const track = document.getElementById('blog-posts-feed'); if(track) track.style.transform = `translateX(-${state.blogIndex * 100}%)`; },
@@ -899,21 +769,8 @@
                     if (n.category === 'Upcoming Events') colorClass = 'border-orange-600';
                     if (n.category === 'Holiday') colorClass = 'border-red-500';
                     const isNew = n.timestamp > state.sessionLastSeen;
-                    return `
-                        <div class="bg-white p-10 rounded-[2.5rem] shadow-sm border-l-[12px] ${colorClass} hover:shadow-xl transition-all h-full flex flex-col group relative overflow-hidden">
-                            ${isNew ? `<div class="absolute top-2 right-2 bg-red-600 text-white text-[9px] font-black px-3 py-1 rounded-bl-2xl uppercase shadow-sm animate-pulse z-10">NEW UPDATE</div>` : ''}
-                            <div class="flex justify-between items-start mb-6">
-                                <div class="flex flex-col">
-                                    <span class="text-[9px] font-black uppercase tracking-widest text-slate-400">${new Date(n.timestamp).toLocaleDateString()}</span>
-                                    <span class="inline-block mt-1 px-3 py-1 bg-slate-100 text-slate-600 text-[10px] font-black uppercase rounded-full tracking-tighter">${n.category}</span>
-                                </div>
-                                <span class="bg-indigo-50 text-indigo-700 px-4 py-1.5 rounded-full font-black uppercase tracking-tighter text-xs">${n.class}</span>
-                            </div>
-                            <h4 class="text-indigo-600 font-black uppercase text-xs tracking-widest mb-2">${n.subject && n.subject !== 'General News' ? n.subject : 'Notice'}</h4>
-                            <p class="text-slate-800 text-xl leading-relaxed font-bold flex-1">${n.content}</p>
-                        </div>
-                    `;
-                }).join('') || '<div class="col-span-full text-center py-32"><div class="bg-indigo-50 inline-block p-10 rounded-[3rem] border border-indigo-100"><span class="material-symbols-outlined text-indigo-300 text-6xl mb-4">notifications_off</span><p class="text-slate-400 font-bold italic">No notices available for this grade yet.</p></div></div>';
+                    return `<div class="bg-white p-10 rounded-[2.5rem] shadow-sm border-l-[12px] ${colorClass} hover:shadow-xl transition-all h-full flex flex-col group relative overflow-hidden text-indigo-950 font-black">${isNew ? `<div class="absolute top-2 right-2 bg-red-600 text-white text-[9px] font-black px-3 py-1 rounded-bl-2xl uppercase shadow-sm animate-pulse z-10">NEW UPDATE</div>` : ''}<div class="flex justify-between items-start mb-6"><div class="flex flex-col"><span class="text-[9px] uppercase text-slate-400 font-black">${new Date(n.timestamp).toLocaleDateString()}</span><span class="inline-block mt-1 px-3 py-1 bg-slate-100 text-slate-600 text-[10px] font-black uppercase rounded-full tracking-tighter">${n.category}</span></div><span class="bg-indigo-50 text-indigo-700 px-4 py-1.5 rounded-full font-black uppercase tracking-tighter text-xs">${n.class}</span></div><h4 class="text-indigo-600 font-black uppercase text-xs tracking-widest mb-2">${n.subject && n.subject !== 'General News' ? n.subject : 'Notice'}</h4><p class="text-slate-800 text-xl leading-relaxed font-black flex-1">${n.content}</p></div>`;
+                }).join('') || '<div class="col-span-full text-center py-32 font-black"><div class="bg-indigo-50 inline-block p-10 rounded-[3rem] border border-indigo-100 text-indigo-950 font-black"><span class="material-symbols-outlined text-indigo-300 text-6xl mb-4">notifications_off</span><p class="text-slate-400 font-black italic">No records found.</p></div></div>';
             }
         };
 
@@ -924,17 +781,29 @@
                     const isFilterOrNotice = s.id.includes('filter') || s.id.includes('notice');
                     s.innerHTML = (isFilterOrNotice ? '<option value="All">All Grades (Select)</option>' : '') + state.classes.map(c => `<option value="${c}">${c}</option>`).join('');
                 });
-                admin.switchTab('dashboard'); admin.updateDashboard();
+                admin.switchTab('dashboard'); 
+                admin.renderStudentList();
+                admin.renderNotices();
             },
             switchTab: (tabId) => {
                 document.querySelectorAll('.admin-content').forEach(el => el.classList.add('hidden'));
                 const target = document.getElementById(`tab-${tabId}`);
                 if(target) target.classList.remove('hidden');
                 document.querySelectorAll('.admin-tab').forEach(btn => btn.classList.toggle('bg-indigo-900', btn.onclick.toString().includes(tabId)));
+                
+                // Aggressive rendering ensures UI is ready when tab is viewed
+                if (tabId === 'students') admin.renderStudentList();
+                if (tabId === 'updates_manager') admin.renderNotices();
+                if (tabId === 'blog_manager') admin.renderHighlights();
+                if (tabId === 'dashboard') admin.updateDashboard();
             },
             updateDashboard: () => {
                 let total = 0, collected = 0;
-                state.students.forEach(s => { total += (s.fee + (s.oldDue || 0)); collected += (s.paid || 0); });
+                state.students.forEach(s => { 
+                    // Use fallback to handle old data schema
+                    total += (parseFloat(s.fee || s.Target_Fee) || 0) + (parseFloat(s.oldDue || s.Previous_Dues) || 0); 
+                    collected += (parseFloat(s.paid || s.Total_Paid) || 0); 
+                });
                 const statTotal = document.getElementById('stat-total');
                 const statColl = document.getElementById('stat-collected');
                 const statPend = document.getElementById('stat-pending');
@@ -953,23 +822,51 @@
                 const fd = new FormData(e.target);
                 const editId = fd.get('editId');
                 const btn = document.getElementById('admit-submit-btn');
-                btn.disabled = true; btn.innerText = "Syncing...";
+                btn.disabled = true; btn.innerText = "Processing...";
+                
                 let slipBase64 = null;
                 const slipFile = document.getElementById('admit-slip-input').files[0];
                 if(slipFile && slipFile.size < 800000) { slipBase64 = await new Promise(r => { const rd = new FileReader(); rd.onload = () => r(rd.result); rd.readAsDataURL(slipFile); }); }
-                const data = { admnNo: fd.get('admnNo'), name: fd.get('name'), class: fd.get('class'), father: fd.get('father'), contact: fd.get('contact'), fee: parseFloat(fd.get('fee')), oldDue: parseFloat(fd.get('oldDue') || 0) };
+                
+                const data = { 
+                    admnNo: fd.get('admnNo'), 
+                    name: fd.get('name'), 
+                    class: fd.get('class'), 
+                    father: fd.get('father'), 
+                    contact: fd.get('contact'), 
+                    fee: parseFloat(fd.get('fee') || 0), 
+                    oldDue: parseFloat(fd.get('oldDue') || 0),
+                    concessionSlip: slipBase64 || null
+                };
+                
                 try {
-                    if (editId) { await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', editId), data); admin.cancelAdmitEdit(); }
-                    else { const initialPay = parseFloat(fd.get('initialPay') || 0); const newData = { ...data, paid: initialPay, history: initialPay > 0 ? [{ amount: initialPay, timestamp: Date.now(), remark: 'Initial Enrollment' }] : [], concessionSlip: slipBase64, timestamp: Date.now() }; await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'students'), newData); }
+                    const studentsRef = collection(db, 'artifacts', appId, 'public', 'data', 'students');
+                    if (editId) { 
+                        // Update existing doc
+                        await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', editId), data); 
+                        admin.cancelAdmitEdit(); 
+                    } else { 
+                        // Create new doc
+                        const initialPay = parseFloat(fd.get('initialPay') || 0); 
+                        const newData = { ...data, paid: initialPay, history: initialPay > 0 ? [{ amount: initialPay, timestamp: Date.now(), remark: 'Initial Enrollment' }] : [], timestamp: Date.now() }; 
+                        await addDoc(studentsRef, newData); 
+                    }
                     admin.switchTab('students'); e.target.reset();
-                } catch(err) { console.error(err); } finally { btn.disabled = false; btn.innerText = "Complete Admission"; }
+                } catch(err) { console.error("Database Write Error", err); } finally { btn.disabled = false; btn.innerText = "Submit Student"; }
             },
             initiateAdmitEdit: () => {
                 const s = state.students.find(x => x.id === state.activeStudentId);
                 if (!s) return;
                 admin.closeModal(); admin.switchTab('admissions');
                 const form = document.getElementById('admissions-form');
-                form.editId.value = s.id; form.admnNo.value = s.admnNo; form.name.value = s.name; form.class.value = s.class; form.father.value = s.father; form.contact.value = s.contact; form.fee.value = s.fee; form.oldDue.value = s.oldDue || 0;
+                form.editId.value = s.id; 
+                form.admnNo.value = s.admnNo || s.ID || ''; 
+                form.name.value = s.name || s.Student || ''; 
+                form.class.value = s.class || s.Grade || 'Nursery'; 
+                form.father.value = s.father || s.Parent || ''; 
+                form.contact.value = s.contact || ''; 
+                form.fee.value = s.fee || s.Target_Fee || 0; 
+                form.oldDue.value = s.oldDue || s.Previous_Dues || 0;
                 document.getElementById('admission-title').innerText = "Update Record";
                 document.getElementById('admit-submit-btn').innerText = "Save Changes";
                 document.getElementById('admit-initial-group').style.display = 'none';
@@ -979,7 +876,7 @@
                 const form = document.getElementById('admissions-form');
                 if (form) { form.reset(); form.editId.value = ""; }
                 document.getElementById('admission-title').innerText = "Admission Entry";
-                document.getElementById('admit-submit-btn').innerText = "Complete Admission";
+                document.getElementById('admit-submit-btn').innerText = "Submit Student";
                 document.getElementById('admit-initial-group').style.display = 'block';
                 document.getElementById('admit-cancel-btn').classList.add('hidden');
             },
@@ -990,33 +887,50 @@
             },
             renderStudentList: () => {
                 const body = document.getElementById('student-list-body');
-                const searchEl = document.getElementById('record-search');
-                const search = searchEl ? searchEl.value.toLowerCase() : "";
-                const filterEl = document.getElementById('record-class-filter');
-                const filter = filterEl ? filterEl.value : 'All';
                 if(!body) return;
-                let filtered = state.students.filter(s => (filter === 'All' || s.class === filter) && (s.name.toLowerCase().includes(search) || s.admnNo.includes(search)));
+                const search = document.getElementById('record-search').value.toLowerCase();
+                const filter = document.getElementById('record-class-filter').value || 'All';
+                
+                // Use fallback mapping for schema resilience
+                let filtered = state.students.filter(s => {
+                    const sClass = s.class || s.Grade || 'Nursery';
+                    const sName = String(s.name || s.Student || '').toLowerCase();
+                    const sId = String(s.admnNo || s.ID || '').toLowerCase();
+                    return (filter === 'All' || sClass === filter) && (sName.includes(search) || sId.includes(search));
+                });
+
                 filtered.sort((a, b) => {
-                    let valA = a[state.sort.key];
-                    let valB = b[state.sort.key];
+                    let valA = a[state.sort.key] || '';
+                    let valB = b[state.sort.key] || '';
                     if (state.sort.key === 'due') {
-                        valA = (a.fee + (a.oldDue || 0)) - (a.paid || 0);
-                        valB = (b.fee + (b.oldDue || 0)) - (b.paid || 0);
+                        valA = (parseFloat(a.fee || a.Target_Fee || 0) + (parseFloat(a.oldDue || a.Previous_Dues || 0) || 0)) - (parseFloat(a.paid || a.Total_Paid || 0) || 0);
+                        valB = (parseFloat(b.fee || b.Target_Fee || 0) + (parseFloat(b.oldDue || b.Previous_Dues || 0) || 0)) - (parseFloat(b.paid || b.Total_Paid || 0) || 0);
                     }
                     if (valA < valB) return state.sort.dir === 'asc' ? -1 : 1;
                     if (valA > valB) return state.sort.dir === 'asc' ? 1 : -1;
                     return 0;
                 });
-                body.innerHTML = filtered.map(s => `
-                    <tr class="hover:bg-indigo-50/50 cursor-pointer transition-colors border-b" onclick="admin.openModal('${s.id}')">
-                        <td class="p-6 font-mono text-[10px] text-slate-400">${s.admnNo}</td><td class="p-6 uppercase font-black">${s.name}</td>
-                        <td class="p-6 text-slate-500">${s.class}</td><td class="p-6 text-right text-red-600 font-black">₹${((s.fee + (s.oldDue || 0)) - (s.paid || 0)).toLocaleString()}</td>
-                        <td class="p-6 text-right text-indigo-200"><span class="material-symbols-outlined">chevron_right</span></td>
-                    </tr>
-                `).join('') || '<tr><td colspan="5" class="p-10 text-center text-slate-400 italic">No records found.</td></tr>';
+
+                body.innerHTML = filtered.map(s => {
+                    const sId = s.admnNo || s.ID || '???';
+                    const sName = s.name || s.Student || 'Unnamed';
+                    const sClass = s.class || s.Grade || 'Nursery';
+                    const sDue = (parseFloat(s.fee || s.Target_Fee || 0) + (parseFloat(s.oldDue || s.Previous_Dues || 0) || 0)) - (parseFloat(s.paid || s.Total_Paid || 0) || 0);
+                    
+                    return `
+                        <tr class="hover:bg-indigo-50/50 cursor-pointer transition-colors border-b text-indigo-950 font-black" onclick="admin.openModal('${s.id}')">
+                            <td class="p-6 font-mono text-[10px] text-slate-400">${sId}</td>
+                            <td class="p-6 uppercase">${sName}</td>
+                            <td class="p-6 text-slate-500">${sClass}</td>
+                            <td class="p-6 text-right text-red-600">₹${sDue.toLocaleString()}</td>
+                            <td class="p-6 text-right text-indigo-200"><span class="material-symbols-outlined">chevron_right</span></td>
+                        </tr>
+                    `;
+                }).join('') || '<tr><td colspan="5" class="p-10 text-center text-slate-400 italic font-black">No matching records in registry.</td></tr>';
             },
             openModal: (id) => {
-                state.activeStudentId = id; admin.refreshModalContent();
+                state.activeStudentId = id; 
+                admin.refreshModalContent();
                 document.getElementById('student-modal').classList.remove('hidden-modal'); 
                 document.getElementById('pay-date').valueAsDate = new Date();
             },
@@ -1024,9 +938,16 @@
                 if (!state.activeStudentId) return;
                 const s = state.students.find(x => x.id === state.activeStudentId); 
                 if(!s) { admin.closeModal(); return; }
-                document.getElementById('modal-name').innerText = s.name; document.getElementById('modal-class').innerText = s.class;
-                document.getElementById('modal-father').innerText = s.father; document.getElementById('modal-contact').innerText = s.contact;
-                document.getElementById('modal-balance').innerText = `₹${((s.fee + (s.oldDue || 0)) - (s.paid || 0)).toLocaleString()}`;
+                const sName = s.name || s.Student || 'Unnamed';
+                const sClass = s.class || s.Grade || 'Nursery';
+                const sFather = s.father || s.Parent || '---';
+                const sDue = (parseFloat(s.fee || s.Target_Fee || 0) + (parseFloat(s.oldDue || s.Previous_Dues || 0) || 0)) - (parseFloat(s.paid || s.Total_Paid || 0) || 0);
+
+                document.getElementById('modal-name').innerText = sName; 
+                document.getElementById('modal-class').innerText = sClass;
+                document.getElementById('modal-father').innerText = sFather; 
+                document.getElementById('modal-contact').innerText = s.contact || '---';
+                document.getElementById('modal-balance').innerText = `₹${sDue.toLocaleString()}`;
                 const slipArea = document.getElementById('modal-slip-area');
                 if (slipArea) slipArea.classList.toggle('hidden', !s.concessionSlip);
                 admin.renderHistory();
@@ -1044,14 +965,7 @@
                 if(start && end) hist = hist.filter(h => h.timestamp >= start && h.timestamp <= (end + 86400000));
                 const tableBody = document.getElementById('modal-history');
                 if (tableBody) {
-                    tableBody.innerHTML = hist.map(h => `
-                        <tr class="border-b">
-                            <td class="p-4 text-slate-400 text-xs">${new Date(h.timestamp).toLocaleDateString()}</td>
-                            <td class="p-4 font-bold">${h.remark || 'Fee Collection'}</td>
-                            <td class="p-4 text-right text-green-600 font-black">₹${h.amount.toLocaleString()}</td>
-                            <td class="p-4 text-right"><button onclick="printer.printReceipt('${h.timestamp}')"><span class="material-symbols-outlined text-indigo-900">print</span></button></td>
-                        </tr>
-                    `).reverse().join('') || '<tr><td colspan="4" class="p-6 text-center text-slate-300 italic">No transactions in range.</td></tr>';
+                    tableBody.innerHTML = hist.map(h => `<tr class="border-b"><td class="p-4 text-slate-400 text-xs">${new Date(h.timestamp).toLocaleDateString()}</td><td class="p-4 font-black">${h.remark || 'Fee Payment'}</td><td class="p-4 text-right text-green-600 font-black">₹${parseFloat(h.amount).toLocaleString()}</td><td class="p-4 text-right"><button onclick="printer.printReceipt('${h.timestamp}')"><span class="material-symbols-outlined text-indigo-900">print</span></button></td></tr>`).reverse().join('') || '<tr><td colspan="4" class="p-6 text-center text-slate-300 italic">No historical records found.</td></tr>';
                 }
             },
             closeModal: () => { document.getElementById('student-modal').classList.add('hidden-modal'); state.activeStudentId = null; },
@@ -1064,9 +978,14 @@
                 const s = state.students.find(x => x.id === state.activeStudentId);
                 if(!s || isNaN(amt)) return;
                 const ts = dateVal ? new Date(dateVal).getTime() : Date.now();
-                const newPaid = (s.paid || 0) + amt;
+                const currentPaid = parseFloat(s.paid || s.Total_Paid || 0);
+                const newPaid = currentPaid + amt;
                 const newHistory = [...(s.history || []), { amount: amt, timestamp: ts, remark: remarkEl.value }];
-                try { await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', s.id), { paid: newPaid, history: newHistory }); amtEl.value = ''; remarkEl.value = ''; } catch (err) { console.error(err); }
+                try { 
+                    await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', s.id), { paid: newPaid, history: newHistory }); 
+                    amtEl.value = ''; 
+                    remarkEl.value = ''; 
+                } catch (err) { console.error(err); }
             },
             publishNotice: async (e) => {
                 e.preventDefault(); if (!state.user) return;
@@ -1074,9 +993,9 @@
                 const nid = fd.get('noticeId');
                 const data = { class: fd.get('class'), subject: fd.get('subject'), category: fd.get('category'), content: fd.get('content'), timestamp: Date.now() };
                 try {
+                    const noticesRef = collection(db, 'artifacts', appId, 'public', 'data', 'notices');
                     if (nid) await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'notices', nid), data);
-                    else await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'notices'), data);
-                    
+                    else await addDoc(noticesRef, data);
                     const currentClass = fd.get('class'); const currentCat = fd.get('category');
                     admin.cancelNoticeEdit();
                     const form = document.getElementById('notice-form');
@@ -1087,7 +1006,7 @@
                 const n = state.notices.find(x => x.id === id); if(!n) return;
                 const form = document.getElementById('notice-form');
                 form.noticeId.value = n.id; form.class.value = n.class; form.category.value = n.category; form.subject.value = n.subject; form.content.value = n.content;
-                document.getElementById('notice-form-title').innerText = "Update Notice";
+                document.getElementById('notice-form-title').innerText = "Edit Board Update";
                 document.getElementById('notice-submit-btn').innerText = "Update";
                 document.getElementById('notice-cancel-btn').classList.remove('hidden');
             },
@@ -1095,25 +1014,14 @@
                 const form = document.getElementById('notice-form');
                 const previousClass = form ? form.class.value : null; const previousCat = form ? form.category.value : null;
                 if (form) { form.reset(); form.noticeId.value = ""; if (previousClass) form.class.value = previousClass; if (previousCat) form.category.value = previousCat; }
-                const title = document.getElementById('notice-form-title'); if (title) title.innerText = "New Notice";
-                const btn = document.getElementById('notice-submit-btn'); if (btn) btn.innerText = "Publish Notice";
-                const cancelBtn = document.getElementById('notice-cancel-btn'); if (cancelBtn) cancelBtn.classList.add('hidden');
+                document.getElementById('notice-form-title').innerText = "New Notice";
+                document.getElementById('notice-submit-btn').innerText = "Publish Notice";
+                document.getElementById('notice-cancel-btn').classList.add('hidden');
             },
             renderNotices: () => {
                 const list = document.getElementById('admin-notices-list');
                 if(!list) return;
-                list.innerHTML = state.notices.map(n => `
-                    <div class="bg-white p-5 rounded-2xl flex justify-between items-center shadow-sm border border-slate-50 group hover:shadow-md transition-shadow">
-                        <div class="flex-1">
-                            <div class="text-[9px] uppercase font-black text-indigo-400 tracking-tighter">${n.class} • ${n.category} ${n.subject !== 'General News' ? '• ' + n.subject : ''}</div>
-                            <div class="text-indigo-950 font-bold">${n.content.substring(0,100)}${n.content.length > 100 ? '...' : ''}</div>
-                        </div>
-                        <div class="flex gap-4 ml-6">
-                            <button onclick="admin.initiateNoticeEdit('${n.id}')" class="text-indigo-400 hover:text-indigo-600 transition-colors flex items-center gap-1"><span class="material-symbols-outlined text-xl">edit_note</span></button>
-                            <button onclick="admin.deleteNotice('${n.id}')" class="text-slate-300 hover:text-red-600 transition-colors flex items-center gap-1"><span class="material-symbols-outlined text-xl">delete_sweep</span></button>
-                        </div>
-                    </div>
-                `).join('') || '<div class="text-slate-300 py-10 text-center italic">No notices found.</div>';
+                list.innerHTML = state.notices.map(n => `<div class="bg-white p-5 rounded-2xl flex justify-between items-center shadow-sm border border-slate-50 group hover:shadow-md transition-shadow text-indigo-950 font-black"><div class="flex-1"><div class="text-[9px] uppercase font-black text-indigo-400 tracking-tighter">${n.class} • ${n.category} ${n.subject !== 'General News' ? '• ' + n.subject : ''}</div><div class="text-indigo-950 font-black">${n.content.substring(0,100)}...</div></div><div class="flex gap-4 ml-6"><button onclick="admin.initiateNoticeEdit('${n.id}')" class="text-indigo-400 hover:text-indigo-600 transition-colors"><span class="material-symbols-outlined text-xl">edit_note</span></button><button onclick="admin.deleteNotice('${n.id}')" class="text-slate-300 hover:text-red-600 transition-colors"><span class="material-symbols-outlined text-xl">delete_sweep</span></button></div></div>`).join('') || '<div class="text-slate-300 py-10 text-center italic">No active notices.</div>';
             },
             deleteNotice: async (id) => { if (!state.user) return; await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'notices', id)); },
             publishHighlight: async (e) => {
@@ -1126,12 +1034,12 @@
                 const h = state.highlights.find(x => x.id === id); if(!h) return;
                 const form = document.getElementById('highlight-form');
                 form.hId.value = h.id; form.title.value = h.title; form.type.value = h.type; form.url.value = h.url;
-                document.getElementById('highlight-form-title').innerText = "Edit Highlight"; document.getElementById('highlight-submit-btn').innerText = "Update Highlight";
+                document.getElementById('highlight-form-title').innerText = "Edit Highlight"; document.getElementById('highlight-submit-btn').innerText = "Update";
                 document.getElementById('highlight-cancel-btn').classList.remove('hidden');
             },
             cancelHighlightEdit: () => {
                 const form = document.getElementById('highlight-form'); if (form) { form.reset(); form.hId.value = ""; }
-                document.getElementById('highlight-form-title').innerText = "Gallery"; document.getElementById('highlight-submit-btn').innerText = "Post Image";
+                document.getElementById('highlight-form-title').innerText = "Gallery Feed"; document.getElementById('highlight-submit-btn').innerText = "Post Highlight";
                 const cancelBtn = document.getElementById('highlight-cancel-btn'); if (cancelBtn) cancelBtn.classList.add('hidden');
             },
             viewHighlight: (id) => {
@@ -1140,35 +1048,32 @@
             },
             renderHighlights: () => {
                 const list = document.getElementById('admin-highlights-list'); if(!list) return;
-                list.innerHTML = state.highlights.map(h => `
-                    <div class="bg-white p-4 rounded-3xl flex flex-col gap-3 shadow-sm border border-slate-50">
-                        <img src="${h.type === 'image' ? h.url : 'https://img.youtube.com/vi/'+(h.url.split('v=')[1]?.split('&')[0] || h.url.split('/').pop())+'/mqdefault.jpg'}" class="h-32 w-full object-cover rounded-xl bg-slate-50" onerror="this.src='https://via.placeholder.com/300x200?text=No+Preview'">
-                        <div class="flex justify-between items-center px-1 font-black text-sm text-indigo-950"><span class="truncate flex-1">${h.title}</span><div class="flex gap-1 ml-2"><button onclick="admin.viewHighlight('${h.id}')" class="text-indigo-400 hover:text-indigo-600"><span class="material-symbols-outlined text-sm">visibility</span></button><button onclick="admin.initiateHighlightEdit('${h.id}')" class="text-indigo-400 hover:text-indigo-600"><span class="material-symbols-outlined text-sm">edit</span></button><button onclick="admin.deleteHighlight('${h.id}')" class="text-red-300 hover:text-red-600"><span class="material-symbols-outlined text-sm">delete</span></button></div></div>
-                    </div>
-                `).join('') || '<div class="text-slate-300 py-10 text-center col-span-full italic">No highlights.</div>';
+                list.innerHTML = state.highlights.map(h => `<div class="bg-white p-4 rounded-3xl flex flex-col gap-3 shadow-sm border border-slate-50 text-indigo-950 font-black"><img src="${h.type === 'image' ? h.url : 'https://img.youtube.com/vi/'+(h.url.split('v=')[1]?.split('&')[0] || h.url.split('/').pop())+'/mqdefault.jpg'}" class="h-32 w-full object-cover rounded-xl bg-slate-50" onerror="this.src='https://via.placeholder.com/300x200?text=No+Preview'"><div class="flex justify-between items-center px-1 font-black text-sm text-indigo-950"><span class="truncate flex-1">${h.title}</span><div class="flex gap-1 ml-2"><button onclick="admin.viewHighlight('${h.id}')" class="text-indigo-400 hover:text-indigo-600"><span class="material-symbols-outlined text-sm">visibility</span></button><button onclick="admin.initiateHighlightEdit('${h.id}')" class="text-indigo-400 hover:text-indigo-600"><span class="material-symbols-outlined text-sm">edit</span></button><button onclick="admin.deleteHighlight('${h.id}')" class="text-red-300 hover:text-red-600"><span class="material-symbols-outlined text-sm">delete</span></button></div></div></div>`).join('') || '<div class="text-slate-300 py-10 text-center col-span-full italic">No highlights found.</div>';
             },
             deleteHighlight: async (id) => { if (!state.user) return; await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'highlights', id)); },
             initiateSecureDelete: () => { const pinInput = document.getElementById('delete-pin-input'); if (pinInput) pinInput.value = ''; document.getElementById('delete-pin-modal').classList.remove('hidden-modal'); },
             closeDeleteModal: () => document.getElementById('delete-pin-modal').classList.add('hidden-modal'),
-            executeSecureDelete: async () => { if (!state.user) return; if (document.getElementById('delete-pin-input').value === '123') { const sId = state.activeStudentId; admin.closeDeleteModal(); admin.closeModal(); await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', sId)); } else alert('Incorrect PIN'); },
+            executeSecureDelete: async () => { if (!state.user) return; if (document.getElementById('delete-pin-input').value === '123') { const sId = state.activeStudentId; admin.closeDeleteModal(); admin.closeModal(); await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', sId)); } else alert('Incorrect Code'); },
             viewConcessionSlip: () => { const s = state.students.find(x => x.id === state.activeStudentId); if(s?.concessionSlip) window.open(s.concessionSlip, '_blank'); },
-            exportExcel: () => { const rows = state.students.map(s => ({ ID: s.admnNo, Name: s.name, Grade: s.class, Parent: s.father, Contact: s.contact, Fee: s.fee, Paid: s.paid })); const ws = XLSX.utils.json_to_sheet(rows); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "Records"); XLSX.writeFile(wb, `SSV_Export.xlsx`); },
-            importBulkData: (event) => { if (!state.user) return; const f = event.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = (e) => { const b = e.target.result; const w = XLSX.read(b, {type:'binary'}); const j = XLSX.utils.sheet_to_json(w.Sheets[w.SheetNames[0]]); const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'students'); j.forEach(async row => { const d = { admnNo:String(row.ID||''), name:String(row.Name||''), class:String(row.Grade||'Nursery'), father:String(row.Parent||''), contact:String(row.Contact||''), fee:parseFloat(row.Fee||0), paid:parseFloat(row.Paid||0), history:[], timestamp:Date.now() }; if(d.name) await addDoc(colRef, d); }); alert('Bulk migration started.'); }; r.readAsBinaryString(f); },
-            exportJSON: () => { const b = new Blob([JSON.stringify(state.students, null, 2)], { type: "application/json" }); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = `SSV_Backup.json`; a.click(); },
-            importJSON: async (e) => { if (!state.user) return; const f = e.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = async (evt) => { const j = JSON.parse(evt.target.result); for (const s of j) { const id = s.id || Date.now().toString(); delete s.id; await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', id), s); } alert('Restore complete.'); }; r.readAsText(f); }
+            exportExcel: () => { const rows = state.students.map(s => ({ ID: s.admnNo, Name: s.name, Grade: s.class, Parent: s.father, Contact: s.contact, Fee: s.fee, Paid: s.paid })); const ws = XLSX.utils.json_to_sheet(rows); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "Records"); XLSX.writeFile(wb, `SSV_Registry_Export.xlsx`); },
+            importBulkData: (event) => { if (!state.user) return; const f = event.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = (e) => { const b = e.target.result; const w = XLSX.read(b, {type:'binary'}); const j = XLSX.utils.sheet_to_json(w.Sheets[w.SheetNames[0]]); const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'students'); j.forEach(async row => { const d = { admnNo:String(row.ID||''), name:String(row.Name||''), class:String(row.Grade||'Nursery'), father:String(row.Parent||''), contact:String(row.Contact||''), fee:parseFloat(row.Fee||0), paid:parseFloat(row.Paid||0), history:[], timestamp:Date.now() }; if(d.name) await addDoc(colRef, d); }); alert('Sync complete.'); }; r.readAsBinaryString(f); },
+            exportJSON: () => { const b = new Blob([JSON.stringify(state.students, null, 2)], { type: "application/json" }); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = `SSV_Backup_${Date.now()}.json`; a.click(); },
+            importJSON: async (e) => { if (!state.user) return; const f = e.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = async (evt) => { const j = JSON.parse(evt.target.result); for (const s of j) { const id = s.id || Date.now().toString(); delete s.id; await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', id), s); } alert('Database Restored.'); }; r.readAsText(f); }
         };
 
         window.printer = {
             printReceipt: (ts) => {
                 const s = state.students.find(x => x.id === state.activeStudentId); const h = s.history.find(x => x.timestamp == ts);
-                document.getElementById('printable-area').innerHTML = `<div style="border:5px double #000;padding:50px;font-family:sans-serif;max-width:650px;margin:auto;background:white;"><h1 style="text-align:center;">Sri Sai Vidyalayam</h1><p style="text-align:center;border-bottom:1px solid #000;padding:10px 0;">FEE RECEIPT • ${new Date(h.timestamp).toLocaleDateString()}</p><p><b>ID:</b> ${s.admnNo}</p><p><b>Name:</b> ${s.name}</p><h2>PAID: ₹${h.amount.toLocaleString()}</h2></div>`; window.print();
+                document.getElementById('printable-area').innerHTML = `<div style="border:5px double #000;padding:50px;font-family:sans-serif;max-width:650px;margin:auto;background:white;"><h1 style="text-align:center;text-transform:uppercase;">Sri Sai Vidyalayam</h1><p style="text-align:center;border-bottom:1px solid #000;padding:10px 0;">FEE RECEIPT • ${new Date(h.timestamp).toLocaleDateString()}</p><p><b>ID:</b> ${s.admnNo}</p><p><b>Name:</b> ${s.name}</p><h2>PAID: ₹${parseFloat(h.amount).toLocaleString()}</h2></div>`; window.print();
             },
             printLedger: () => {
                 const s = state.students.find(x => x.id === state.activeStudentId);
-                document.getElementById('printable-area').innerHTML = `<div style="padding:40px;font-family:sans-serif;background:white;"><h1>Summary: ${s.name}</h1><p>ID: ${s.admnNo} | Class: ${s.class}</p><table style="width:100%;border-collapse:collapse;margin-top:20px;"><thead><tr style="background:#1e1b4b;color:#fff;"><th style="padding:10px;text-align:left;">Date</th><th style="padding:10px;text-align:left;">Remark</th><th style="padding:10px;text-align:right;">Amount</th></tr></thead><tbody>${s.history.map(h => `<tr><td style="border:1px solid #ddd;padding:10px;">${new Date(h.timestamp).toLocaleDateString()}</td><td style="border:1px solid #ddd;padding:10px;">${h.remark||'Fee'}</td><td style="border:1px solid #ddd;padding:10px;text-align:right;">₹${h.amount.toLocaleString()}</td></tr>`).join('')}</tbody></table></div>`; window.print();
+                const sName = s.name || s.Student || 'Unnamed';
+                const sClass = s.class || s.Grade || 'Nursery';
+                document.getElementById('printable-area').innerHTML = `<div style="padding:40px;font-family:sans-serif;background:white;"><h1>Summary: ${sName}</h1><p>Class: ${sClass}</p><table style="width:100%;border-collapse:collapse;margin-top:20px;"><thead><tr style="background:#1e1b4b;color:#fff;"><th style="padding:10px;text-align:left;">Date</th><th style="padding:10px;text-align:left;">Remark</th><th style="padding:10px;text-align:right;">Amount</th></tr></thead><tbody>${s.history.map(h => `<tr><td style="border:1px solid #ddd;padding:10px;">${new Date(h.timestamp).toLocaleDateString()}</td><td style="border:1px solid #ddd;padding:10px;">${h.remark||'Fee'}</td><td style="border:1px solid #ddd;padding:10px;text-align:right;">₹${parseFloat(h.amount).toLocaleString()}</td></tr>`).join('')}</tbody></table></div>`; window.print();
             },
             printMasterLedger: () => {
-                document.getElementById('printable-area').innerHTML = `<div style="padding:40px;font-family:sans-serif;background:white;"><h1 style="text-align:center;">Registry Ledger</h1><table style="width:100%;border-collapse:collapse;margin-top:30px;"><thead style="background:#1e1b4b;color:#fff;"><tr><th style="padding:10px;border:1px solid #ddd;">ID</th><th style="padding:10px;border:1px solid #ddd;">Name</th><th style="padding:10px;border:1px solid #ddd;">Class</th><th style="padding:10px;border:1px solid #ddd;text-align:right;">Due</th></tr></thead><tbody>${state.students.map(s => `<tr><td style="border:1px solid #ddd;padding:10px;">${s.admnNo}</td><td style="border:1px solid #ddd;padding:10px;">${s.name}</td><td style="border:1px solid #ddd;padding:10px;">${s.class}</td><td style="border:1px solid #ddd;padding:10px;text-align:right;">₹${((s.fee+(s.oldDue||0))-s.paid).toLocaleString()}</td></tr>`).join('')}</tbody></table></div>`; window.print();
+                document.getElementById('printable-area').innerHTML = `<div style="padding:40px;font-family:sans-serif;background:white;"><h1 style="text-align:center;">Sri Sai Vidyalayam - Registry</h1><table style="width:100%;border-collapse:collapse;margin-top:30px;"><thead style="background:#1e1b4b;color:#fff;"><tr><th style="padding:10px;border:1px solid #ddd;">ID</th><th style="padding:10px;border:1px solid #ddd;">Name</th><th style="padding:10px;border:1px solid #ddd;">Class</th><th style="padding:10px;border:1px solid #ddd;text-align:right;">Due</th></tr></thead><tbody>${state.students.map(s => `<tr><td style="border:1px solid #ddd;padding:10px;">${s.admnNo || s.ID || '???'}</td><td style="border:1px solid #ddd;padding:10px;">${s.name || s.Student || 'Unnamed'}</td><td style="border:1px solid #ddd;padding:10px;">${s.class || s.Grade || 'Nursery'}</td><td style="border:1px solid #ddd;padding:10px;text-align:right;">₹${((parseFloat(s.fee || s.Target_Fee || 0)+(parseFloat(s.oldDue || s.Previous_Dues || 0)))-parseFloat(s.paid || s.Total_Paid || 0)).toLocaleString()}</td></tr>`).join('')}</tbody></table></div>`; window.print();
             }
         };
 
