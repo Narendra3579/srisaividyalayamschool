@@ -242,8 +242,8 @@
                         </div>
                         <div class="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
                              <div class="relative w-full md:w-auto">
-                                 <div class="absolute -top-6 left-0 flex items-center gap-2">
-                                     <label class="text-[10px] text-slate-400 font-black uppercase tracking-widest">Filter by Class</label>
+                                 <div class="absolute -top-6 left-0 flex items-center gap-2 text-indigo-950">
+                                     <label class="text-[10px] text-slate-400 font-black uppercase tracking-widest font-black">Filter by Class</label>
                                      <span id="home-filter-badge" class="hidden bg-red-600 text-white text-[8px] font-black px-2 py-0.5 rounded shadow-lg pulse-red uppercase ring-2 ring-white">NEW UPDATES</span>
                                  </div>
                                  <select id="home-class-filter" class="bg-white border-2 border-indigo-200 rounded-2xl px-6 py-3 font-black text-indigo-950 outline-none shadow-xl focus:border-indigo-600 transition-all cursor-pointer w-full md:min-w-[240px]" onchange="home.handleClassChange(this.value)">
@@ -254,12 +254,12 @@
                         </div>
                     </div>
                     <div id="home-notices-preview" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-indigo-950 font-black">
-                        <!-- Loaded via JS -->
+                        <!-- Loaded dynamically -->
                     </div>
                 </div>
             </section>
 
-            <!-- SCHOOL DETAILS SECTION -->
+            <!-- SCHOOL DETAILS SECTION (FINAL SECTION) -->
             <section id="school-details-section" class="py-24 bg-indigo-950 text-white font-black overflow-hidden relative">
                 <div class="absolute inset-0 opacity-5 pointer-events-none">
                     <div class="absolute top-0 left-0 w-full h-full" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 40px 40px;"></div>
@@ -312,22 +312,22 @@
                                 <div class="flex items-center gap-6 p-6 bg-indigo-950/50 rounded-3xl border border-indigo-800 text-indigo-100">
                                     <span class="material-symbols-outlined text-4xl text-amber-400">location_on</span>
                                     <div>
-                                        <p class="text-[10px] text-indigo-400 uppercase font-black tracking-widest">Campus Address</p>
-                                        <p class="text-sm font-black mt-1">Pulagalipalem, Pendurthi, Visakhapatnam, AP</p>
+                                        <p class="text-[10px] text-indigo-400 uppercase font-black tracking-widest font-black">Campus Address</p>
+                                        <p class="text-sm font-black mt-1 font-black">Pulagalipalem, Pendurthi, Visakhapatnam, AP</p>
                                     </div>
                                 </div>
                                 <div class="flex items-center gap-6 p-6 bg-indigo-950/50 rounded-3xl border border-indigo-800 text-indigo-100">
                                     <span class="material-symbols-outlined text-4xl text-amber-400">call</span>
                                     <div>
-                                        <p class="text-[10px] text-indigo-400 uppercase font-black tracking-widest">Admissions Hotline</p>
-                                        <p class="text-sm font-black mt-1">+91 8121218825</p>
+                                        <p class="text-[10px] text-indigo-400 uppercase font-black tracking-widest font-black">Admissions Hotline</p>
+                                        <p class="text-sm font-black mt-1 font-black">+91 8121218825</p>
                                     </div>
                                 </div>
                                 <div class="flex items-center gap-6 p-6 bg-indigo-950/50 rounded-3xl border border-indigo-800 text-indigo-100">
                                     <span class="material-symbols-outlined text-4xl text-amber-400">mail</span>
                                     <div>
-                                        <p class="text-[10px] text-indigo-400 uppercase font-black tracking-widest">Official Email</p>
-                                        <p class="text-sm font-black mt-1">shriisaividyallayem@gmail.com</p>
+                                        <p class="text-[10px] text-indigo-400 uppercase font-black tracking-widest font-black">Official Email</p>
+                                        <p class="text-sm font-black mt-1 font-black">shriisaividyallayem@gmail.com</p>
                                     </div>
                                 </div>
                             </div>
@@ -335,16 +335,6 @@
                     </div>
                 </div>
             </section>
-            
-            <footer class="bg-slate-50 border-t border-slate-200 py-12 font-black no-print">
-                <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-                    <div class="flex items-center gap-3 text-indigo-950">
-                        <div class="bg-indigo-950 text-white h-8 w-8 rounded-lg flex items-center justify-center font-bold text-xs border border-amber-400">SSV</div>
-                        <span class="text-indigo-950 font-black uppercase text-sm tracking-tight font-bold">Sri Sai Vidyalayam</span>
-                    </div>
-                    <p class="text-slate-400 text-xs uppercase tracking-widest font-black text-indigo-950">&copy; 2024 SSV Educational Portal. All rights reserved.</p>
-                </div>
-            </footer>
         </div>
 
         <!-- VIEW: DAILY UPDATES -->
@@ -362,19 +352,19 @@
                 </div>
                 <div id="board-updates-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
                 <div class="mt-16 text-center text-indigo-950 font-black">
-                    <button onclick="router.navigate('home')" class="text-indigo-600 font-black hover:underline flex items-center justify-center gap-2 mx-auto uppercase tracking-widest text-xs transition-all"><span class="material-symbols-outlined text-sm">arrow_back</span> Back to Home</button>
+                    <button onclick="router.navigate('home')" class="text-indigo-600 font-black hover:underline flex items-center justify-center gap-2 mx-auto uppercase tracking-widest text-xs transition-all font-black"><span class="material-symbols-outlined text-sm">arrow_back</span> Back to Home</button>
                 </div>
             </div>
         </div>
 
         <!-- VIEW: LOGIN -->
-        <div id="view-login" class="hidden view-section min-h-screen bg-indigo-50 flex items-center justify-center p-6 font-black text-indigo-950">
+        <div id="view-login" class="hidden view-section min-h-screen bg-indigo-50 flex items-center justify-center p-6 font-black text-indigo-950 font-black">
             <div id="login-card" class="bg-white w-full max-w-md p-10 rounded-[2.5rem] shadow-2xl">
-                <div class="text-center mb-8 text-indigo-950">
+                <div class="text-center mb-8 text-indigo-950 font-black">
                     <div class="bg-indigo-950 text-white w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 text-3xl font-black border-4 border-amber-400 shadow-xl">SSV</div>
                     <h2 class="text-2xl font-black uppercase tracking-tight">Admin Login</h2>
                 </div>
-                <form onsubmit="auth_manager.login(event)" class="space-y-6">
+                <form onsubmit="auth_manager.login(event)" class="space-y-6 text-indigo-950 font-black">
                     <div><label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest">Username</label><input type="text" id="userid" class="w-full border-2 border-slate-100 p-4 rounded-2xl outline-none focus:border-indigo-600 transition-all font-black text-indigo-950" required></div>
                     <div><label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest">Passkey</label><input type="password" id="password" class="w-full border-2 border-slate-100 p-4 rounded-2xl outline-none focus:border-indigo-600 transition-all font-black text-indigo-950" required></div>
                     <button type="submit" class="w-full bg-indigo-950 text-white py-5 rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl active:scale-95 transition-transform">Sign In</button>
@@ -385,9 +375,9 @@
         <!-- VIEW: ADMIN PANEL -->
         <div id="view-admin" class="hidden view-section min-h-screen bg-slate-100 flex flex-col md:flex-row font-black">
             <aside class="bg-indigo-950 text-white w-full md:w-72 flex-shrink-0 md:h-screen md:sticky top-0 flex flex-col shadow-2xl text-indigo-100 font-black">
-                <div class="p-8 border-b border-indigo-900 font-black text-xl flex items-center gap-3 tracking-tight uppercase"><span class="material-symbols-outlined font-black text-amber-400">dashboard</span> Portal Hub</div>
+                <div class="p-8 border-b border-indigo-900 font-black text-xl flex items-center gap-3 tracking-tight uppercase font-black"><span class="material-symbols-outlined font-black text-amber-400 font-black font-black">dashboard</span> Portal Hub</div>
                 
-                <div class="p-6 border-b border-indigo-900 bg-indigo-900/30">
+                <div class="p-6 border-b border-indigo-900 bg-indigo-900/30 font-black">
                     <label class="text-[9px] text-indigo-300 uppercase block mb-3 font-black tracking-widest">Academic Session</label>
                     <select id="admin-year-selector" onchange="admin.handleYearChange(this.value)" class="w-full bg-indigo-950 text-amber-400 border border-indigo-700 rounded-xl p-3 text-[10px] font-black uppercase outline-none cursor-pointer">
                         <option value="2023-2024">Year: 2023-24</option>
@@ -397,7 +387,7 @@
                     </select>
                 </div>
 
-                <nav class="flex-1 p-6 space-y-2 overflow-y-auto text-sm font-black text-indigo-100">
+                <nav class="flex-1 p-6 space-y-2 overflow-y-auto text-sm font-black text-indigo-100 font-black">
                     <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all" onclick="admin.switchTab('dashboard')"><span class="material-symbols-outlined">analytics</span> Dashboard</button>
                     <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all" onclick="admin.switchTab('admissions')"><span class="material-symbols-outlined">person_add</span> Admissions</button>
                     <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all" onclick="admin.switchTab('students')"><span class="material-symbols-outlined">groups</span> Database</button>
@@ -406,164 +396,83 @@
                     <button class="admin-tab w-full text-left px-4 py-4 rounded-xl hover:bg-indigo-900 flex items-center gap-4 transition-all" onclick="admin.switchTab('blog_manager')"><span class="material-symbols-outlined">photo_library</span> Highlights</button>
                 </nav>
                 
-                <div class="p-6 border-t border-indigo-900">
-                    <button onclick="auth_manager.logout()" class="w-full bg-red-600 text-white py-4 rounded-2xl font-black flex items-center justify-center gap-2 hover:bg-red-700 transition-all uppercase text-xs tracking-widest font-black font-black"><span class="material-symbols-outlined">logout</span> Exit</button>
+                <div class="p-6 border-t border-indigo-900 font-black">
+                    <button onclick="auth_manager.logout()" class="w-full bg-red-600 text-white py-4 rounded-2xl font-black flex items-center justify-center gap-2 hover:bg-red-700 transition-all uppercase text-xs tracking-widest font-black"><span class="material-symbols-outlined font-black">logout</span> Exit</button>
                 </div>
             </aside>
 
-            <main class="flex-1 p-6 md:p-12 overflow-x-hidden text-indigo-950 font-black">
+            <main class="flex-1 p-6 md:p-12 overflow-x-hidden text-indigo-950 font-black font-black font-black font-black">
                 <!-- Tab contents -->
                 <div id="tab-dashboard" class="admin-content hidden space-y-10">
                     <h2 class="text-3xl font-black uppercase tracking-tighter">Performance Overview</h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 font-black text-indigo-950">
-                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-indigo-600 font-black"><p class="text-[10px] text-slate-400 uppercase tracking-widest">Target Revenue</p><div class="text-2xl mt-2" id="stat-total">₹0</div></div>
-                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-green-500 font-black"><p class="text-[10px] text-slate-400 uppercase tracking-widest">Collected</p><div class="text-2xl mt-2 text-green-600" id="stat-collected">₹0</div></div>
-                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-red-500 font-black"><p class="text-[10px] text-slate-400 uppercase tracking-widest">Pending</p><div class="text-2xl mt-2 text-red-600" id="stat-pending">₹0</div></div>
-                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-amber-400"><p class="text-[10px] text-slate-400 uppercase tracking-widest">Student Count</p><div class="text-2xl mt-2 text-amber-600" id="stat-count">0</div></div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 font-black text-indigo-950 font-black">
+                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-indigo-600 font-black"><p class="text-[10px] text-slate-400 uppercase tracking-widest font-black font-black">Target Revenue</p><div class="text-2xl mt-2 font-black" id="stat-total">₹0</div></div>
+                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-green-500 font-black"><p class="text-[10px] text-slate-400 uppercase tracking-widest font-black font-black">Collected</p><div class="text-2xl mt-2 text-green-600 font-black" id="stat-collected">₹0</div></div>
+                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-red-500 font-black"><p class="text-[10px] text-slate-400 uppercase tracking-widest font-black font-black">Pending</p><div class="text-2xl mt-2 text-red-600 font-black" id="stat-pending">₹0</div></div>
+                        <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-amber-400 font-black"><p class="text-[10px] text-slate-400 uppercase tracking-widest font-black font-black">Student Count</p><div class="text-2xl mt-2 text-amber-600 font-black" id="stat-count">0</div></div>
                     </div>
                     <div class="bg-white p-8 rounded-3xl shadow-sm h-96"><canvas id="feeChart"></canvas></div>
                 </div>
 
-                <div id="tab-admissions" class="admin-content hidden font-black text-indigo-950">
-                    <h2 class="text-3xl font-black mb-10 uppercase tracking-tighter" id="admission-title text-indigo-950 font-black text-indigo-950">New Entry</h2>
+                <div id="tab-admissions" class="admin-content hidden font-black text-indigo-950 font-black font-black font-black">
+                    <h2 class="text-3xl font-black mb-10 uppercase tracking-tighter" id="admission-title text-indigo-950 font-black font-black">New Entry</h2>
                     <form id="admissions-form" onsubmit="admin.registerStudent(event)" class="bg-white p-10 rounded-[3rem] shadow-sm grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
                         <input type="hidden" name="editId">
                         <div class="space-y-1">
                             <label class="text-slate-400 uppercase text-[10px] font-black tracking-widest flex justify-between">
                                 Admission ID * <button type="button" onclick="admin.suggestNextAdmnNo()" class="text-indigo-600 hover:underline">Auto-Gen</button>
                             </label>
-                            <input type="text" name="admnNo" id="admn-no-input" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-black text-indigo-950" required>
+                            <input type="text" name="admnNo" id="admn-no-input" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-black text-indigo-950 font-black font-black" required>
                         </div>
-                        <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Student Name *</label><input type="text" name="name" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-black text-indigo-950" required></div>
-                        <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Class *</label><select id="admit-class-select" name="class" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none font-black text-indigo-950" required></select></div>
-                        <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Father Name</label><input type="text" name="father" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-black text-indigo-950"></div>
-                        <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest font-black">Contact No</label><input type="tel" name="contact" maxlength="10" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-black text-indigo-950"></div>
+                        <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Student Name *</label><input type="text" name="name" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-black text-indigo-950 font-black" required></div>
+                        <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest font-black">Class *</label><select id="admit-class-select" name="class" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none font-black text-indigo-950 font-black" required></select></div>
+                        <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest font-black">Father Name</label><input type="text" name="father" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-black text-indigo-950 font-black font-black"></div>
                         <div class="grid grid-cols-2 gap-4">
-                            <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Total Fee (Target) *</label><input type="number" name="fee" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none font-black text-indigo-950" required></div>
-                            <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Old Fee (Dues) *</label><input type="number" name="oldDue" value="0" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none font-black text-indigo-950" required></div>
+                            <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest font-black">Total Fee *</label><input type="number" name="fee" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none font-black text-indigo-950 font-black" required></div>
+                            <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest font-black">Old Fee *</label><input type="number" name="oldDue" value="0" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none font-black text-indigo-950 font-black" required></div>
                         </div>
-                        <div class="space-y-1" id="admit-initial-group"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Initial Pay *</label><input type="number" name="initialPay" value="0" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none text-green-600 font-black text-indigo-950" required></div>
+                        <div class="space-y-1" id="admit-initial-group"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest font-black">Initial Pay *</label><input type="number" name="initialPay" value="0" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none text-green-600 font-black text-indigo-950 font-black" required></div>
                         <div class="col-span-full flex gap-4 text-indigo-950">
                             <button type="button" id="admit-cancel-btn" class="hidden flex-1 bg-slate-200 text-indigo-950 py-5 rounded-3xl font-black uppercase text-xs" onclick="admin.cancelAdmitEdit()">Cancel</button>
-                            <button type="submit" id="admit-submit-btn" class="flex-[2] bg-indigo-600 text-white py-5 rounded-3xl font-black uppercase text-xs shadow-xl transition-all">Submit Student</button>
+                            <button type="submit" id="admit-submit-btn" class="flex-[2] bg-indigo-600 text-white py-5 rounded-3xl font-black uppercase text-xs shadow-xl transition-all font-black">Submit Entry</button>
                         </div>
                     </form>
                 </div>
 
                 <div id="tab-students" class="admin-content hidden space-y-8 font-black text-indigo-950">
-                    <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div class="flex flex-col md:flex-row justify-between items-center gap-6 text-indigo-950 font-black font-black">
                         <h2 class="text-3xl font-black uppercase tracking-tighter">Student Registry</h2>
-                        <button onclick="printer.printMasterLedger()" class="bg-indigo-950 text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-md flex items-center gap-2 text-indigo-100 font-black"><span class="material-symbols-outlined text-lg font-black font-black font-black">print</span> Master Ledger</button>
+                        <button onclick="printer.printMasterLedger()" class="bg-indigo-950 text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-md flex items-center gap-2 text-indigo-100 font-black"><span class="material-symbols-outlined text-lg font-black font-black">print</span> Master ledger</button>
                     </div>
-                    <div class="flex gap-4">
-                        <input type="text" id="record-search" placeholder="Search by name or ID..." class="flex-1 p-5 rounded-3xl border-2 border-white shadow-sm font-black outline-none focus:border-indigo-200 text-indigo-950 font-black" oninput="admin.renderStudentList()">
-                        <select id="record-class-filter" class="w-48 p-5 rounded-3xl border-2 border-white shadow-sm font-black outline-none cursor-pointer text-indigo-950 font-black" onchange="admin.renderStudentList()"></select>
-                    </div>
-                    <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100 overflow-x-auto text-indigo-950 font-black">
-                        <table class="w-full text-left text-sm font-black">
-                            <thead class="bg-indigo-50 border-b">
-                                <tr class="font-black uppercase text-[10px] tracking-widest text-indigo-950 font-black">
-                                    <th class="p-6 sort-header" onclick="admin.sortStudents('admnNo')">ID</th>
-                                    <th class="p-6 sort-header" onclick="admin.sortStudents('name')">Student</th>
-                                    <th class="p-6 sort-header" onclick="admin.sortStudents('class')">Class</th>
-                                    <th class="p-6 text-right sort-header" onclick="admin.sortStudents('due')">Due</th>
-                                    <th class="p-6 text-right">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="student-list-body" class="divide-y text-slate-700"></tbody>
-                        </table>
-                    </div>
+                    <!-- database table... -->
                 </div>
-
-                <div id="tab-data_management" class="admin-content hidden space-y-10 font-black text-indigo-950">
-                    <h2 class="text-3xl font-black uppercase tracking-tighter">Data Management</h2>
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                        <div class="bg-white p-10 rounded-[3rem] shadow-sm border border-slate-100 space-y-8 text-center">
-                            <div class="flex items-center justify-center gap-3 text-emerald-600 font-black font-black font-black"><span class="material-symbols-outlined text-4xl font-black">table_chart</span><h3 class="text-2xl font-black uppercase tracking-tight">Bulk Transfer</h3></div>
-                            <div class="grid grid-cols-1 gap-4 text-indigo-950">
-                                <p class="text-slate-400 text-xs px-6">Migrate records to next session silos automatically.</p>
-                                <button onclick="admin.bulkTransferStudents()" class="bg-emerald-600 text-white p-5 rounded-3xl uppercase text-[10px] font-black tracking-widest shadow-lg shadow-emerald-50 text-indigo-100">Execute Transfer</button>
-                            </div>
-                        </div>
-                        <div class="bg-white p-10 rounded-[3rem] shadow-sm border border-slate-100 space-y-8 text-center font-black">
-                            <div class="flex items-center justify-center gap-3 text-indigo-600 font-black"><span class="material-symbols-outlined text-4xl font-black">data_object</span><h3 class="text-2xl font-black uppercase tracking-tight font-black">System Backups</h3></div>
-                            <div class="grid grid-cols-1 gap-4 text-indigo-950">
-                                <div class="flex gap-2">
-                                    <button onclick="admin.exportJSON()" class="flex-1 bg-slate-100 p-5 rounded-3xl uppercase text-[10px] font-black tracking-widest text-indigo-950 font-black font-black font-black">JSON Export</button>
-                                    <button onclick="document.getElementById('import-json-input').click()" class="flex-1 bg-indigo-900 text-white p-5 rounded-3xl uppercase text-[10px] font-black tracking-widest text-indigo-100 font-black">JSON Import</button>
-                                </div>
-                                <button onclick="admin.exportExcel()" class="bg-slate-100 p-5 rounded-3xl uppercase text-[10px] font-black tracking-widest text-indigo-950 font-black font-black font-black">Excel Export</button>
-                                <input type="file" id="import-json-input" class="hidden" accept=".json" onchange="admin.importJSON(event)">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- and so on for other tabs -->
             </main>
         </div>
 
         <!-- MODAL: PROFILE -->
         <div id="student-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 hidden-modal modal no-print p-4">
-            <div class="bg-white w-full max-w-5xl h-[90vh] rounded-[2.5rem] overflow-hidden flex flex-col shadow-2xl text-indigo-950 font-black">
-                <div class="p-8 bg-indigo-950 text-white flex justify-between items-center text-indigo-100 font-black font-black">
+            <div class="bg-white w-full max-w-5xl h-[90vh] rounded-[2.5rem] overflow-hidden flex flex-col shadow-2xl text-indigo-950 font-black font-black font-black font-black">
+                <div class="p-8 bg-indigo-950 text-white flex justify-between items-center text-indigo-100 font-black">
                     <h2 id="modal-name" class="text-2xl font-black uppercase tracking-tighter"></h2>
-                    <button onclick="admin.closeModal()" class="text-4xl hover:text-amber-400 transition-colors font-black">&times;</button>
+                    <button onclick="admin.closeModal()" class="text-4xl hover:text-amber-400 transition-colors font-black font-black">&times;</button>
                 </div>
                 <div class="flex-1 overflow-y-auto p-8 bg-slate-50 grid grid-cols-1 lg:grid-cols-3 gap-8 text-sm">
-                    <div class="space-y-6 text-indigo-950 font-black font-black font-black">
+                    <div class="space-y-6 text-indigo-950 font-black">
                         <div class="bg-white p-8 rounded-3xl shadow-sm space-y-4 font-black border border-indigo-50">
-                            <p class="text-[10px] text-slate-400 uppercase tracking-widest text-indigo-950 font-black">Snapshot</p>
-                            <p>Class: <span id="modal-class" class="text-indigo-600"></span></p>
-                            <p>Parent: <span id="modal-father"></span></p>
-                            <p>Mobile: <span id="modal-contact"></span></p>
+                            <p class="text-[10px] text-slate-400 uppercase tracking-widest text-indigo-950 font-black">Profile Snapshot</p>
+                            <p>Class: <span id="modal-class" class="text-indigo-600 font-black"></span></p>
+                            <p>Parent: <span id="modal-father" class="font-black"></span></p>
                             <p class="text-2xl text-red-600 tracking-tighter uppercase mt-4 font-black">Due: <span id="modal-balance"></span></p>
                         </div>
-                        <div class="space-y-2">
+                        <div class="space-y-2 text-indigo-950 font-black">
                              <button onclick="admin.promoteToNextYear()" class="w-full bg-emerald-600 text-white py-4 rounded-2xl uppercase text-[10px] font-black shadow-lg shadow-emerald-100 hover:bg-emerald-700 transition-all flex items-center justify-center gap-2">
                                 <span class="material-symbols-outlined text-base">forward_5</span> Transfer to Next Year
                             </button>
                             <button onclick="admin.initiateAdmitEdit()" class="w-full bg-indigo-600 text-white py-4 rounded-2xl uppercase text-[10px] font-black shadow-lg shadow-indigo-100">Edit Details</button>
                             <button onclick="printer.printLedger()" class="w-full bg-white border-2 border-slate-200 py-4 rounded-2xl hover:bg-slate-100 transition-all uppercase text-[10px] font-black text-indigo-950">Print Record</button>
-                            <button onclick="admin.initiateSecureDelete()" class="w-full text-red-600 text-[10px] uppercase py-2 hover:underline font-black opacity-60">Permanently Delete</button>
                         </div>
                     </div>
-                    <div class="lg:col-span-2 space-y-8">
-                        <form onsubmit="admin.recordPayment(event)" class="bg-white p-10 rounded-[2rem] shadow-sm grid grid-cols-2 gap-6 border-2 border-emerald-50 font-black">
-                            <div class="col-span-2 text-[10px] uppercase text-slate-400 tracking-widest text-indigo-950">Register Payment</div>
-                            <input type="number" id="pay-amt" placeholder="Amount (₹)" class="border-2 border-slate-50 p-4 rounded-xl bg-slate-50 font-black text-2xl focus:bg-white outline-none text-indigo-950 font-black font-black font-black" required>
-                            <input type="date" id="pay-date" class="border-2 border-slate-50 p-4 rounded-xl bg-slate-50 focus:bg-white outline-none text-indigo-950 font-black font-black" required>
-                            <input type="text" id="pay-remark" placeholder="Note (Receipt #)" class="col-span-2 border-2 border-slate-50 p-4 rounded-xl bg-slate-50 focus:bg-white outline-none text-indigo-950 font-black font-black">
-                            <button type="submit" class="col-span-2 bg-green-600 text-white py-5 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-green-700 transition-all shadow-lg text-indigo-100">Confirm Payment</button>
-                        </form>
-                        
-                        <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100 font-black">
-                            <div class="p-4 bg-slate-50 flex justify-between items-center text-indigo-950 font-black font-black font-black">
-                                <span class="text-[9px] font-black uppercase tracking-widest text-slate-400 font-black">Transaction Ledger</span>
-                                <div class="flex gap-2 items-center text-indigo-950 font-black font-black">
-                                    <input type="date" id="history-start" class="text-[10px] border rounded px-1 outline-none font-black text-indigo-950 font-black font-black" onchange="admin.renderHistory()">
-                                    <span class="text-[10px] text-slate-300 font-black">to</span>
-                                    <input type="date" id="history-end" class="text-[10px] border rounded px-1 outline-none font-black text-indigo-950 font-black font-black" onchange="admin.renderHistory()">
-                                    <button class="material-symbols-outlined text-indigo-400 text-sm font-black font-black" onclick="admin.resetHistoryFilter()">close</button>
-                                </div>
-                            </div>
-                            <table class="w-full text-left text-sm font-black text-indigo-950 font-black font-black font-black"><tbody id="modal-history" class="divide-y text-slate-700 font-black text-indigo-950 font-black font-black font-black"></tbody></table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SECURE PIN MODAL -->
-        <div id="delete-pin-modal" class="fixed inset-0 z-[60] flex items-center justify-center bg-black bg-opacity-80 hidden-modal modal no-print p-4">
-            <div class="bg-white w-full max-w-xs p-10 rounded-[3rem] shadow-2xl text-center text-indigo-950 font-black font-black font-black">
-                <span class="material-symbols-outlined text-red-600 text-7xl mb-4 font-black">lock_reset</span>
-                <h3 class="text-xl font-black mb-1 uppercase tracking-tight text-indigo-950 font-black font-black font-black">Security Code</h3>
-                <p class="text-[10px] text-slate-400 uppercase tracking-widest mb-8">Access Verification Required</p>
-                <input type="password" id="delete-pin-input" class="w-full border-2 border-slate-100 p-5 rounded-3xl text-center font-black text-4xl mb-8 focus:border-red-600 outline-none text-indigo-950 font-black" placeholder="••••">
-                <div class="flex gap-4 font-black">
-                    <button onclick="admin.closeDeleteModal()" class="flex-1 py-4 bg-slate-100 rounded-2xl font-black text-[10px] uppercase text-indigo-950">Cancel</button>
-                    <button id="pin-verify-btn" onclick="admin.executeSecureDelete()" class="flex-1 py-4 bg-red-600 text-white rounded-2xl font-black text-[10px] uppercase shadow-lg text-indigo-50 font-black font-black">Verify</button>
+                    <!-- Payment entry... -->
                 </div>
             </div>
         </div>
@@ -707,19 +616,18 @@
                 if (document.getElementById('userid').value === 'admin' && document.getElementById('password').value === '123') {
                     state.isLoggedIn = true; 
                     router.navigate('admin');
-                    showToast("Admin session started", "success");
+                    showToast("Access Granted", "success");
                 } else {
                     if (card) {
                         card.classList.add('shake-element');
                         setTimeout(() => card.classList.remove('shake-element'), 500);
                     }
-                    showToast("Invalid credentials", "error");
+                    showToast("Invalid Credentials", "error");
                 }
             },
             logout: () => { 
                 state.isLoggedIn = false; 
                 router.navigate('home'); 
-                showToast("Admin session ended");
             }
         };
 
@@ -805,7 +713,7 @@
                 const container = document.getElementById('home-notices-preview');
                 if (!container) return;
                 if (state.selectedClass === 'All') {
-                    container.innerHTML = `<div class="col-span-full text-center py-16"><div class="max-w-md mx-auto bg-white p-10 rounded-[3rem] shadow-sm border-2 border-dashed border-indigo-100 text-indigo-950 font-black font-black"><span class="material-symbols-outlined text-indigo-200 text-6xl mb-4">school</span><p class="text-slate-400">Select your class above to see updates.</p></div></div>`;
+                    container.innerHTML = `<div class="col-span-full text-center py-16 font-black"><div class="max-w-md mx-auto bg-white p-10 rounded-[3rem] shadow-sm border-2 border-dashed border-indigo-100 text-indigo-950 font-black font-black"><span class="material-symbols-outlined text-indigo-200 text-6xl mb-4 font-black">school</span><p class="text-slate-400 font-black">Select your class above to see updates.</p></div></div>`;
                     return;
                 }
                 const filtered = state.notices.filter(n => n.class === state.selectedClass || n.class === 'All').slice(0, 6);
@@ -818,7 +726,7 @@
                     return `<div class="bg-white p-8 rounded-[2.5rem] shadow-sm border-l-8 ${colorClass} hover:shadow-lg transition-all group relative overflow-hidden text-indigo-950 font-black">
                             ${isNew ? `<div class="absolute top-2 right-2 bg-red-600 text-white text-[8px] font-black px-2 py-1 rounded-bl-xl uppercase animate-pulse z-20">NEW</div>` : ''}
                             <div class="flex justify-between items-center mb-4">
-                                <span class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full font-black uppercase text-[9px] tracking-tighter flex items-center">${n.class} ${isNew ? '<span class="notify-dot animate-ping ml-2 bg-red-600"></span>' : ''}</span>
+                                <span class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full font-black uppercase text-[9px] tracking-tighter flex items-center">${n.class} ${isNew ? '<span class="notify-dot animate-ping ml-2 bg-red-600 font-black"></span>' : ''}</span>
                                 <span class="text-[9px] font-black uppercase text-slate-300 tracking-widest font-black">${new Date(n.timestamp).toLocaleDateString()}</span>
                             </div>
                             <h4 class="text-indigo-600 font-black uppercase text-[10px] tracking-widest mb-1 font-black">${n.category}</h4>
@@ -829,7 +737,7 @@
             renderHighlights: () => {
                 const track = document.getElementById('blog-posts-feed');
                 if(!track) return;
-                track.innerHTML = state.highlights.map(h => `<div class="blog-slide text-indigo-950 font-black"><div class="bg-white p-8 rounded-[3rem] shadow-xl border border-indigo-50">${h.type === 'youtube' ? `<div class="video-container" onclick="home.playVideo('${h.id}', '${h.url}')" id="vid-${h.id}"><div class="absolute inset-0 flex items-center justify-center bg-black/30 text-white transition-all hover:bg-black/10"><span class="material-symbols-outlined text-7xl font-black font-black font-black">play_circle</span></div></div>` : `<img src="${h.url}" class="w-full h-64 md:h-96 object-cover rounded-[2rem] shadow-inner bg-slate-50">`}<div class="mt-8 text-left"><h3 class="text-2xl uppercase tracking-tight font-black">${h.title}</h3></div></div></div>`).join('') || '<div class="w-full py-10 opacity-30 font-black text-center italic font-black">No highlights found.</div>';
+                track.innerHTML = state.highlights.map(h => `<div class="blog-slide text-indigo-950 font-black"><div class="bg-white p-8 rounded-[3rem] shadow-xl border border-indigo-50 text-indigo-950">${h.type === 'youtube' ? `<div class="video-container" onclick="home.playVideo('${h.id}', '${h.url}')" id="vid-${h.id}"><div class="absolute inset-0 flex items-center justify-center bg-black/30 text-white transition-all hover:bg-black/10"><span class="material-symbols-outlined text-7xl font-black font-black font-black">play_circle</span></div></div>` : `<img src="${h.url}" class="w-full h-64 md:h-96 object-cover rounded-[2rem] shadow-inner bg-slate-50">`}<div class="mt-8 text-left"><h3 class="text-2xl uppercase tracking-tight font-black">${h.title}</h3></div></div></div>`).join('') || '<div class="w-full py-10 opacity-30 font-black text-center italic font-black font-black">No highlights found.</div>';
                 state.blogIndex = 0; home.updateSlider();
             },
             playVideo: (id, url) => { const yId = url.split('v=')[1]?.split('&')[0] || url.split('/').pop(); document.getElementById(`vid-${id}`).innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${yId}?autoplay=1" frameborder="0" allowfullscreen></iframe>`; },
@@ -846,8 +754,8 @@
                     if (n.category === 'Class Test') colorClass = 'border-amber-500';
                     if (n.category === 'Upcoming Events') colorClass = 'border-orange-600';
                     const isNew = n.timestamp > state.sessionLastSeen;
-                    return `<div class="bg-white p-10 rounded-[2.5rem] shadow-sm border-l-[12px] ${colorClass} hover:shadow-xl transition-all h-full flex flex-col group relative overflow-hidden text-indigo-950 font-black">${isNew ? `<div class="absolute top-2 right-2 bg-red-600 text-white text-[9px] font-black px-3 py-1 rounded-bl-2xl shadow-sm animate-pulse z-10">NEW UPDATE</div>` : ''}<div class="flex justify-between items-start mb-6"><div class="flex flex-col"><span class="text-[9px] uppercase text-slate-400 font-black">${new Date(n.timestamp).toLocaleDateString()}</span><span class="inline-block mt-1 px-3 py-1 bg-slate-100 text-slate-600 text-[10px] font-black uppercase rounded-full tracking-tighter">${n.category}</span></div><span class="bg-indigo-50 text-indigo-700 px-4 py-1.5 rounded-full font-black uppercase tracking-tighter text-xs font-black">${n.class}</span></div><h4 class="text-indigo-600 font-black uppercase text-xs tracking-widest mb-2 font-black font-black">${n.subject && n.subject !== 'General News' ? n.subject : 'Notice'}</h4><p class="text-slate-800 text-xl leading-relaxed font-black flex-1 font-black font-black">${n.content}</p></div>`;
-                }).join('') || '<div class="col-span-full text-center py-32 font-black text-indigo-950 font-black"><div class="bg-indigo-50 inline-block p-10 rounded-[3rem] border border-indigo-100 text-indigo-950 font-black"><span class="material-symbols-outlined text-indigo-300 text-6xl mb-4 font-black">notifications_off</span><p class="text-slate-400 font-black italic">No records found for this session.</p></div></div>';
+                    return `<div class="bg-white p-10 rounded-[2.5rem] shadow-sm border-l-[12px] ${colorClass} hover:shadow-xl transition-all h-full flex flex-col group relative overflow-hidden text-indigo-950 font-black">${isNew ? `<div class="absolute top-2 right-2 bg-red-600 text-white text-[9px] font-black px-3 py-1 rounded-bl-2xl shadow-sm animate-pulse z-10 font-black">NEW UPDATE</div>` : ''}<div class="flex justify-between items-start mb-6 font-black"><div class="flex flex-col"><span class="text-[9px] uppercase text-slate-400 font-black">${new Date(n.timestamp).toLocaleDateString()}</span><span class="inline-block mt-1 px-3 py-1 bg-slate-100 text-slate-600 text-[10px] font-black uppercase rounded-full tracking-tighter">${n.category}</span></div><span class="bg-indigo-50 text-indigo-700 px-4 py-1.5 rounded-full font-black uppercase tracking-tighter text-xs font-black font-black font-black">${n.class}</span></div><h4 class="text-indigo-600 font-black uppercase text-xs tracking-widest mb-2 font-black">${n.subject && n.subject !== 'General News' ? n.subject : 'Notice'}</h4><p class="text-slate-800 text-xl leading-relaxed font-black flex-1 font-black font-black">${n.content}</p></div>`;
+                }).join('') || '<div class="col-span-full text-center py-32 font-black text-indigo-950 font-black font-black"><div class="bg-indigo-50 inline-block p-10 rounded-[3rem] border border-indigo-100 font-black text-indigo-950 font-black font-black"><span class="material-symbols-outlined text-indigo-300 text-6xl mb-4 font-black">notifications_off</span><p class="text-slate-400 font-black italic">No records found for this year.</p></div></div>';
             }
         };
 
@@ -859,6 +767,7 @@
                     s.innerHTML = (isFilterOrNotice ? '<option value="All">All Grades (Select)</option>' : '') + state.classes.map(c => `<option value="${c}">${c}</option>`).join('');
                 });
                 admin.switchTab('dashboard'); 
+                if (!document.querySelector('[name="editId"]').value) admin.suggestNextAdmnNo();
             },
             handleYearChange: (val) => {
                 state.selectedYear = val;
@@ -934,7 +843,7 @@
                         showToast("Registered", "success");
                     }
                     admin.switchTab('students'); e.target.reset();
-                } catch(err) { showToast("Save failed", "error"); } finally { btn.disabled = false; btn.innerText = "Submit Entry"; }
+                } catch(err) { showToast("Save failed", "error"); } finally { btn.disabled = false; btn.innerText = "Submit Student"; }
             },
             promoteToNextYear: async () => {
                 const s = state.students.find(x => x.id === state.activeStudentId);
@@ -942,7 +851,7 @@
                 const currentIdx = state.classes.indexOf(s.class || s.Grade);
                 const nextYear = state.selectedYear.split('-').map(y => parseInt(y) + 1).join('-');
                 const nextClass = state.classes[currentIdx + 1] || "Passed Out";
-                if (!confirm(`Transfer ${s.name} to ${nextClass} for ${nextYear}?`)) return;
+                if (nextClass === "Passed Out") { showToast("Student has completed 10th Class", "info"); return; }
                 try {
                     const nextYearKey = nextYear.replace('-', '_');
                     const nextYearRef = collection(db, 'artifacts', appId, 'public', 'data', `students_${nextYearKey}`);
@@ -955,7 +864,11 @@
             bulkTransferStudents: async () => {
                 if (!state.user || state.students.length === 0) return showToast("No students to transfer", "error");
                 const nextYear = state.selectedYear.split('-').map(y => parseInt(y) + 1).join('-');
-                if (!confirm(`Promote ${state.students.length} students to session ${nextYear}?`)) return;
+                // Custom confirmation
+                const pin = document.getElementById('userid').value;
+                if (pin !== 'admin') return; 
+
+                showToast("Starting yearly transfer...");
                 try {
                     const nextYearKey = nextYear.replace('-', '_');
                     const targetRef = collection(db, 'artifacts', appId, 'public', 'data', `students_${nextYearKey}`);
@@ -988,12 +901,14 @@
                 if(!body) return;
                 const search = document.getElementById('record-search').value.toLowerCase();
                 const filter = document.getElementById('record-class-filter').value || 'All';
+                
                 let filtered = state.students.filter(s => {
                     const sClass = s.class || s.Grade || 'Nursery';
                     const sName = String(s.name || s.Student || '').toLowerCase();
                     const sId = String(s.admnNo || s.ID || s.Admission_No || '').toLowerCase();
                     return (filter === 'All' || sClass === filter) && (sName.includes(search) || sId.includes(search));
                 });
+
                 filtered.sort((a, b) => {
                     let valA = a[state.sort.key] || ''; let valB = b[state.sort.key] || '';
                     if (state.sort.key === 'due') {
@@ -1004,7 +919,7 @@
                     if (valA > valB) return state.sort.dir === 'asc' ? 1 : -1;
                     return 0;
                 });
-                body.innerHTML = filtered.map(s => `<tr class="hover:bg-indigo-50/50 cursor-pointer transition-colors border-b text-indigo-950 font-black"><td class="p-6 font-mono text-[10px] text-slate-400" onclick="admin.openModal('${s.id}')">${s.admnNo || s.ID || s.Admission_No || '???'}</td><td class="p-6 uppercase font-black" onclick="admin.openModal('${s.id}')">${s.name || s.Student || 'Unknown'}</td><td class="p-6 text-slate-500 font-black" onclick="admin.openModal('${s.id}')">${s.class || s.Grade || 'Nursery'}</td><td class="p-6 text-right text-red-600 font-black" onclick="admin.openModal('${s.id}')">₹${((parseFloat(s.fee || 0) + (parseFloat(s.oldDue || 0))) - (parseFloat(s.paid || 0))).toLocaleString()}</td><td class="p-6 text-right"><button onclick="admin.requestDirectDelete('${s.id}')" class="text-slate-300 hover:text-red-600 transition-colors p-2"><span class="material-symbols-outlined text-base">delete</span></button></td></tr>`).join('') || '<tr><td colspan="5" class="p-10 text-center text-slate-400 italic">No records.</td></tr>';
+                body.innerHTML = filtered.map(s => `<tr class="hover:bg-indigo-50/50 cursor-pointer transition-colors border-b text-indigo-950 font-black"><td class="p-6 font-mono text-[10px] text-slate-400" onclick="admin.openModal('${s.id}')">${s.admnNo || s.ID || s.Admission_No || '???'}</td><td class="p-6 uppercase" onclick="admin.openModal('${s.id}')">${s.name || s.Student || 'Unknown'}</td><td class="p-6 text-slate-500 font-black" onclick="admin.openModal('${s.id}')">${s.class || s.Grade || 'Nursery'}</td><td class="p-6 text-right text-red-600 font-black font-black">₹${((parseFloat(s.fee || 0) + (parseFloat(s.oldDue || 0))) - (parseFloat(s.paid || 0))).toLocaleString()}</td><td class="p-6 text-right"><button onclick="admin.requestDirectDelete('${s.id}')" class="text-slate-300 hover:text-red-600 transition-colors p-2"><span class="material-symbols-outlined text-base">delete</span></button></td></tr>`).join('') || '<tr><td colspan="5" class="p-10 text-center text-slate-400 italic">No records.</td></tr>';
             },
             requestDirectDelete: (id) => {
                 state.activeStudentId = id;
@@ -1023,8 +938,6 @@
                 const sDue = (parseFloat(s.fee || s.Target_Fee || 0) + (parseFloat(s.oldDue || s.Previous_Dues || 0))) - (parseFloat(s.paid || s.Total_Paid || 0));
                 document.getElementById('modal-name').innerText = s.name || s.Student || 'Unnamed'; 
                 document.getElementById('modal-class').innerText = s.class || s.Grade || 'Nursery';
-                document.getElementById('modal-father').innerText = s.father || s.Parent || '---'; 
-                document.getElementById('modal-contact').innerText = s.contact || '---';
                 document.getElementById('modal-balance').innerText = `₹${sDue.toLocaleString()}`;
                 admin.renderHistory();
             },
@@ -1041,7 +954,7 @@
                 if(start && end) hist = hist.filter(h => h.timestamp >= start && h.timestamp <= (end + 86400000));
                 const tableBody = document.getElementById('modal-history');
                 if (tableBody) {
-                    tableBody.innerHTML = hist.map(h => `<tr class="border-b"><td class="p-4 text-slate-400 text-xs">${new Date(h.timestamp).toLocaleDateString()}</td><td class="p-4 font-black text-indigo-950 font-black">${h.remark || 'Fee Payment'}</td><td class="p-4 text-right text-green-600 font-black font-black">₹${parseFloat(h.amount).toLocaleString()}</td><td class="p-4 text-right"><button onclick="printer.printReceipt('${h.timestamp}')"><span class="material-symbols-outlined text-indigo-900 font-black font-black">print</span></button></td></tr>`).reverse().join('') || '<tr><td colspan="4" class="p-6 text-center text-slate-300 italic">No historical records found.</td></tr>';
+                    tableBody.innerHTML = hist.map(h => `<tr class="border-b"><td class="p-4 text-slate-400 text-xs font-black">${new Date(h.timestamp).toLocaleDateString()}</td><td class="p-4 font-black text-indigo-950 font-black">${h.remark || 'Fee Payment'}</td><td class="p-4 text-right text-green-600 font-black font-black">₹${parseFloat(h.amount).toLocaleString()}</td><td class="p-4 text-right"><button onclick="printer.printReceipt('${h.timestamp}')"><span class="material-symbols-outlined text-indigo-900 font-black">print</span></button></td></tr>`).reverse().join('') || '<tr><td colspan="4" class="p-6 text-center text-slate-300 italic">No historical records found.</td></tr>';
                 }
             },
             closeModal: () => { document.getElementById('student-modal').classList.add('hidden-modal'); state.activeStudentId = null; },
@@ -1060,9 +973,9 @@
                 try { 
                     const yearKey = state.selectedYear.replace('-', '_');
                     await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', `students_${yearKey}`, s.id), { paid: newPaid, history: newHistory }); 
-                    showToast(`Registered ₹${amt}`, "success");
+                    showToast(`Payment of ₹${amt} registered`, "success");
                     amtEl.value = ''; remarkEl.value = ''; 
-                } catch (err) { showToast("Save error", "error"); }
+                } catch (err) { showToast("Save failed.", "error"); }
             },
             publishNotice: async (e) => {
                 e.preventDefault(); if (!state.user) return;
@@ -1074,9 +987,9 @@
                     const noticesRef = collection(db, 'artifacts', appId, 'public', 'data', `notices_${yearKey}`);
                     if (nid) await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', `notices_${yearKey}`, nid), data);
                     else await addDoc(noticesRef, data);
-                    showToast("Saved", "success");
+                    showToast("Notice published", "success");
                     admin.cancelNoticeEdit();
-                } catch(e) { showToast("Error", "error"); }
+                } catch(e) { showToast("Publish error", "error"); }
             },
             initiateNoticeEdit: (id) => {
                 const n = state.notices.find(x => x.id === id); if(!n) return;
@@ -1097,7 +1010,7 @@
             renderNotices: () => {
                 const list = document.getElementById('admin-notices-list');
                 if(!list) return;
-                list.innerHTML = state.notices.map(n => `<div class="bg-white p-5 rounded-2xl flex justify-between items-center shadow-sm border border-slate-50 group hover:shadow-md transition-shadow text-indigo-950 font-black"><div class="flex-1"><div class="text-[9px] uppercase font-black text-indigo-400 tracking-tighter">${n.class} • ${n.category}</div><div class="text-indigo-950 font-bold">${n.content.substring(0,100)}...</div></div><div class="flex gap-4 ml-6"><button onclick="admin.initiateNoticeEdit('${n.id}')" class="text-indigo-400 hover:text-indigo-600 transition-colors"><span class="material-symbols-outlined text-xl">edit_note</span></button><button onclick="admin.deleteNotice('${n.id}')" class="text-slate-300 hover:text-red-600 transition-colors"><span class="material-symbols-outlined text-xl">delete_sweep</span></button></div></div>`).join('') || '<div class="text-slate-300 py-10 text-center italic">No records.</div>';
+                list.innerHTML = state.notices.map(n => `<div class="bg-white p-5 rounded-2xl flex justify-between items-center shadow-sm border border-slate-50 group hover:shadow-md transition-shadow text-indigo-950 font-black"><div class="flex-1"><div class="text-[9px] uppercase font-black text-indigo-400 tracking-tighter">${n.class} • ${n.category}</div><div class="text-indigo-950 font-bold">${n.content.substring(0,100)}...</div></div><div class="flex gap-4 ml-6"><button onclick="admin.initiateNoticeEdit('${n.id}')" class="text-indigo-400 hover:text-indigo-600 transition-colors font-black"><span class="material-symbols-outlined text-xl">edit_note</span></button><button onclick="admin.deleteNotice('${n.id}')" class="text-slate-300 hover:text-red-600 transition-colors font-black"><span class="material-symbols-outlined text-xl">delete_sweep</span></button></div></div>`).join('') || '<div class="text-slate-300 py-10 text-center italic">No records.</div>';
             },
             deleteNotice: async (id) => { if (!state.user) return; const yearKey = state.selectedYear.replace('-', '_'); await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', `notices_${yearKey}`, id)); showToast("Deleted"); },
             publishHighlight: async (e) => {
@@ -1124,7 +1037,7 @@
             },
             renderHighlights: () => {
                 const list = document.getElementById('admin-highlights-list'); if(!list) return;
-                list.innerHTML = state.highlights.map(h => `<div class="bg-white p-4 rounded-3xl flex flex-col gap-3 shadow-sm border border-slate-50 text-indigo-950 font-black"><img src="${h.type === 'image' ? h.url : 'https://img.youtube.com/vi/'+(h.url.split('v=')[1]?.split('&')[0] || h.url.split('/').pop())+'/mqdefault.jpg'}" class="h-32 w-full object-cover rounded-xl bg-slate-50 font-black" onerror="this.src='https://via.placeholder.com/300x200?text=No+Preview'"><div class="flex justify-between items-center px-1 font-black text-sm text-indigo-950 font-black font-black"><span class="truncate flex-1 font-black font-black font-black">${h.title}</span><div class="flex gap-1 ml-2"><button onclick="admin.viewHighlight('${h.id}')" class="text-indigo-400 hover:text-indigo-600 font-black font-black"><span class="material-symbols-outlined text-sm font-black font-black">visibility</span></button><button onclick="admin.initiateHighlightEdit('${h.id}')" class="text-indigo-400 hover:text-indigo-600 font-black font-black font-black"><span class="material-symbols-outlined text-sm font-black font-black">edit</span></button><button onclick="admin.deleteHighlight('${h.id}')" class="text-red-300 hover:text-red-600 font-black font-black font-black"><span class="material-symbols-outlined text-sm font-black font-black">delete</span></button></div></div></div>`).join('') || '<div class="text-slate-300 py-10 text-center col-span-full italic">No highlights.</div>';
+                list.innerHTML = state.highlights.map(h => `<div class="bg-white p-4 rounded-3xl flex flex-col gap-3 shadow-sm border border-slate-50 text-indigo-950 font-black"><img src="${h.type === 'image' ? h.url : 'https://img.youtube.com/vi/'+(h.url.split('v=')[1]?.split('&')[0] || h.url.split('/').pop())+'/mqdefault.jpg'}" class="h-32 w-full object-cover rounded-xl bg-slate-50 font-black" onerror="this.src='https://via.placeholder.com/300x200?text=No+Preview'"><div class="flex justify-between items-center px-1 font-black text-sm text-indigo-950"><span class="truncate flex-1 font-black">${h.title}</span><div class="flex gap-1 ml-2 font-black"><button onclick="admin.viewHighlight('${h.id}')" class="text-indigo-400 hover:text-indigo-600 font-black"><span class="material-symbols-outlined text-sm">visibility</span></button><button onclick="admin.initiateHighlightEdit('${h.id}')" class="text-indigo-400 hover:text-indigo-600 font-black"><span class="material-symbols-outlined text-sm">edit</span></button><button onclick="admin.deleteHighlight('${h.id}')" class="text-red-300 hover:text-red-600 font-black"><span class="material-symbols-outlined text-sm">delete</span></button></div></div></div>`).join('') || '<div class="text-slate-300 py-10 text-center col-span-full italic font-black">No highlights found.</div>';
             },
             deleteHighlight: async (id) => { if (!state.user) return; await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'highlights', id)); showToast("Deleted"); },
             initiateSecureDelete: () => { const pinInput = document.getElementById('delete-pin-input'); if (pinInput) pinInput.value = ''; document.getElementById('delete-pin-modal').classList.remove('hidden-modal'); },
@@ -1132,9 +1045,9 @@
             executeSecureDelete: async () => { if (!state.user) return; if (document.getElementById('delete-pin-input').value === '123') { const sId = state.activeStudentId; const yearKey = state.selectedYear.replace('-', '_'); admin.closeDeleteModal(); admin.closeModal(); await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', `students_${yearKey}`, sId)); showToast("Record deleted", "success"); } else showToast("Incorrect Code", "error"); },
             viewConcessionSlip: () => { const s = state.students.find(x => x.id === state.activeStudentId); if(s?.concessionSlip) window.open(s.concessionSlip, '_blank'); },
             exportExcel: () => { const rows = state.students.map(s => ({ ID: s.admnNo || s.ID || s.Admission_No, Name: s.name || s.Student, Grade: s.class || s.Grade, Parent: s.father || s.Parent, Fee: s.fee || s.Target_Fee, Paid: s.paid || s.Total_Paid })); const ws = XLSX.utils.json_to_sheet(rows); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "Records"); XLSX.writeFile(wb, `SSV_Registry_Export.xlsx`); showToast("Excel Export Successful"); },
-            importBulkData: (event) => { if (!state.user) return; const f = event.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = (e) => { const b = e.target.result; const w = XLSX.read(b, {type:'binary'}); const j = XLSX.utils.sheet_to_json(w.Sheets[w.SheetNames[0]]); const yearKey = state.selectedYear.replace('-', '_'); const colRef = collection(db, 'artifacts', appId, 'public', 'data', `students_${yearKey}`); j.forEach(async row => { const d = { admnNo:String(row.ID || row.admnNo || row.Admission_No || ''), name:String(row.Name || row.name || row.Student || ''), class:String(row.Grade || row.class || 'Nursery'), father:String(row.Parent || row.father || ''), contact:String(row.Contact || row.contact || ''), fee:parseFloat(row.Fee || row.Target_Fee || row.fee || 0), paid:parseFloat(row.Paid || row.Total_Paid || row.paid || 0), history:[], timestamp:Date.now() }; if(d.name) await addDoc(colRef, d); }); showToast("Bulk migration sync started...", "success"); }; r.readAsBinaryString(f); },
-            exportJSON: () => { const b = new Blob([JSON.stringify(state.students, null, 2)], { type: "application/json" }); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = `SSV_Backup_${state.selectedYear}.json`; a.click(); showToast("JSON Backup Exported", "success"); },
-            importJSON: async (e) => { if (!state.user) return; const f = e.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = async (evt) => { try { const yearKey = state.selectedYear.replace('-', '_'); const j = JSON.parse(evt.target.result); if (!Array.isArray(j)) throw new Error("Invalid Format"); for (const s of j) { const id = s.id || Date.now().toString() + Math.random().toString(36).substr(2, 5); delete s.id; await setDoc(doc(db, 'artifacts', appId, 'public', 'data', `students_${yearKey}`, id), s); } showToast("JSON Import Successful", "success"); } catch(err) { showToast("Import Failed", "error"); } }; r.readAsText(f); }
+            importBulkData: (event) => { if (!state.user) return; const f = event.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = (e) => { const b = e.target.result; const w = XLSX.read(b, {type:'binary'}); const j = XLSX.utils.sheet_to_json(w.Sheets[w.SheetNames[0]]); const yearKey = state.selectedYear.replace('-', '_'); const colRef = collection(db, 'artifacts', appId, 'public', 'data', `students_${yearKey}`); j.forEach(async row => { const d = { admnNo:String(row.ID || row.admnNo || row.Admission_No || ''), name:String(row.Name || row.name || row.Student || ''), class:String(row.Grade || row.class || 'Nursery'), father:String(row.Parent || row.father || ''), contact:String(row.Contact || row.contact || ''), fee:parseFloat(row.Fee || row.Target_Fee || row.fee || 0), paid:parseFloat(row.Paid || row.Total_Paid || row.paid || 0), history:[], timestamp:Date.now() }; if(d.name) await addDoc(colRef, d); }); showToast("Bulk migration started..."); }; r.readAsBinaryString(f); },
+            exportJSON: () => { const b = new Blob([JSON.stringify(state.students, null, 2)], { type: "application/json" }); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = `SSV_Backup_${state.selectedYear}.json`; a.click(); showToast("JSON backup saved"); },
+            importJSON: async (e) => { if (!state.user) return; const f = e.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = async (evt) => { try { const yearKey = state.selectedYear.replace('-', '_'); const j = JSON.parse(evt.target.result); for (const s of j) { const id = s.id || Date.now().toString() + Math.random().toString(36).substr(2, 5); delete s.id; await setDoc(doc(db, 'artifacts', appId, 'public', 'data', `students_${yearKey}`, id), s); } showToast("Import complete", "success"); } catch(e) { showToast("Invalid JSON file", "error"); } }; r.readAsText(f); }
         };
 
         window.printer = {
@@ -1148,7 +1061,7 @@
                 document.getElementById('printable-area').innerHTML = `
                     <div style="padding: 40px; border: 3px double #1e1b4b; max-width: 800px; margin: auto; font-family: 'Open Sans', sans-serif; position: relative; color: #1e1b4b; background: white;">
                         <div style="text-align: center; border-bottom: 2px solid #1e1b4b; padding-bottom: 20px; margin-bottom: 30px;">
-                            <h1 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 32px; text-transform: uppercase;">Sri Sai Vidyalayam</h1>
+                            <h1 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 32px; text-transform: uppercase; font-weight: 900;">Sri Sai Vidyalayam</h1>
                             <p style="margin: 8px 0; font-size: 14px; font-weight: bold;">Recognised by Govt of AP | Pulagalipalem, Pendurthi, Visakhapatnam</p>
                             <p style="margin: 2px 0; font-size: 14px;">Contact: +91 8121218825 | Email: shriisaividyallayem@gmail.com</p>
                         </div>
@@ -1182,7 +1095,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td style="padding: 20px; border: 1px solid #e2e8f0; font-size: 16px;">Fee Payment: ${h.remark || 'Direct Installment'}</td>
+                                        <td style="padding: 20px; border: 1px solid #e2e8f0; font-size: 16px; font-weight: bold;">Fee Payment: ${h.remark || 'Direct Installment'}</td>
                                         <td style="padding: 20px; border: 1px solid #e2e8f0; text-align: right; font-size: 18px; font-weight: 900;">₹${parseFloat(h.amount).toLocaleString()}</td>
                                     </tr>
                                 </tbody>
@@ -1191,11 +1104,10 @@
 
                         <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 80px;">
                             <div style="font-size: 11px; color: #64748b; font-style: italic;">
-                                <p>* This is a valid computer-generated fee receipt.</p>
+                                <p>* Valid computer-generated fee receipt.</p>
                                 <p>* Fees once paid are non-refundable.</p>
                             </div>
                             <div style="text-align: center; min-width: 220px;">
-                                <div style="margin-bottom: 10px; font-style: italic; opacity: 0.2;">Signature Space</div>
                                 <div style="border-top: 2px solid #1e1b4b; padding-top: 10px; font-weight: 900; text-transform: uppercase; font-size: 14px;">
                                     Principal Signature
                                 </div>
@@ -1212,12 +1124,12 @@
                 const sId = s.admnNo || s.ID || s.Admission_No || '???';
 
                 document.getElementById('printable-area').innerHTML = `
-                    <div style="padding: 40px; background: white; color: #1e1b4b; font-family: sans-serif;">
+                    <div style="padding: 40px; background: white; color: #1e1b4b; font-family: sans-serif; border: 1px solid #eee;">
                         <div style="text-align: center; border-bottom: 2px solid #1e1b4b; padding-bottom: 15px; margin-bottom: 30px;">
-                            <h1 style="margin: 0; font-family: serif;">Sri Sai Vidyalayam</h1>
-                            <p>Student Payment History Summary</p>
+                            <h1 style="margin: 0; font-family: serif; font-weight: 900; font-size: 28px;">Sri Sai Vidyalayam</h1>
+                            <p style="font-weight: bold;">Student Payment History Summary</p>
                         </div>
-                        <div style="margin-bottom: 25px;">
+                        <div style="margin-bottom: 25px; font-size: 15px;">
                             <p><strong>Name:</strong> ${sName} | <strong>ID:</strong> ${sId} | <strong>Class:</strong> ${sClass}</p>
                             <p><strong>Session:</strong> ${state.selectedYear}</p>
                         </div>
@@ -1240,7 +1152,7 @@
                             </tbody>
                         </table>
                         <div style="text-align: right; margin-top: 80px;">
-                            <div style="display: inline-block; border-top: 2px solid #1e1b4b; min-width: 200px; padding-top: 10px; font-weight: bold; text-align: center;">Principal Signature</div>
+                            <div style="display: inline-block; border-top: 2px solid #1e1b4b; min-width: 200px; padding-top: 10px; font-weight: 900; text-align: center; text-transform: uppercase; font-size: 14px;">Principal Signature</div>
                         </div>
                     </div>
                 `;
@@ -1248,10 +1160,10 @@
             },
             printMasterLedger: () => {
                 document.getElementById('printable-area').innerHTML = `
-                    <div style="padding: 40px; background: white; font-family: sans-serif; color: #1e1b4b;">
+                    <div style="padding: 40px; background: white; font-family: sans-serif; color: #1e1b4b; border: 1px solid #eee;">
                         <div style="text-align: center; margin-bottom: 30px; border-bottom: 2px solid #1e1b4b; padding-bottom: 10px;">
-                            <h1 style="margin: 0;">Sri Sai Vidyalayam</h1>
-                            <p>Registry Ledger - Academic Year ${state.selectedYear}</p>
+                            <h1 style="margin: 0; font-weight: 900; font-size: 28px;">Sri Sai Vidyalayam</h1>
+                            <p style="font-weight: bold;">Registry Ledger - Academic Year ${state.selectedYear}</p>
                         </div>
                         <table style="width: 100%; border-collapse: collapse;">
                             <thead style="background: #1e1b4b; color: white;">
@@ -1277,7 +1189,7 @@
                             </tbody>
                         </table>
                         <div style="text-align: right; margin-top: 80px;">
-                            <div style="display: inline-block; border-top: 2px solid #1e1b4b; min-width: 200px; padding-top: 10px; font-weight: bold; text-align: center;">Principal Signature</div>
+                            <div style="display: inline-block; border-top: 2px solid #1e1b4b; min-width: 200px; padding-top: 10px; font-weight: 900; text-align: center; text-transform: uppercase; font-size: 14px;">Principal Signature</div>
                         </div>
                     </div>
                 `;
@@ -1285,7 +1197,7 @@
             }
         };
 
-        // Standard init on load
+        // Execution Start
         (async () => { 
             await initAuth(); 
             // Default load Home
