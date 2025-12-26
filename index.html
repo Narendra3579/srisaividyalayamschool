@@ -143,11 +143,11 @@
 
     <!-- FLOATING ADMISSIONS POPUP -->
     <div id="admissions-popup" class="hidden-modal modal no-print">
-        <div class="bg-white rounded-[2rem] overflow-hidden shadow-2xl border border-indigo-100 relative text-indigo-950">
+        <div class="bg-white rounded-[2rem] overflow-hidden shadow-2xl border border-indigo-100 relative text-indigo-950 font-black">
             <button onclick="home.closeAdmissionsPopup()" class="absolute top-4 right-4 text-slate-400 hover:text-red-500 transition-colors z-10">
                 <span class="material-symbols-outlined text-2xl font-bold">cancel</span>
             </button>
-            <div class="bg-amber-400 p-6 flex items-center gap-4 text-indigo-950">
+            <div class="bg-amber-400 p-6 flex items-center gap-4 text-indigo-950 font-black">
                 <div class="bg-indigo-950 text-white w-12 h-12 flex-shrink-0 rounded-2xl flex items-center justify-center text-sm font-black border-2 border-white shadow-lg">SSV</div>
                 <div>
                     <h2 class="text-xl font-black uppercase tracking-tight leading-none">Admissions Open</h2>
@@ -222,7 +222,7 @@
                         </div>
                         <div class="flex flex-wrap gap-4">
                             <button onclick="router.navigate('updates')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-10 py-5 rounded-2xl font-black shadow-xl transition-all hover-lift active:scale-95 uppercase tracking-widest text-xs">Check School Board</button>
-                            <a href="tel:8121218825" class="bg-amber-500 hover:bg-amber-400 text-indigo-950 px-10 py-5 rounded-2xl font-bold shadow-xl transition-all hover-lift active:scale-95 uppercase tracking-widest text-xs flex items-center gap-2">
+                            <a href="tel:8121218825" class="bg-amber-500 hover:bg-amber-400 text-indigo-950 px-10 py-5 rounded-2xl font-bold shadow-xl transition-all hover-lift active:scale-95 uppercase tracking-widest text-xs flex items-center gap-2 text-indigo-950">
                                 <span class="material-symbols-outlined text-sm font-black">call</span> Call Office
                             </a>
                         </div>
@@ -239,7 +239,7 @@
                             <h2 class="text-3xl md:text-4xl font-black text-indigo-950 uppercase tracking-tighter mt-2">Notice Board Preview</h2>
                         </div>
                         <div class="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
-                             <div class="relative w-full md:w-auto">
+                             <div class="relative w-full md:w-auto text-indigo-950">
                                  <div class="absolute -top-6 left-0 flex items-center gap-2">
                                      <label class="text-[10px] text-slate-400 font-black uppercase tracking-widest">Filter by Class</label>
                                      <span id="home-filter-badge" class="hidden bg-red-600 text-white text-[8px] font-black px-2 py-0.5 rounded shadow-lg pulse-red uppercase ring-2 ring-white">NEW UPDATES</span>
@@ -252,7 +252,7 @@
                         </div>
                     </div>
                     <div id="home-notices-preview" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <!-- Loaded via JS -->
+                        <!-- Content loaded via JS -->
                     </div>
                 </div>
             </section>
@@ -285,9 +285,9 @@
                     <div class="bg-indigo-950 text-white w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 text-3xl font-black border-4 border-amber-400 shadow-xl">SSV</div>
                     <h2 class="text-2xl font-black uppercase tracking-tight text-indigo-950">Admin Login</h2>
                 </div>
-                <form onsubmit="auth_manager.login(event)" class="space-y-6">
-                    <div><label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest">Username</label><input type="text" id="userid" class="w-full border-2 border-slate-100 p-4 rounded-2xl outline-none focus:border-indigo-600 transition-all font-black" required></div>
-                    <div><label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest">Passkey</label><input type="password" id="password" class="w-full border-2 border-slate-100 p-4 rounded-2xl outline-none focus:border-indigo-600 transition-all font-black" required></div>
+                <form onsubmit="auth_manager.login(event)" class="space-y-6 text-indigo-950">
+                    <div><label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest">Username</label><input type="text" id="userid" class="w-full border-2 border-slate-100 p-4 rounded-2xl outline-none focus:border-indigo-600 transition-all font-black text-indigo-950" required></div>
+                    <div><label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest">Passkey</label><input type="password" id="password" class="w-full border-2 border-slate-100 p-4 rounded-2xl outline-none focus:border-indigo-600 transition-all font-black text-indigo-950" required></div>
                     <button type="submit" class="w-full bg-indigo-950 text-white py-5 rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl active:scale-95 transition-transform">Sign In</button>
                 </form>
             </div>
@@ -335,20 +335,20 @@
                     <div class="bg-white p-8 rounded-3xl shadow-sm h-96"><canvas id="feeChart"></canvas></div>
                 </div>
 
-                <div id="tab-admissions" class="admin-content hidden">
+                <div id="tab-admissions" class="admin-content hidden font-black text-indigo-950">
                     <h2 class="text-3xl font-black mb-10 uppercase tracking-tighter" id="admission-title">New Entry</h2>
                     <form id="admissions-form" onsubmit="admin.registerStudent(event)" class="bg-white p-10 rounded-[3rem] shadow-sm grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
                         <input type="hidden" name="editId">
-                        <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Admission ID *</label><input type="text" name="admnNo" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-black" required></div>
-                        <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Student Name *</label><input type="text" name="name" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-black" required></div>
-                        <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Class *</label><select id="admit-class-select" name="class" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none font-black" required></select></div>
-                        <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Father Name</label><input type="text" name="father" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-black"></div>
-                        <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Contact No</label><input type="tel" name="contact" maxlength="10" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-black"></div>
+                        <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Admission ID *</label><input type="text" name="admnNo" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-black text-indigo-950" required></div>
+                        <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Student Name *</label><input type="text" name="name" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-black text-indigo-950" required></div>
+                        <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Class *</label><select id="admit-class-select" name="class" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none font-black text-indigo-950" required></select></div>
+                        <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Father Name</label><input type="text" name="father" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-black text-indigo-950"></div>
+                        <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Contact No</label><input type="tel" name="contact" maxlength="10" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none focus:bg-white font-black text-indigo-950"></div>
                         <div class="grid grid-cols-2 gap-4 font-black">
-                            <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Total Fee (Target) *</label><input type="number" name="fee" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none font-black" required></div>
-                            <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Old Fee (Dues) *</label><input type="number" name="oldDue" value="0" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none font-black" required></div>
+                            <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Total Fee (Target) *</label><input type="number" name="fee" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none font-black text-indigo-950" required></div>
+                            <div class="space-y-1"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Old Fee (Dues) *</label><input type="number" name="oldDue" value="0" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none font-black text-indigo-950" required></div>
                         </div>
-                        <div class="space-y-1" id="admit-initial-group"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Initial Pay *</label><input type="number" name="initialPay" value="0" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none text-green-600 font-black" required></div>
+                        <div class="space-y-1" id="admit-initial-group"><label class="text-slate-400 uppercase text-[10px] font-black tracking-widest">Initial Pay *</label><input type="number" name="initialPay" value="0" class="w-full border-2 border-slate-50 p-4 rounded-2xl bg-slate-50 outline-none text-green-600 font-black text-indigo-950" required></div>
                         <div class="col-span-full flex gap-4">
                             <button type="button" id="admit-cancel-btn" class="hidden flex-1 bg-slate-200 text-indigo-950 py-5 rounded-3xl font-black uppercase text-xs" onclick="admin.cancelAdmitEdit()">Cancel</button>
                             <button type="submit" id="admit-submit-btn" class="flex-[2] bg-indigo-600 text-white py-5 rounded-3xl font-black uppercase text-xs shadow-xl transition-all">Submit Student</button>
@@ -356,17 +356,17 @@
                     </form>
                 </div>
 
-                <div id="tab-students" class="admin-content hidden space-y-8">
-                    <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div id="tab-students" class="admin-content hidden space-y-8 font-black text-indigo-950">
+                    <div class="flex flex-col md:flex-row justify-between items-center gap-6 text-indigo-950 font-black">
                         <h2 class="text-3xl font-black uppercase tracking-tighter">Student Database</h2>
-                        <button onclick="printer.printMasterLedger()" class="bg-indigo-950 text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-md flex items-center gap-2"><span class="material-symbols-outlined text-lg">print</span> Master ledger</button>
+                        <button onclick="printer.printMasterLedger()" class="bg-indigo-950 text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-md flex items-center gap-2 text-indigo-100"><span class="material-symbols-outlined text-lg">print</span> Master ledger</button>
                     </div>
                     <div class="flex gap-4">
                         <input type="text" id="record-search" placeholder="Search by name or ID..." class="flex-1 p-5 rounded-3xl border-2 border-white shadow-sm font-black outline-none focus:border-indigo-200" oninput="admin.renderStudentList()">
                         <select id="record-class-filter" class="w-48 p-5 rounded-3xl border-2 border-white shadow-sm font-black outline-none cursor-pointer" onchange="admin.renderStudentList()"></select>
                     </div>
                     <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100 overflow-x-auto text-indigo-950 font-black">
-                        <table class="w-full text-left text-sm font-black">
+                        <table class="w-full text-left text-sm font-black text-indigo-950">
                             <thead class="bg-indigo-50 border-b">
                                 <tr class="font-black uppercase text-[10px] text-indigo-950 tracking-widest">
                                     <th class="p-6 sort-header" onclick="admin.sortStudents('admnNo')">ID</th>
@@ -381,64 +381,64 @@
                     </div>
                 </div>
 
-                <div id="tab-data_management" class="admin-content hidden space-y-10">
+                <div id="tab-data_management" class="admin-content hidden space-y-10 font-black text-indigo-950">
                     <h2 class="text-3xl font-black uppercase tracking-tighter">Data Tools</h2>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
                         <div class="bg-white p-10 rounded-[3rem] shadow-sm border border-slate-100 space-y-8 text-center font-black">
-                            <div class="flex items-center justify-center gap-3 text-emerald-600 font-black"><span class="material-symbols-outlined text-4xl font-black">table_chart</span><h3 class="text-2xl font-black uppercase tracking-tight">Bulk Year Migration</h3></div>
+                            <div class="flex items-center justify-center gap-3 text-emerald-600 font-black font-black"><span class="material-symbols-outlined text-4xl font-black">table_chart</span><h3 class="text-2xl font-black uppercase tracking-tight">Bulk Transfer</h3></div>
                             <div class="grid grid-cols-1 gap-4 text-indigo-950">
-                                <p class="text-slate-400 text-xs px-6">Migrate current year data to the next academic session. All grades will be promoted automatically.</p>
-                                <button onclick="admin.bulkTransferStudents()" class="bg-emerald-600 text-white p-5 rounded-3xl uppercase text-[10px] font-black tracking-widest shadow-lg shadow-emerald-50">Transfer current to next</button>
+                                <p class="text-slate-400 text-xs px-6">Promote current session records to next year silo automatically.</p>
+                                <button onclick="admin.bulkTransferStudents()" class="bg-emerald-600 text-white p-5 rounded-3xl uppercase text-[10px] font-black tracking-widest shadow-lg shadow-emerald-50">Execute Yearly Transfer</button>
                             </div>
                         </div>
-                        <div class="bg-white p-10 rounded-[3rem] shadow-sm border border-slate-100 space-y-8 text-center font-black">
-                            <div class="flex items-center justify-center gap-3 text-indigo-600"><span class="material-symbols-outlined text-4xl font-black">data_object</span><h3 class="text-2xl font-black uppercase tracking-tight">System Backup</h3></div>
+                        <div class="bg-white p-10 rounded-[3rem] shadow-sm border border-slate-100 space-y-8 text-center font-black font-black">
+                            <div class="flex items-center justify-center gap-3 text-indigo-600"><span class="material-symbols-outlined text-4xl font-black">data_object</span><h3 class="text-2xl font-black uppercase tracking-tight">Data Backups</h3></div>
                             <div class="grid grid-cols-1 gap-4 text-indigo-950">
                                 <div class="flex gap-2">
-                                    <button onclick="admin.exportJSON()" class="flex-1 bg-slate-100 p-5 rounded-3xl uppercase text-[10px] font-black tracking-widest">JSON Export</button>
-                                    <button onclick="document.getElementById('import-json-input').click()" class="flex-1 bg-indigo-900 text-white p-5 rounded-3xl uppercase text-[10px] font-black tracking-widest">JSON Import</button>
+                                    <button onclick="admin.exportJSON()" class="flex-1 bg-slate-100 p-5 rounded-3xl uppercase text-[10px] font-black tracking-widest text-indigo-950">JSON Export</button>
+                                    <button onclick="document.getElementById('import-json-input').click()" class="flex-1 bg-indigo-900 text-white p-5 rounded-3xl uppercase text-[10px] font-black tracking-widest text-indigo-100">JSON Import</button>
                                 </div>
-                                <button onclick="admin.exportExcel()" class="bg-slate-100 p-5 rounded-3xl uppercase text-[10px] font-black tracking-widest">Excel Export</button>
+                                <button onclick="admin.exportExcel()" class="bg-slate-100 p-5 rounded-3xl uppercase text-[10px] font-black tracking-widest text-indigo-950">Excel Export</button>
                                 <input type="file" id="import-json-input" class="hidden" accept=".json" onchange="admin.importJSON(event)">
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div id="tab-updates_manager" class="admin-content hidden grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div id="tab-updates_manager" class="admin-content hidden grid grid-cols-1 lg:grid-cols-3 gap-12 font-black text-indigo-950">
                     <div class="lg:col-span-1 space-y-8">
-                        <h2 class="text-2xl font-black uppercase tracking-tighter" id="notice-form-title">Board Entry</h2>
+                        <h2 class="text-2xl font-black uppercase tracking-tighter" id="notice-form-title">New Board Update</h2>
                         <form id="notice-form" onsubmit="admin.publishNotice(event)" class="bg-white p-8 rounded-[2rem] shadow-sm space-y-6">
                             <input type="hidden" name="noticeId">
-                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Class</label><select id="notice-class-select" name="class" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 outline-none font-black"></select></div>
+                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Class</label><select id="notice-class-select" name="class" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 outline-none font-black text-indigo-950"></select></div>
                             <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Category</label>
-                                <select name="category" id="notice-category-select" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-black">
+                                <select name="category" id="notice-category-select" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-black text-indigo-950">
                                     <option>Announcement</option><option>Home Work</option><option>Class Test</option><option>Upcoming Events</option><option>Holiday</option>
                                 </select>
                             </div>
                             <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Subject</label>
-                                <select name="subject" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-black">
+                                <select name="subject" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-black text-indigo-950">
                                     <option value="General News">General News</option><option value="Telugu">Telugu</option><option value="Hindi">Hindi</option><option value="English">English</option><option value="Mathematics">Mathematics</option><option value="Science">Science</option><option value="Social">Social</option><option value="E.V.S">E.V.S</option><option value="Computers">Computers</option>
                                 </select>
                             </div>
-                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Content</label><textarea name="content" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 h-32 focus:bg-white transition-all outline-none font-black text-slate-800" required></textarea></div>
+                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest font-black">Content</label><textarea name="content" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 h-32 focus:bg-white transition-all outline-none font-black text-slate-800" required></textarea></div>
                             <div class="flex gap-3">
                                 <button type="button" id="notice-cancel-btn" class="hidden flex-1 bg-slate-100 py-4 rounded-2xl font-black uppercase text-[10px]" onclick="admin.cancelNoticeEdit()">Cancel</button>
-                                <button type="submit" id="notice-submit-btn" class="flex-[2] bg-indigo-600 text-white py-4 rounded-2xl font-black uppercase text-[10px]">Publish</button>
+                                <button type="submit" id="notice-submit-btn" class="flex-[2] bg-indigo-600 text-white py-4 rounded-2xl font-black uppercase text-[10px]">Publish Notice</button>
                             </div>
                         </form>
                     </div>
-                    <div class="lg:col-span-2 space-y-8"><h2 class="text-2xl font-black uppercase tracking-tighter">Live Updates</h2><div id="admin-notices-list" class="space-y-4"></div></div>
+                    <div class="lg:col-span-2 space-y-8"><h2 class="text-2xl font-black uppercase tracking-tighter">Current Notices</h2><div id="admin-notices-list" class="space-y-4 font-black"></div></div>
                 </div>
 
-                <div id="tab-blog_manager" class="admin-content hidden grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div id="tab-blog_manager" class="admin-content hidden grid grid-cols-1 lg:grid-cols-3 gap-12 font-black text-indigo-950">
                      <div class="lg:col-span-1 space-y-8">
-                        <h2 class="text-2xl font-black uppercase tracking-tighter" id="highlight-form-title">Gallery</h2>
+                        <h2 class="text-2xl font-black uppercase tracking-tighter" id="highlight-form-title">Gallery Feed</h2>
                         <form id="highlight-form" onsubmit="admin.publishHighlight(event)" class="bg-white p-8 rounded-[2rem] shadow-sm space-y-6">
                             <input type="hidden" name="hId">
-                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Caption</label><input type="text" name="title" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-black" required></div>
-                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Type</label><select name="type" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-black"><option value="image">Image URL</option><option value="youtube">YouTube ID</option></select></div>
-                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">URL Address</label><input type="text" name="url" placeholder="https://..." class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-black" required></div>
+                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Caption</label><input type="text" name="title" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-black text-indigo-950" required></div>
+                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">Type</label><select name="type" class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-black text-indigo-950"><option value="image">Image URL</option><option value="youtube">YouTube ID</option></select></div>
+                            <div><label class="text-[10px] text-slate-400 uppercase tracking-widest">URL Address</label><input type="text" name="url" placeholder="https://..." class="w-full border-2 border-slate-50 p-4 rounded-xl bg-slate-50 mt-1 outline-none font-black text-indigo-950" required></div>
                             <div class="flex gap-3">
                                 <button type="button" id="highlight-cancel-btn" class="hidden flex-1 bg-slate-100 py-4 rounded-2xl font-black uppercase text-[10px]" onclick="admin.cancelHighlightEdit()">Cancel</button>
                                 <button type="submit" id="highlight-submit-btn" class="flex-[2] bg-orange-600 text-white py-4 rounded-2xl font-black uppercase text-[10px]">Post Highlight</button>
@@ -464,37 +464,37 @@
                             <p>Class: <span id="modal-class" class="text-indigo-600"></span></p>
                             <p>Parent: <span id="modal-father"></span></p>
                             <p>Mobile: <span id="modal-contact"></span></p>
-                            <p class="text-2xl text-red-600 tracking-tighter uppercase mt-4">Due Balance: <span id="modal-balance"></span></p>
+                            <p class="text-2xl text-red-600 tracking-tighter uppercase mt-4 font-black">Due Balance: <span id="modal-balance"></span></p>
                         </div>
                         <div class="space-y-2">
                              <button onclick="admin.promoteToNextYear()" class="w-full bg-emerald-600 text-white py-4 rounded-2xl uppercase text-[10px] font-black shadow-lg shadow-emerald-100 hover:bg-emerald-700 transition-all flex items-center justify-center gap-2">
                                 <span class="material-symbols-outlined text-base">forward_5</span> Transfer to Next Year
                             </button>
                             <button onclick="admin.initiateAdmitEdit()" class="w-full bg-indigo-600 text-white py-4 rounded-2xl uppercase text-[10px] font-black shadow-lg shadow-indigo-100">Edit Details</button>
-                            <button onclick="printer.printLedger()" class="w-full bg-white border-2 border-slate-200 py-4 rounded-2xl hover:bg-slate-100 transition-all uppercase text-[10px] font-black">Print Record</button>
+                            <button onclick="printer.printLedger()" class="w-full bg-white border-2 border-slate-200 py-4 rounded-2xl hover:bg-slate-100 transition-all uppercase text-[10px] font-black text-indigo-950">Print Record</button>
                             <button onclick="admin.initiateSecureDelete()" class="w-full text-red-600 text-[10px] uppercase py-2 hover:underline font-black opacity-60">Permanently Delete</button>
                         </div>
                     </div>
                     <div class="lg:col-span-2 space-y-8">
-                        <form onsubmit="admin.recordPayment(event)" class="bg-white p-10 rounded-[2rem] shadow-sm grid grid-cols-2 gap-6 border-2 border-emerald-50 font-black">
-                            <div class="col-span-2 text-[10px] uppercase text-slate-400 tracking-widest">Register Payment</div>
+                        <form onsubmit="admin.recordPayment(event)" class="bg-white p-10 rounded-[2rem] shadow-sm grid grid-cols-2 gap-6 border-2 border-emerald-50 font-black text-indigo-950 font-black">
+                            <div class="col-span-2 text-[10px] uppercase text-slate-400 tracking-widest text-indigo-950 font-black">Register Payment</div>
                             <input type="number" id="pay-amt" placeholder="Amount (₹)" class="border-2 border-slate-50 p-4 rounded-xl bg-slate-50 font-black text-2xl focus:bg-white outline-none" required>
                             <input type="date" id="pay-date" class="border-2 border-slate-50 p-4 rounded-xl bg-slate-50 focus:bg-white outline-none" required>
                             <input type="text" id="pay-remark" placeholder="Note (Receipt #)" class="col-span-2 border-2 border-slate-50 p-4 rounded-xl bg-slate-50 focus:bg-white outline-none">
-                            <button type="submit" class="col-span-2 bg-green-600 text-white py-5 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-green-700 transition-all shadow-lg">Confirm Payment</button>
+                            <button type="submit" class="col-span-2 bg-green-600 text-white py-5 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-green-700 transition-all shadow-lg text-indigo-100">Confirm Payment</button>
                         </form>
                         
                         <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100">
                             <div class="p-4 bg-slate-50 flex justify-between items-center text-indigo-950 font-black">
                                 <span class="text-[9px] font-black uppercase tracking-widest text-slate-400 font-black">Transaction History</span>
                                 <div class="flex gap-2 items-center">
-                                    <input type="date" id="history-start" class="text-[10px] border rounded px-1 outline-none font-black" onchange="admin.renderHistory()">
+                                    <input type="date" id="history-start" class="text-[10px] border rounded px-1 outline-none font-black text-indigo-950" onchange="admin.renderHistory()">
                                     <span class="text-[10px] text-slate-300">to</span>
-                                    <input type="date" id="history-end" class="text-[10px] border rounded px-1 outline-none font-black" onchange="admin.renderHistory()">
+                                    <input type="date" id="history-end" class="text-[10px] border rounded px-1 outline-none font-black text-indigo-950" onchange="admin.renderHistory()">
                                     <button class="material-symbols-outlined text-indigo-400 text-sm" onclick="admin.resetHistoryFilter()">close</button>
                                 </div>
                             </div>
-                            <table class="w-full text-left text-sm font-black text-indigo-950"><tbody id="modal-history" class="divide-y text-slate-700"></tbody></table>
+                            <table class="w-full text-left text-sm font-black text-indigo-950"><tbody id="modal-history" class="divide-y text-slate-700 font-black text-indigo-950 font-black"></tbody></table>
                         </div>
                     </div>
                 </div>
@@ -506,11 +506,11 @@
             <div class="bg-white w-full max-w-xs p-10 rounded-[3rem] shadow-2xl text-center text-indigo-950 font-black">
                 <span class="material-symbols-outlined text-red-600 text-7xl mb-4 font-black">lock_reset</span>
                 <h3 class="text-xl font-black mb-1 uppercase tracking-tight">Security Code</h3>
-                <p class="text-[10px] text-slate-400 uppercase tracking-widest mb-8">Access Verification Required</p>
-                <input type="password" id="delete-pin-input" class="w-full border-2 border-slate-100 p-5 rounded-3xl text-center font-black text-4xl mb-8 focus:border-red-600 outline-none" placeholder="••••">
-                <div class="flex gap-4 font-black">
-                    <button onclick="admin.closeDeleteModal()" class="flex-1 py-4 bg-slate-100 rounded-2xl font-black text-[10px] uppercase">Cancel</button>
-                    <button id="pin-verify-btn" onclick="admin.executeSecureDelete()" class="flex-1 py-4 bg-red-600 text-white rounded-2xl font-black text-[10px] uppercase shadow-lg">Verify</button>
+                <p class="text-[10px] text-slate-400 uppercase tracking-widest mb-8">Authorized Access Required</p>
+                <input type="password" id="delete-pin-input" class="w-full border-2 border-slate-100 p-5 rounded-3xl text-center font-black text-4xl mb-8 focus:border-red-600 outline-none text-indigo-950" placeholder="••••">
+                <div class="flex gap-4">
+                    <button onclick="admin.closeDeleteModal()" class="flex-1 py-4 bg-slate-100 rounded-2xl font-black text-[10px] uppercase text-indigo-950">Cancel</button>
+                    <button id="pin-verify-btn" onclick="admin.executeSecureDelete()" class="flex-1 py-4 bg-red-600 text-white rounded-2xl font-black text-[10px] uppercase shadow-lg text-indigo-50">Verify</button>
                 </div>
             </div>
         </div>
@@ -524,7 +524,7 @@
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
         import { getFirestore, doc, setDoc, getDoc, collection, addDoc, updateDoc, deleteDoc, onSnapshot } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
 
-        // Firebase Configuration
+        // Reliable hardcoded config
         const firebaseConfig = {
             apiKey: "AIzaSyCTBCeLms5kGsf966PB25I4H75i8BBxma0",
             authDomain: "sri-sai-vidyalayam-9a21e.firebaseapp.com",
@@ -556,7 +556,6 @@
 
         window.toggleMobileMenu = () => document.getElementById('mobile-menu').classList.toggle('hidden');
 
-        // Toast Helper
         const showToast = (message, type = 'info') => {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -599,6 +598,7 @@
             unsubscribes.forEach(unsub => unsub());
             unsubscribes = [];
 
+            // Siloed paths by collection name (Rule 1 compliant)
             const yearKey = state.selectedYear.replace('-', '_');
             const studentsRef = collection(db, 'artifacts', appId, 'public', 'data', `students_${yearKey}`);
             const noticesRef = collection(db, 'artifacts', appId, 'public', 'data', `notices_${yearKey}`);
@@ -748,7 +748,7 @@
                 const container = document.getElementById('home-notices-preview');
                 if (!container) return;
                 if (state.selectedClass === 'All') {
-                    container.innerHTML = `<div class="col-span-full text-center py-16"><div class="max-w-md mx-auto bg-white p-10 rounded-[3rem] shadow-sm border-2 border-dashed border-indigo-100 text-indigo-950 font-black"><span class="material-symbols-outlined text-indigo-200 text-6xl mb-4">school</span><p class="text-slate-400">Select your class above to see updates.</p></div></div>`;
+                    container.innerHTML = `<div class="col-span-full text-center py-16"><div class="max-w-md mx-auto bg-white p-10 rounded-[3rem] shadow-sm border-2 border-dashed border-indigo-100 text-indigo-950 font-black"><span class="material-symbols-outlined text-indigo-200 text-6xl mb-4">school</span><p class="text-slate-400 font-black">Please select a class above to see updates.</p></div></div>`;
                     return;
                 }
                 const filtered = state.notices.filter(n => n.class === state.selectedClass || n.class === 'All').slice(0, 6);
@@ -767,12 +767,12 @@
                             <h4 class="text-indigo-600 font-black uppercase text-[10px] tracking-widest mb-1">${n.category}</h4>
                             <p class="text-slate-700 font-bold line-clamp-3 text-sm leading-relaxed">${n.content}</p>
                         </div>`;
-                }).join('') || '<div class="col-span-full text-center py-10 opacity-30 italic font-black text-indigo-950 font-black">No recent announcements for this class.</div>';
+                }).join('') || '<div class="col-span-full text-center py-10 opacity-30 italic font-black text-indigo-950">No recent announcements for this class.</div>';
             },
             renderHighlights: () => {
                 const track = document.getElementById('blog-posts-feed');
                 if(!track) return;
-                track.innerHTML = state.highlights.map(h => `<div class="blog-slide text-indigo-950 font-black"><div class="bg-white p-8 rounded-[3rem] shadow-xl border border-indigo-50 text-indigo-950 font-black">${h.type === 'youtube' ? `<div class="video-container" onclick="home.playVideo('${h.id}', '${h.url}')" id="vid-${h.id}"><div class="absolute inset-0 flex items-center justify-center bg-black/30 text-white transition-all hover:bg-black/10"><span class="material-symbols-outlined text-7xl font-black">play_circle</span></div></div>` : `<img src="${h.url}" class="w-full h-64 md:h-96 object-cover rounded-[2rem] shadow-inner bg-slate-50">`}<div class="mt-8 text-left"><h3 class="text-2xl uppercase tracking-tight font-black">${h.title}</h3></div></div></div>`).join('') || '<div class="w-full py-10 opacity-30 font-black text-center italic font-black">No highlights found.</div>';
+                track.innerHTML = state.highlights.map(h => `<div class="blog-slide text-indigo-950 font-black"><div class="bg-white p-8 rounded-[3rem] shadow-xl border border-indigo-50 text-indigo-950 font-black">${h.type === 'youtube' ? `<div class="video-container" onclick="home.playVideo('${h.id}', '${h.url}')" id="vid-${h.id}"><div class="absolute inset-0 flex items-center justify-center bg-black/30 text-white transition-all hover:bg-black/10"><span class="material-symbols-outlined text-7xl font-black">play_circle</span></div></div>` : `<img src="${h.url}" class="w-full h-64 md:h-96 object-cover rounded-[2rem] shadow-inner bg-slate-50">`}<div class="mt-8 text-left"><h3 class="text-2xl uppercase tracking-tight font-black">${h.title}</h3></div></div></div>`).join('') || '<div class="w-full py-10 opacity-30 font-black text-center italic font-black text-indigo-950">No highlights found.</div>';
                 state.blogIndex = 0; home.updateSlider();
             },
             playVideo: (id, url) => { const yId = url.split('v=')[1]?.split('&')[0] || url.split('/').pop(); document.getElementById(`vid-${id}`).innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${yId}?autoplay=1" frameborder="0" allowfullscreen></iframe>`; },
@@ -791,7 +791,7 @@
                     if (n.category === 'Holiday') colorClass = 'border-red-500';
                     const isNew = n.timestamp > state.sessionLastSeen;
                     return `<div class="bg-white p-10 rounded-[2.5rem] shadow-sm border-l-[12px] ${colorClass} hover:shadow-xl transition-all h-full flex flex-col group relative overflow-hidden text-indigo-950 font-black">${isNew ? `<div class="absolute top-2 right-2 bg-red-600 text-white text-[9px] font-black px-3 py-1 rounded-bl-2xl shadow-sm animate-pulse z-10">NEW UPDATE</div>` : ''}<div class="flex justify-between items-start mb-6"><div class="flex flex-col"><span class="text-[9px] uppercase text-slate-400 font-black">${new Date(n.timestamp).toLocaleDateString()}</span><span class="inline-block mt-1 px-3 py-1 bg-slate-100 text-slate-600 text-[10px] font-black uppercase rounded-full tracking-tighter">${n.category}</span></div><span class="bg-indigo-50 text-indigo-700 px-4 py-1.5 rounded-full font-black uppercase tracking-tighter text-xs">${n.class}</span></div><h4 class="text-indigo-600 font-black uppercase text-xs tracking-widest mb-2">${n.subject && n.subject !== 'General News' ? n.subject : 'Notice'}</h4><p class="text-slate-800 text-xl leading-relaxed font-black flex-1 font-black">${n.content}</p></div>`;
-                }).join('') || '<div class="col-span-full text-center py-32 font-black text-indigo-950"><div class="bg-indigo-50 inline-block p-10 rounded-[3rem] border border-indigo-100 font-black text-indigo-950 font-black"><span class="material-symbols-outlined text-indigo-300 text-6xl mb-4">notifications_off</span><p class="text-slate-400 font-black italic text-indigo-950">No records found for this year.</p></div></div>';
+                }).join('') || '<div class="col-span-full text-center py-32 font-black text-indigo-950"><div class="bg-indigo-50 inline-block p-10 rounded-[3rem] border border-indigo-100 font-black text-indigo-950 font-black"><span class="material-symbols-outlined text-indigo-300 text-6xl mb-4">notifications_off</span><p class="text-slate-400 font-black italic">No records found for this year.</p></div></div>';
             }
         };
 
@@ -844,7 +844,7 @@
                 const fd = new FormData(e.target);
                 const editId = fd.get('editId');
                 const btn = document.getElementById('admit-submit-btn');
-                btn.disabled = true; btn.innerText = "Processing...";
+                btn.disabled = true; btn.innerText = "Syncing...";
                 
                 const data = { 
                     admnNo: fd.get('admnNo'), 
@@ -863,11 +863,11 @@
                     if (editId) { 
                         await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', `students_${yearKey}`, editId), data); 
                         admin.cancelAdmitEdit(); 
-                        showToast("Profile Updated");
+                        showToast("Record Updated");
                     } else { 
                         const newData = { ...data, paid: data.initialPay, history: data.initialPay > 0 ? [{ amount: data.initialPay, timestamp: Date.now(), remark: 'Initial Enrollment' }] : [], timestamp: Date.now() }; 
                         await addDoc(studentsRef, newData); 
-                        showToast("Student Registered", "success");
+                        showToast("Student Registered Successfully", "success");
                     }
                     admin.switchTab('students'); e.target.reset();
                 } catch(err) { showToast("Save failed.", "error"); } finally { btn.disabled = false; btn.innerText = "Submit Student"; }
